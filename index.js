@@ -33,6 +33,8 @@ passport.deserializeUser((id, done) =>{
     });
 });
 
-app.use('/', authRoutes);
+app.get('/', (req, res) => res.send('under constructions, fuck off'));
+
+app.use('/auth', authRoutes);
 
 app.listen(process.env.PORT || 3000, ()=> console.log(`Server is up and running on port ${process.env.PORT || 3000}`));
