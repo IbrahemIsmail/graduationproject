@@ -60,5 +60,5 @@ module.exports = (passport) => {
         });
     }));
 
-    connection.end()
+    // connection.end()
 }
