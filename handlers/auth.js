@@ -12,17 +12,15 @@ connection.query('USE ' + db.database);
 module.exports = (passport) => {
     passport.serializeUser((user, done) => done(null, user.id));
 
-    passport.deserializeUser(function (id, done) {
-        connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
-            done(err, rows[0]);
-        });
+    passport.deserializeUser((id, done) => {
+        connection.query("SELECT * FROM users WHERE id = ? ", [id], (err, rows) => done(err, rows[0]));
     });
 
     passport.use('signup', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
-    }, (request, username, password, done) => {
+    }, (req, username, password, done) => {
         connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
             console.log(err);
             if (err) return done(err);
@@ -45,7 +43,7 @@ module.exports = (passport) => {
 
     passport.use('login', new LocalStrategy({
         usernameField: 'username',
-        passwordField: 'passport',
+        passwordField: 'password',
         passReqToCallback: true
     }, (req, username, password, done) =>{
         connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
