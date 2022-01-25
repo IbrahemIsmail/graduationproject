@@ -24,7 +24,7 @@ module.exports = (passport) => {
         connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
             console.log(err);
             if (err) return done(err);
-            if (rows.length) console.log("user taken");
+            if (rows.length) console.log("user taken"); //change to flash
             else {
                 let newUser = {
                     username,
@@ -49,14 +49,14 @@ module.exports = (passport) => {
         connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
             if (err) return done(err);
 
-            if(!rows.length) console.log('no user found');
+            if(!rows.length) console.log('no user found'); //change to flash
 
-            if (!bcrypt.compareSync(password, rows[0].password)) console.log('wrong user or password');
+            if (!bcrypt.compareSync(password, rows[0].password)) console.log('wrong user or password'); //change to flash
 
             console.log(rows[0]);
             return done(null, rows[0])
         });
     }));
 
-    // connection.end()
+    // connection.end() bro this breaks it, it times out on its own so we'll fix it once we can redirect 
 }
