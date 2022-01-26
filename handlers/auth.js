@@ -24,7 +24,11 @@ module.exports = (passport) => {
         connection.query('SELECT * FROM users WHERE username = ?', [username || req.body.username], (err, rows) => {
             console.log(err);
             if (err) return done(err);
-            if (rows.length) console.log("user taken"); //change to flash
+            if (rows.length) {
+                console.log("user taken"); //change to flash
+                req.flash('error', 'User taken');
+                return done();
+            } 
             else {
                 let newUser = {
                     username: username || req.body.username,
@@ -49,9 +53,17 @@ module.exports = (passport) => {
         connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
             if (err) return done(err);
 
-            if(!rows.length) console.log('no user found'); //change to flash
+            if(!rows.length){
+                console.log('no user found'); //change to flash
+                req.flash('error', 'No such user dimwit');
+                return done();
+            } 
 
-            if (!bcrypt.compareSync(password, rows[0].password)) console.log('wrong user or password'); //change to flash
+            if (!bcrypt.compareSync(password, rows[0].password)) {
+                console.log('wrong user or password'); //change to flash
+                req.flash('error', 'Wrong username or password dumbass'); // do something here
+                return done();
+            } 
 
             console.log(rows[0]);
             return done(null, rows[0])

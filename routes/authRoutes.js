@@ -4,12 +4,12 @@ const router = express.Router();
 
 router.get('/signup', (req, res) => {
     //res.render here dumbasses
-    res.render('authentication/signup');
+    res.render('authentication/signup', {message: req.flash('error')});
 });
 
 router.get('/login', (req, res) => {
     //res.render here dumbasses
-    res.render('authentication/signin');
+    res.render('authentication/signin', {message: req.flash('error')});
 });
 
 router.post('/signup', passport.authenticate('signup', {
