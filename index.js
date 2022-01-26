@@ -12,7 +12,7 @@ const authRoutes = require('./routes/authRoutes');
 
 require('./handlers/auth')(passport);
 
-app.use(flash())
+app.use(flash());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
