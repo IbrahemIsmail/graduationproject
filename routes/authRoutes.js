@@ -4,10 +4,12 @@ const router = express.Router();
 
 router.get('/signup', (req, res) => {
     //res.render here dumbasses
+    res.render('authentication/signup');
 });
 
 router.get('/login', (req, res) => {
     //res.render here dumbasses
+    res.render('authentication/signin');
 });
 
 router.post('/signup', passport.authenticate('signup', {

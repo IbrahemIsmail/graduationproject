@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.set('view engine', 'ejs');
+
 app.use(require("express-session")({
 	secret: process.env.SECRET,
 	resave: false,

@@ -21,14 +21,14 @@ module.exports = (passport) => {
         passwordField: 'password',
         passReqToCallback: true
     }, (req, username, password, done) => {
-        connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
+        connection.query('SELECT * FROM users WHERE username = ?', [username || req.body.username], (err, rows) => {
             console.log(err);
             if (err) return done(err);
             if (rows.length) console.log("user taken"); //change to flash
             else {
                 let newUser = {
-                    username,
-                    password: bcrypt.hashSync(password, 10)
+                    username: username || req.body.username,
+                    password: bcrypt.hashSync(password || req.body.password, 10)
                 };
                 let query = "INSERT INTO users (username, password) values (?,?)";
                 connection.query(query, [newUser.username, newUser.password], (err, rows) => {
