@@ -945,11 +945,11 @@ p:last-child {
 [class*="overlay-"]:after {
   background-position: center !important;
   background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-size: auto !important;
   bottom: -1px;
   content: "";
   height: 101%;
-  left: -1%;
+  left: -10%;
   position: absolute;
   top: -1px;
   width: 102%;
@@ -1054,22 +1054,22 @@ p:last-child {
 }
 
 .bg-image-04:after {
-  background: url(../media/bg/image-04@2x.jpg);
+  background: url(/assets/undraw_books_l-33-t_2.svg);
 }
 
 @media only screen and (max-width: 479px) {
   .bg-image-04:after {
-    background: url(../media/bg/image-04.jpg);
+    background: url(/assets/undraw_books_l-33-t_2.svg);
   }
 }
 
 .bg-image-05:after {
-  background: url(../media/bg/image-05@2x.jpg);
+  background: url(/assets/undraw_analyze_re_9kco.svg);
 }
 
 @media only screen and (max-width: 479px) {
   .bg-image-05:after {
-    background: url(../media/bg/image-05.jpg);
+    background: url(/assets/undraw_analyze_re_9kco.svg);
   }
 }
 
