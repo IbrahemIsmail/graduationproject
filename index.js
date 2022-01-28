@@ -51,7 +51,9 @@ app.use((req, res, next)=>{
 });
 
 app.get('/', (req, res) => res.send('under constructions, fuck off'));
-
+app.get('/account/:username', (req, res) => {
+   res.render('authentication/userPage', {currUser: req.user}); 
+});
 app.use('/auth', authRoutes);
 
 app.listen(process.env.PORT || 3000, () => console.log(`Server is up and running on port ${process.env.PORT || 3000}`));

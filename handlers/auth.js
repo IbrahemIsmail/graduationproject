@@ -36,10 +36,11 @@ module.exports = (passport) => {
             else {
                 let newUser = {
                     username: username || req.body.username,
+                    email: req.body.email,
                     password: bcrypt.hashSync(password || req.body.password, 10)
                 };
-                let query = "INSERT INTO users (username, password) values (?,?)";
-                connection.query(query, [newUser.username, newUser.password], (err, rows) => {
+                let query = "INSERT INTO users (username, email, password) values (?,?,?)";
+                connection.query(query, [newUser.username, newUser.email, newUser.password], (err, rows) => {
                     console.log(err);
                     if (err) return done(err);
                     newUser.id = rows.insertId;

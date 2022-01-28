@@ -23,8 +23,9 @@ router.post('/login', passport.authenticate('login', {
     failureRedirect: '/auth/login',
     failureFlash: true
 }), (req, res) => {
-    console.log('hello?'); //i dont know what this is dumbasses
-    res.redirect('/');
+    if (req.body.remember-me) req.session.maxAge = 1000*60*3;
+    else req.session.expire = false;
+    res.redirect(`/`);
 });
 
 
