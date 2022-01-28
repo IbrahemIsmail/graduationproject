@@ -21,7 +21,7 @@ module.exports = (passport) => {
         passwordField: 'password',
         passReqToCallback: true
     }, (req, username, password, done) => {
-        connection.query('SELECT * FROM users WHERE username = ?', [username || req.body.username], (err, rows) => {
+        connection.query('SELECT * FROM users WHERE username = ? OR email = ?', [req.body.username, req.body.email], (err, rows) => {
             console.log(err);
             if (err) return done(err);
             if(req.body.username == '' || req.body.password == ''){
