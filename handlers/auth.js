@@ -24,6 +24,10 @@ module.exports = (passport) => {
         connection.query('SELECT * FROM users WHERE username = ?', [username || req.body.username], (err, rows) => {
             console.log(err);
             if (err) return done(err);
+            if(req.body.username == '' || req.body.password == ''){
+                req.flash('error', 'Empty fields please insert the requested information');
+                return done();
+            }
             if (rows.length) {
                 console.log("user taken"); //change to flash
                 req.flash('error', 'User taken');

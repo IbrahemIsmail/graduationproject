@@ -25,12 +25,13 @@ app.use(session({
 app.use(flash());
 
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 
+app.use(express.static(__dirname + "/public"));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -40,6 +41,13 @@ passport.deserializeUser((id, done) => {
     connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
         done(err, rows[0]);
     });
+});
+
+///////////////////flash message middleware
+app.use((req, res, next)=>{
+    res.locals.message = req.session.message;
+    delete req.session.message;
+    next();
 });
 
 app.get('/', (req, res) => res.send('under constructions, fuck off'));
