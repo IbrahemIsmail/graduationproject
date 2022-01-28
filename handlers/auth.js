@@ -57,16 +57,19 @@ module.exports = (passport) => {
     }, (req, username, password, done) =>{
         connection.query('SELECT * FROM users WHERE username = ?', [username], (err, rows) => {
             if (err) return done(err);
-
+            if(req.body.username == '' || req.body.password == ''){
+                req.flash('error', 'Empty fields please insert the requested information');
+                return done();
+            }
             if(!rows.length){
                 console.log('no user found'); //change to flash
-                req.flash('error', 'No such user dimwit');
+                req.flash('error', 'User does not exist');
                 return done();
             } 
 
             if (!bcrypt.compareSync(password, rows[0].password)) {
                 console.log('wrong user or password'); //change to flash
-                req.flash('error', 'Wrong username or password dumbass'); // do something here
+                req.flash('error', 'Wrong username or password'); // do something here
                 return done();
             } 
 
