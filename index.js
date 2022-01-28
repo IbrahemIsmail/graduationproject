@@ -9,6 +9,8 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash')
 
+const mw = require('./middleware');
+
 const authRoutes = require('./routes/authRoutes');
 
 require('./handlers/auth')(passport);
@@ -51,7 +53,7 @@ app.use((req, res, next)=>{
 });
 
 app.get('/', (req, res) => res.send('under constructions, fuck off'));
-app.get('/account/:username', (req, res) => {
+app.get('/account/:username', mw.authUser, (req, res) => {
    res.render('authentication/userPage', {currUser: req.user}); 
 });
 app.use('/auth', authRoutes);
