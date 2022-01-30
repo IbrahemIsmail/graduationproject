@@ -52,7 +52,7 @@ app.use((req, res, next)=>{
     next();
 });
 
-app.get('/', (req, res) => res.send('under constructions, fuck off'));
+app.get('/', (req, res) => res.send('under construction'));
 app.get('/account/:username', mw.authUser, (req, res) => {
    res.render('authentication/userPage', {currUser: req.user}); 
 });
