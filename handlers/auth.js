@@ -35,8 +35,8 @@ module.exports = (passport) => {
             } 
             else {
                 let newUser = {
-                    username: username || req.body.username,
-                    email: req.body.email,
+                    username: username.trim() || req.body.username.trim(),
+                    email: req.body.email.trim(),
                     password: bcrypt.hashSync(password || req.body.password, 10)
                 };
                 let query = "INSERT INTO users (username, email, password) values (?,?,?)";

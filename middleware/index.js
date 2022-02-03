@@ -1,6 +1,6 @@
 const middlewareObj = {};
 
-middlewareObj.authUser = (req, res, next) => {
+middlewareObj.authUserPage = (req, res, next) => {
     if (req.isAuthenticated() && req.user.username == req.params.username) return next();
     else {
         req.flash('error', 'You Don\'t Have Permission To Do That');
@@ -13,7 +13,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
         return next();
     }
     req.flash("error", "Please Log In First");
-    res.redirect("/auth/login");
+    res.redirect("/login");
 }
 
 module.exports = middlewareObj;
