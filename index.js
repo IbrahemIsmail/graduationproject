@@ -7,7 +7,8 @@ const db = require('./models/database')
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+const methodOverride = require("method-override");
 
 const mw = require('./middleware');
 
@@ -34,6 +35,8 @@ app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 
+app.use(methodOverride("_method"));
+
 app.use(express.static(__dirname + "/public"));
 
 app.use(passport.initialize());
@@ -47,15 +50,15 @@ passport.deserializeUser((id, done) => {
 });
 
 ///////////////////flash message middleware
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     res.locals.message = req.session.message;
     delete req.session.message;
     next();
 });
 
 app.get('/', (req, res) => res.send('under construction'));
-app.get('/account/:username', mw.authUser, (req, res) => {
-   res.render('authentication/userPage', {currUser: req.user}); 
+app.get('/account/:username', mw.authUserPage, (req, res) => {
+    res.render('authentication/userPage', { currUser: req.user });
 });
 app.use('/', authRoutes);
 app.use('/', postRoutes);
