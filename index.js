@@ -12,6 +12,7 @@ const flash = require('connect-flash')
 const mw = require('./middleware');
 
 const authRoutes = require('./routes/authRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 require('./handlers/auth')(passport);
 
@@ -56,6 +57,7 @@ app.get('/', (req, res) => res.send('under construction'));
 app.get('/account/:username', mw.authUser, (req, res) => {
    res.render('authentication/userPage', {currUser: req.user}); 
 });
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
+app.use('/', postRoutes);
 
 app.listen(process.env.PORT || 3000, () => console.log(`Server is up and running on port ${process.env.PORT || 3000}`));
