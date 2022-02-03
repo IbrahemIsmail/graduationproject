@@ -14,13 +14,13 @@ router.get('/login', (req, res) => {
 
 router.post('/signup', passport.authenticate('signup', {
     successRedirect: '/',
-    failureRedirect: '/auth/signup',
+    failureRedirect: '/signup',
     failureFlash: true
 }));
 
 router.post('/login', passport.authenticate('login', {
     successRedirect: '/',
-    failureRedirect: '/auth/login',
+    failureRedirect: '/login',
     failureFlash: true
 }), (req, res) => {
     if (req.body.remember-me) req.session.maxAge = 1000*60*3;

@@ -3,9 +3,15 @@ require('dotenv').config();
 const { query } = require('express');
 const mysql = require('mysql');
 const db = require('../models/database');
+// const multer = require("multer");
 
 const connection = mysql.createConnection(db.connection);
 connection.query('USE ' + db.database);
+
+// const upload = multer({
+//     dest: "/path/to/temporary/directory/to/store/uploaded/files"
+//     // you might also want to set some limits: https://github.com/expressjs/multer#limits
+//   });
 
 exports.createPost = (req, res, next) => {
     let query = 'INSERT INTO posts (title, price, description) values (?,?,?)';
