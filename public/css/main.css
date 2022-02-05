@@ -1783,10 +1783,7 @@ form label {
 form input[type="email"],
 form input[type="password"],
 form input[type="text"],
-form input[type="title"],
-form input[type="price"],
-form input[type="description"],
-form input[type="image"],
+form input[type="number"],
 form select,
 form textarea {
   -webkit-appearance: none;
