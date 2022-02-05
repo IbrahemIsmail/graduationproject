@@ -13,16 +13,16 @@ connection.query('USE ' + db.database);
 exports.createPost = (req, res, next) => {
     // console.log(req.file);
     // console.log(req.body);
-    // let img = req.file.buffer.toString("base64");
+    let img = req.file.buffer.toString("base64");
     let query = 'INSERT INTO posts (title, price, description, image) values (?,?,?,?)';
     // the database needs an extension fieled to render the correct extension (exten: req.file.mimetype)
     let post = {
         title: req.body.title,
         price: req.body.price,
         description: req.body.description,
-        image: req.file,
+        image: img,
     }
-    console.log(post);
+    // console.log(post);
     connection.query(query, [post.title, post.price, post.description, post.image], (err, rows) => {
         if (err) return next(err);
         console.log(rows);
