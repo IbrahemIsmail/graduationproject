@@ -31,10 +31,11 @@
 
 <body class="page page-onboarding preload">
     <main>
+        <%=post.id%>
         <section class="row no-gutter reverse-order">
             <div class="col-one-half middle padding">
                 <div class="max-width-s">
-                    <form class="container" action="/shop/editpost/id=<%= post.id %>?_method=put" method="post" enctype="multipart/form-data" >
+                    <form class="container" action="/shop/id=<%= post.id %>?_method=put" method="post" enctype="multipart/form-data" >
                         <div class="form-group">
                             <label for="title">Title:</label>
                             <input id="title" type="text" name="title" value = <%= post.title %>>

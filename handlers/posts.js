@@ -44,6 +44,7 @@ exports.viewEdit = (req, res, next) => {
         if (err) console.log(err); //change to next at some point
         console.log(rows);
         let post = {
+            id: rows[0].id,
             title: rows[0].title,
             price: rows[0].price,
             description: rows[0].description,
