@@ -1,28 +1,26 @@
 const express = require('express');
 const mw = require('../middleware')
-const {createPost, updatePost, deletePost} = require('../handlers/posts');
+const { createPost, updatePost, deletePost, viewEdit} = require('../handlers/posts');
 const router = express.Router();
-const multer  = require('multer');
-// const upload = multer({ dest: 'uploads/' });
+const multer = require('multer');
+const upload = multer({ dest: 'images/' });
 
-var storage = multer.memoryStorage();
-var upload = multer({ storage: storage });
+// var storage = multer.memoryStorage();
+// var upload = multer({ storage: storage });
 
 router.get('/shop', (req, res) => {
     res.send('this will be home page');
 });
 
 
-router.get('/shop/createPost', mw.isLoggedIn, (req, res) => {
-    res.render('posts/createPost');    
+router.get('/shop/createpost', mw.isLoggedIn, (req, res) => {
+    res.render('posts/createPost');
 });
 
- router.get('/shop/editPost/id=:id', mw.isLoggedIn, (req, res) => {
-     res.render('posts/editPost', );    
- });
+router.get('/shop/editpost/id=:id', mw.authUserPost, viewEdit);
 
-router.post('/shop/post', mw.isLoggedIn, upload.single('file') ,createPost);
-router.put('/shop/id=:id', mw.isLoggedIn, upload.single('file') ,updatePost);
-router.delete('/shop/id=:id', mw.isLoggedIn, deletePost);
+router.post('/shop/post', mw.isLoggedIn, upload.single('file'), createPost);
+router.put('/shop/id=:id', mw.authUserPost, upload.single('file'), updatePost);
+router.delete('/shop/id=:id', mw.authUserPost, deletePost);
 
 module.exports = router;
