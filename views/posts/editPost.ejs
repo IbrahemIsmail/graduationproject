@@ -17,6 +17,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Optional theme -->
+    <script src="https://kit.fontawesome.com/d707cf3af9.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -55,6 +56,9 @@
                             <!-- <img src="/images/<%=post.image%>" alt=""> -->
                         </div>
                         <button class="button button-primary full-width" >Update</button>
+                    </form>
+                    <form action="/shop/id=<%= post.id %>?_method=delete" method="post">
+                        <button type="submit"><i class="far fa-trash-alt"></i></button>
                     </form>
                 </div>
             </div>

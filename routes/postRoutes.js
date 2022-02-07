@@ -19,7 +19,7 @@ router.get('/shop/createpost', mw.isLoggedIn, (req, res) => {
 
 router.get('/shop/editpost/id=:id', mw.authUserPost, viewEdit);
 
-router.post('/shop/post', mw.isLoggedIn, upload.single('file'), createPost);
+router.post('/shop/createpost', mw.isLoggedIn, upload.single('file'), createPost);
 router.put('/shop/id=:id', mw.authUserPost, upload.single('file'), updatePost);
 router.delete('/shop/id=:id', mw.authUserPost, deletePost);
 
