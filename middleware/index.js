@@ -3,8 +3,14 @@ require('dotenv').config();
 const mysql = require('mysql');
 const db = require('../models/database');
 
-const connection = mysql.createConnection(db.connection);
-connection.query('USE ' + db.database);
+
+pool = mysql.createPool(db.conn);
+pool.getConnection((err, connection) => {
+    if (err) throw err;
+    connection.query('USE ' + db.database);
+    connection.release();
+    //  // breaks for some reason. 
+});
 
 const middlewareObj = {};
 
@@ -27,13 +33,18 @@ middlewareObj.isLoggedIn = (req, res, next) => {
 
 middlewareObj.authUserPost = (req, res, next) => {
     if (req.isAuthenticated()) {
-        connection.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`, (err, rows) => {
-            if(!rows.length){
-                console.log('You Don\'t Have Permission To Do That');
-                req.flash('error', 'You Don\'t Have Permission To Do That');
-                res.redirect("back");
-            }
-            else return next();
+        pool.getConnection((err, connection) => {
+            if(err) throw err;
+            connection.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`, (err, rows) => {
+                if (!rows.length) {
+                    console.log('You Don\'t Have Permission To Do That');
+                    req.flash('error', 'You Don\'t Have Permission To Do That');
+                    res.redirect("back");
+                }
+                else return next();
+            });
+            connection.release();
+            if(error) throw error;
         });
     }
     else {

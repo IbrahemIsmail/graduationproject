@@ -3,7 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const db = require('./models/database')
+const db = require('./models/database');
+const mysql = require('mysql');
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -43,9 +44,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {
-    const connection = mysql.createConnection(db.connection);
-    connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
-        done(err, rows[0]);
+    pool = mysql.createPool(db.conn);
+    pool.getConnection((err, connection) => {
+        if(err) throw err;
+        connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
+            done(err, rows[0]);
+        });
+        connection.release();
+        if(error) throw error;
     });
 });
 
@@ -62,5 +68,24 @@ app.get('/account/:username', mw.authUserPage, (req, res) => {
 });
 app.use('/', authRoutes);
 app.use('/', postRoutes);
+
+
+// error handling
+app.use((req, res, next) => {
+    let err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use((err, req, res, next) => {
+    console.log(res.status || 500);
+    console.log(err.message || 'Oops! something went wrong.');
+    return res.status(err.status || 500).json({
+        error: {
+            message: err.message || 'Oops! something went wrong.'
+        }
+    });
+});
+
 
 app.listen(process.env.PORT || 3000, () => console.log(`Server is up and running on port ${process.env.PORT || 3000}`));
