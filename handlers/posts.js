@@ -1,8 +1,6 @@
 require('dotenv').config();
 
-const { query } = require('express');
 const mysql = require('mysql');
-const { conn } = require('../models/database');
 const db = require('../models/database');
 
 

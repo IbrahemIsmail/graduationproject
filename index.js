@@ -77,7 +77,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.log(res.status || 500);
+    console.log(err.status || 500);
     console.log(err.message || 'Oops! something went wrong.');
     // return res.status(err.status || 500).json({
     //     error: {

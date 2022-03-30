@@ -12,7 +12,6 @@ pool.getConnection((err, connection) => {
     if (err) throw err;
     connection.query('USE ' + db.conn.database);
     connection.release();
-    //  // breaks for some reason. 
 });
 
 
