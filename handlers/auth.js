@@ -10,7 +10,7 @@ const db = require('../models/database');
 pool = mysql.createPool(db.conn);
 pool.getConnection((err, connection) => {
     if (err) throw err;
-    connection.query('USE ' + db.database);
+    connection.query('USE ' + db.database, (err) => {if (err) console.log(err)});
     connection.release();
     //  // breaks for some reason. 
 });
