@@ -51,7 +51,6 @@ passport.deserializeUser((id, done) => {
             done(err, rows[0]);
         });
         connection.release();
-        if(error) throw error;
     });
 });
 
@@ -80,11 +79,11 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     console.log(res.status || 500);
     console.log(err.message || 'Oops! something went wrong.');
-    return res.status(err.status || 500).json({
-        error: {
-            message: err.message || 'Oops! something went wrong.'
-        }
-    });
+    // return res.status(err.status || 500).json({
+    //     error: {
+    //         message: err.message || 'Oops! something went wrong.'
+    //     }
+    // });
 });
 
 

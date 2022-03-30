@@ -9,7 +9,7 @@ const db = require('../models/database');
 pool = mysql.createPool(db.conn);
 pool.getConnection((err, connection) => {
     if (err) throw err;
-    connection.query('USE ' + db.database);
+    connection.query('USE ' + db.conn.database);
     connection.release();
 });
 
@@ -100,7 +100,6 @@ exports.deletePost = (req, res, next) => {
             res.redirect('/shop'); // will eventually redirect to the post page
         });
         connection.release();
-        
     });
 }
 

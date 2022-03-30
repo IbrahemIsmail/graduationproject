@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const db = require('../models/database');
 
 const connection = mysql.createConnection(db.connection);
-connection.query('USE ' + db.database);
+connection.query('USE ' + db.conn.database);
 
 exports.sendPosts = (req, res, next) => {
     let query = 'SELECT * FROM posts';

@@ -10,7 +10,7 @@ const db = require('../models/database');
 pool = mysql.createPool(db.conn);
 pool.getConnection((err, connection) => {
     if (err) throw err;
-    connection.query('USE ' + db.database, (err) => {if (err) console.log(err)});
+    connection.query('USE ' + db.conn.database);
     connection.release();
     //  // breaks for some reason. 
 });
@@ -26,7 +26,7 @@ module.exports = (passport) => {
             if (err) throw err;
             connection.query("SELECT * FROM users WHERE id = ? ", [id], (err, rows) => done(err, rows[0]));
             connection.release();
-            
+
         });
     });
 
@@ -65,7 +65,7 @@ module.exports = (passport) => {
                 }
             });
             connection.release();
-            
+
         });
     }));
 
@@ -99,7 +99,7 @@ module.exports = (passport) => {
             });
             connection.release();
         });
-        
+
     }));
 
     //connection.end() //bro this breaks it, it times out on its own so we'll fix it once we can redirect 

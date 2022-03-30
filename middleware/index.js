@@ -7,7 +7,7 @@ const db = require('../models/database');
 pool = mysql.createPool(db.conn);
 pool.getConnection((err, connection) => {
     if (err) throw err;
-    connection.query('USE ' + db.database);
+    connection.query('USE ' + db.conn.database);
     connection.release();
     //  // breaks for some reason. 
 });
@@ -34,7 +34,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
 middlewareObj.authUserPost = (req, res, next) => {
     if (req.isAuthenticated()) {
         pool.getConnection((err, connection) => {
-            if(err) throw err;
+            if (err) throw err;
             connection.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`, (err, rows) => {
                 if (!rows.length) {
                     console.log('You Don\'t Have Permission To Do That');
@@ -44,7 +44,6 @@ middlewareObj.authUserPost = (req, res, next) => {
                 else return next();
             });
             connection.release();
-            if(error) throw error;
         });
     }
     else {
