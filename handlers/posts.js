@@ -45,7 +45,7 @@ exports.createPost = (req, res, next) => {
         connection.release();
     });
     req.flash('success', 'Your post is live!');
-    res.redirect('/shop')
+    res.redirect('/shop');
 };
 
 exports.viewEdit = (req, res, next) => {
