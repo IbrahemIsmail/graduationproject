@@ -15,6 +15,7 @@ const mw = require('./middleware');
 
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
+const homeRoutes = require('./routes/homeRoutes');
 
 require('./handlers/auth')(passport);
 
@@ -67,6 +68,7 @@ app.get('/account/:username', mw.authUserPage, (req, res) => {
 });
 app.use('/', authRoutes);
 app.use('/', postRoutes);
+app.use('/', homeRoutes);
 
 
 // error handling

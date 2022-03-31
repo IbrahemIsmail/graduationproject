@@ -1,31 +1,28 @@
-<section class="bg-gradient-light padding">
+<%- include("partials/header.ejs")%>
+  <section class="bg-gradient-light padding">
     <div class="center max-width-l">
       <h2>Available Books</h2>
       <p class="paragraph">Browse around and look for university books that you will need throughout the semester.</p>
     </div>
     <div class="row margin-top max-width-l">
-      <div class="col-one-fourth card card-content">
-        <p class="muted">Step 1</p>
-        <h4>Download</h4>
-        <p class="paragraph">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      </div>
-      <div class="col-one-fourth card card-content">
-        <p class="muted">Step 2</p>
-        <h4>Customize</h4>
-        <p class="paragraph">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur mollit.</p>
-      </div>
-      <div class="col-one-fourth card card-content">
-        <p class="muted">Step 3</p>
-        <h4>Upload</h4>
-        <p class="paragraph">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      <div class="col-one-fourth card card-content dark">
-        <p class="muted">Step 4</p>
-        <h4>Done!</h4>
-        <p class="paragraph">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-      </div>
+      <% posts.forEach(function(post){ %>
+        <div class="col-one-fourth card card-content">
+          <img  src="data:image/jpg;base64,<%= post.image %>">
+          <p class="muted">
+            <%=post.title%>
+          </p>
+          <h4>
+            <%=post.price%>
+          </h4>
+          <p class="paragraph">
+            <%=post.description%>
+          </p>
+        </div>
+        <% }); %>
     </div>
-    <div class="center margin-top max-width-l">
-      <span class="muted">If you need any help, make sure to </span><a href="signup.html">book a demo</a><span class="muted">.</span>
-    </div>
+    <!-- <div class="center margin-top max-width-l">
+        <span class="muted">If you need any help, make sure to </span><a href="signup.html">book a demo</a><span
+          class="muted">.</span>
+      </div> -->
   </section>
+  <%- include("partials/footer.ejs")%>
