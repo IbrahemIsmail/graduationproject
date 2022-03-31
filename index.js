@@ -47,7 +47,7 @@ passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {
     pool = mysql.createPool(db.conn);
     pool.getConnection((err, connection) => {
-        if(err) throw err;
+        if (err) throw err;
         connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
             done(err, rows[0]);
         });
@@ -73,14 +73,17 @@ app.use('/', homeRoutes);
 
 // error handling
 app.use((req, res, next) => {
-    let err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+    // let err = new Error('Not Found');
+    // err.status = 404;
+    // next(err);
+    res.status(404).send(
+        "<h1>Page not found on the server</h1>");
 });
 
 app.use((err, req, res, next) => {
     console.log(err.status || 500);
     console.log(err.message || 'Oops! something went wrong.');
+    req.flash('error', err.message || 'Oops! something went wrong.');
     // return res.status(err.status || 500).json({
     //     error: {
     //         message: err.message || 'Oops! something went wrong.'
