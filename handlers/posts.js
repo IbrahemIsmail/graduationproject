@@ -11,47 +11,75 @@ pool.getConnection((err, connection) => {
     connection.release();
 });
 
-
+promiseQuery = (sql, args, connection) => {
+    return new Promise((resolve, reject) => {
+        connection.query(sql, args, (err, rows) => {
+            if (err)
+                return reject(err);
+            resolve(rows.insertId);
+        });
+    });
+}
 
 exports.createPost = (req, res, next) => {
-    // console.log(req.file);
-    // console.log(req.body);
-    let img = req.file.buffer.toString("base64");
-    let query = 'INSERT INTO posts (title, price, description, image) values (?,?,?,?)';
-    // the database needs an extension fieled to render the correct extension (exten: req.file.mimetype)
-    let post = {
-        title: req.body.title,
-        price: req.body.price,
-        description: req.body.description,
-        image: img,
-    }
-    // console.log(post);
-    pool.getConnection((err, connection) => {
+    pool.getConnection(async (err, connection) => {
         if (err) throw err;
-        connection.query(query, [post.title, post.price, post.description, post.image], (err, rows) => {
-            if (err) return next(err);
+        try {
+            let img = req.file.buffer.toString("base64");
+            let query1 = 'INSERT INTO posts (title, price, description, image) values (?,?,?,?)';
+            // the database needs an extension fieled to render the correct extension (exten: req.file.mimetype)
+            let post = {
+                title: req.body.title,
+                price: req.body.price,
+                description: req.body.description,
+                image: img,
+            }
+            if (post.title.length <= 0 || post.price.length <= 0 || post.description.length <= 0) {
+                throw new Error('One or more empty fields');
+            }
+            let rows = await promiseQuery(query1, [post.title, post.price, post.description, post.image], connection);
             console.log(rows);
-            let query = 'INSERT INTO postownership (studentID, postID) values (?,?)';
+            let query2 = 'INSERT INTO postownership (studentID, postID) values (?,?)';
             let ids = {
                 studentID: req.user.id,
-                postID: rows.insertId,
+                postID: rows,
             }
-            connection.query(query, [ids.studentID, ids.postID], (err, rows) => {
-                if (err) return next(err);
-            });
-        });
-        connection.release();
+            try {
+                await connection.query(query2, [ids.studentID, ids.postID]);
+            }
+            catch (err) { throw err; }
+        }
+        catch (err) {
+            // console.log('ERROR WHILE POSTING');
+            console.log(err)
+            req.flash('error', err.message || 'Oops! something went wrong.');
+            res.redirect('back');
+            return;
+        } finally {
+            connection.release();
+        }
+        // console.log('BEFORE SUCCESS MESSAGE');
+        req.flash('success', 'Your post is live!');
+        res.redirect('/shop');
     });
-    req.flash('success', 'Your post is live!');
-    res.redirect('/shop');
 };
 
 exports.viewEdit = (req, res, next) => {
-    pool.getConnection((err, connection) => {
-        if (err) throw err;
+    pool.getConnection(async (err, connection) => {
+        // if (err) throw err;
+        // try{
+        //     let rows = await promiseQuery(`SELECT * FROM posts WHERE id = ?`, [req.params.id], connection);
+        //     // let rows = await connection.query(`SELECT * FROM posts WHERE id = ${req.params.id}`);
+        //     console.log(rows);
+        // } catch(err) {
+        //     console.log(err);
+        // } finally {
+        //     connection.release();
+        // }
+
         connection.query(`SELECT * FROM posts WHERE id = ${req.params.id}`, (err, rows) => {
             if (err) console.log(err); //change to next at some point
-            console.log(rows);
+            // console.log(rows);
             let post = {
                 id: rows[0].id,
                 title: rows[0].title,
@@ -59,45 +87,57 @@ exports.viewEdit = (req, res, next) => {
                 description: rows[0].description,
                 image: rows[0].image,
             }
-            console.log(post);
-            res.render('posts/editPost', { post });
+            // console.log(post);
+            res.render('posts/editPost', { post, message: req.flash('error') });
         });
         connection.release();
     });
-    
+
 }
 
 exports.updatePost = (req, res, next) => {
-    let post = {
-        title: req.body.title,
-        price: req.body.price,
-        description: req.body.description
-    }
-    let query = 'UPDATE posts SET ' + Object.keys(post).map(key => `${key} = ?`).join(', ') + ' WHERE id = ?';
-    let params = [...Object.values(post), req.params.id];
-    console.log(query);
-    console.log(params);
-    pool.getConnection((err, connection) => {
+    pool.getConnection(async (err, connection) => {
         if (err) throw err;
-        connection.query(query, params, (err, rows) => {
-            if (err) console.log(err);
-            req.flash('success', 'Your post is updated!');
-            res.redirect('/shop'); // will eventually redirect to the post page
-        });
-        connection.release();
-        
+        try {
+            let post = {
+                title: req.body.title,
+                price: req.body.price,
+                description: req.body.description
+            }
+            let query = 'UPDATE posts SET ' + Object.keys(post).map(key => `${key} = ?`).join(', ') + ' WHERE id = ?';
+            let params = [...Object.values(post), req.params.id];
+            // console.log(query);
+            // console.log(params);
+            if (post.title.length <= 0 || post.price.length <= 0 || post.description.length <= 0) {
+                throw new Error('One or more empty fields');
+            }
+            await promiseQuery(query, params, connection);
+            // await connection.query(query, params);
+        } catch (err) {
+            console.log(err)
+            req.flash('error', err.message || 'Oops! something went wrong.');
+            res.redirect('back');
+            return;
+        } finally {
+            connection.release();
+        }
+        req.flash('success', 'Your post is updated!');
+        res.redirect('/shop'); // will eventually redirect to the post page
     });
 }
 
 exports.deletePost = (req, res, next) => {
-    pool.getConnection((err, connection) => {
+    pool.getConnection(async (err, connection) => {
         if (err) throw err;
-        connection.query(`DELETE from posts WHERE id = ${req.params.id}`, (err, rows) => {
-            if (err) console.log(err);
+        try {
+            await connection.query(`DELETE from posts WHERE id = ${req.params.id}`);
             req.flash('success', 'Your post is deleted!');
-            res.redirect('/shop'); // will eventually redirect to the post page
-        });
-        connection.release();
+            res.redirect('/shop');
+        } catch (err) {
+            throw err;
+        } finally {
+            connection.release();
+        }
     });
 }
 

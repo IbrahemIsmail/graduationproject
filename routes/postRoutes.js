@@ -14,7 +14,7 @@ router.get('/shop', (req, res) => {
 
 
 router.get('/shop/createpost', mw.isLoggedIn, (req, res) => {
-    res.render('posts/createPost');
+    res.render('posts/createPost', {message: req.flash('error')});
 });
 
 router.get('/shop/editpost/id=:id', mw.authUserPost, viewEdit);
