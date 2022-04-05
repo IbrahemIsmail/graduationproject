@@ -12,7 +12,7 @@ pool.getConnection((err, connection) => {
 });
 
 
-
+///////create post query
 exports.createPost = (req, res, next) => {
     // console.log(req.file);
     // console.log(req.body);
@@ -46,6 +46,36 @@ exports.createPost = (req, res, next) => {
     res.redirect('/shop');
 };
 
+
+exports.getPost = (req, res, next) => {
+
+    pool.getConnection((err, connection) => {
+        if(err) throw err;
+        try {
+            connection.query(`SELECT * FROM posts WHERE id = ${req.params.id}`, (err, rows) => {
+                if (err) console.log(err); //change to next at some point
+                console.log(rows);
+                let post = {
+                    id: rows[0].id,
+                    title: rows[0].title,
+                    price: rows[0].price,
+                    description: rows[0].description,
+                    image: rows[0].image,
+                }
+                console.log(post);
+                res.render('posts/showPost', { post });
+            });
+        } catch (error) {
+            console.log(error);
+            throw error;
+            res.redirect('back');
+        } finally{
+            connection.release
+        }
+    });
+}
+
+///////search for a post and insert it in the form to be edited query
 exports.viewEdit = (req, res, next) => {
     pool.getConnection((err, connection) => {
         if (err) throw err;
@@ -67,6 +97,8 @@ exports.viewEdit = (req, res, next) => {
     
 }
 
+
+///////Edit the post query
 exports.updatePost = (req, res, next) => {
     let post = {
         title: req.body.title,
@@ -89,6 +121,8 @@ exports.updatePost = (req, res, next) => {
     });
 }
 
+
+///////delete the post query
 exports.deletePost = (req, res, next) => {
     pool.getConnection((err, connection) => {
         if (err) throw err;

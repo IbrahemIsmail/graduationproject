@@ -8,15 +8,16 @@
       <% posts.forEach(function(post){ %>
         <div class="col-one-fourth card card-content">
           <img  src="data:image/jpg;base64,<%= post.image %>">
-          <p class="muted">
+          <h5>
             <%=post.title%>
-          </p>
-          <h4>
+          </h5>
+          <p class="muted">
             <%=post.price%>
-          </h4>
-          <p class="paragraph">
+          </p>
+          <p class="desc">
             <%=post.description%>
           </p>
+          <a href="shop/<%=post.id%>" marign:0 5%  class="btn btn-primary">more info</a>
         </div>
         <% }); %>
     </div>

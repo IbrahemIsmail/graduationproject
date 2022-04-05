@@ -10,6 +10,16 @@
  *   Copyright (C) 2018 UI/UX Assets
  *
 */
+
+/* css I have added and changed on */
+.desc{
+  height: 25ch;
+  width:  25ch;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: break-space;
+}
+
 /* -----------------------------------------------------------------------------
 
 Table Of Contents
