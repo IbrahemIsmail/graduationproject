@@ -36,6 +36,7 @@ middlewareObj.authUserPost = (req, res, next) => {
         pool.getConnection((err, connection) => {
             if (err) throw err;
             connection.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`, (err, rows) => {
+                if(err) throw err;
                 if (!rows.length) {
                     console.log('You Don\'t Have Permission To Do That');
                     req.flash('error', 'You Don\'t Have Permission To Do That');

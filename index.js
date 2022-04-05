@@ -84,6 +84,8 @@ app.use((err, req, res, next) => {
     console.log(err.status || 500);
     console.log(err.message || 'Oops! something went wrong.');
     req.flash('error', err.message || 'Oops! something went wrong.');
+    res.redirect('back');
+    return;
     // return res.status(err.status || 500).json({
     //     error: {
     //         message: err.message || 'Oops! something went wrong.'
