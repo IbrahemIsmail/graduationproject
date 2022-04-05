@@ -1,6 +1,6 @@
 const express = require('express');
 const mw = require('../middleware')
-const { createPost, updatePost, deletePost, viewEdit} = require('../handlers/posts');
+const { createPost, updatePost, deletePost, viewEdit, getPost} = require('../handlers/posts');
 const router = express.Router();
 const multer = require('multer');
 // const upload = multer({ dest: 'images/' });
@@ -19,7 +19,7 @@ router.get('/shop/createpost', mw.isLoggedIn, (req, res) => {
 
 router.get('/shop/editpost/id=:id', mw.authUserPost, viewEdit);
 
-router.get('/shop/id=:id', )
+router.get('/shop/id=:id', getPost);
 
 router.post('/shop/createpost', mw.isLoggedIn, upload.single('file'), createPost);
 router.put('/shop/id=:id', mw.authUserPost, upload.single('file'), updatePost);

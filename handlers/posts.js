@@ -11,10 +11,6 @@ pool.getConnection((err, connection) => {
     connection.release();
 });
 
-<<<<<<< HEAD
-
-///////create post query
-=======
 promiseQuery = (sql, args, connection) => {
     return new Promise((resolve, reject) => {
         connection.query(sql, args, (err, rows) => {
@@ -25,7 +21,6 @@ promiseQuery = (sql, args, connection) => {
     });
 }
 
->>>>>>> @{u}
 exports.createPost = (req, res, next) => {
     pool.getConnection(async (err, connection) => {
         if (err) throw err;
@@ -71,7 +66,6 @@ exports.createPost = (req, res, next) => {
 
 
 exports.getPost = (req, res, next) => {
-
     pool.getConnection((err, connection) => {
         if(err) throw err;
         try {
@@ -86,7 +80,7 @@ exports.getPost = (req, res, next) => {
                     image: rows[0].image,
                 }
                 console.log(post);
-                res.render('posts/showPost', { post });
+                res.render('posts/showPost', { post});
             });
         } catch (error) {
             console.log(error);
