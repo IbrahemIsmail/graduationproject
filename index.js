@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('./models/database');
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -66,7 +66,7 @@ app.get('/account/:username', mw.authUserPage, (req, res) => {
     res.render('authentication/userPage', { currUser: req.user });
 });
 app.use('/', authRoutes);
-app.use('/', postRoutes);
+app.use('/shop', postRoutes);
 
 
 

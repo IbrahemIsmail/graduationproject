@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const db = require('../models/database');
 
 
@@ -106,8 +106,25 @@ exports.getPost = (req, res, next) => {
             req.flash('error', err.message || 'Oops! something went wrong.');
             res.redirect('back');
             return;
+        } finally{
+            connection.release();
+        }
+    });
+}
+
+exports.searchPost = (req, res) => {
+    searchData = req.params.search;
+    pool.getConnection(async (err, connection) =>{
+        try {
+            let query = `SELECT * FROM posts WHERE (title LIKE '%${searchData}%' OR description LIKE '%${searchData}%'`;
+            let results = await connection.query(query);
+            console.log(results);
+        } catch (error) {
+            console.log(error);
+            req.flash('error', err.message || 'Oops! something went wrong.');
+            res.redirect('/shop');
         } finally {
-            connection.release
+            connection.release();
         }
     });
 }

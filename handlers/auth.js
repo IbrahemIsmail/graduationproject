@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const LocalStrategy = require('passport-local').Strategy;
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const db = require('../models/database');
 

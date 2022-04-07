@@ -1,15 +1,19 @@
 require('dotenv').config();
 
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const db = require('../models/database');
 
 
 pool = mysql.createPool(db.conn);
-pool.getConnection((err, connection) => {
+pool.getConnection(async (err, connection) => {
     if (err) throw err;
-    connection.query('USE ' + db.conn.database);
-    connection.release();
-    //  // breaks for some reason. 
+    try {
+        await connection.query('USE ' + db.conn.database);
+    } catch (err) {
+        throw err;
+    } finally {
+        connection.release();
+    }
 });
 
 const middlewareObj = {};
@@ -35,16 +39,21 @@ middlewareObj.authUserPost = (req, res, next) => {
     if (req.isAuthenticated()) {
         pool.getConnection((err, connection) => {
             if (err) throw err;
-            connection.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`, (err, rows) => {
-                if(err) throw err;
-                if (!rows.length) {
-                    console.log('You Don\'t Have Permission To Do That');
-                    req.flash('error', 'You Don\'t Have Permission To Do That');
-                    res.redirect("back");
-                }
-                else return next();
-            });
-            connection.release();
+            try {
+                connection.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`, (err, rows) => {
+                    if (err) throw err;
+                    if (!rows.length) {
+                        console.log('You Don\'t Have Permission To Do That');
+                        req.flash('error', 'You Don\'t Have Permission To Do That');
+                        res.redirect("back");
+                    }
+                    else return next();
+                });
+            } catch (err) {
+                throw err;
+            } finally {
+                connection.release();
+            }
         });
     }
     else {
