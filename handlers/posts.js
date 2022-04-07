@@ -30,14 +30,16 @@ exports.getPosts = (req, res, next) => {
             if (err) return next(err);
             //console.log(rows);
             //res.send("ur mom is hot");
-            res.render('shop', {posts: rows, currentUser: req.user});
+            res.render('shop', { posts: rows, currentUser: req.user });
         });
         connection.release();
     });
 };
 
 
-
+exports.createForum = (req, res, next) => {
+    res.render('posts/createPost', { message: req.flash('error'), currentUser: req.user});
+}
 exports.createPost = (req, res, next) => {
     pool.getConnection(async (err, connection) => {
         if (err) throw err;
@@ -84,7 +86,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getPost = (req, res, next) => {
     pool.getConnection((err, connection) => {
-        if(err) throw err;
+        if (err) throw err;
         try {
             connection.query(`SELECT * FROM posts WHERE id = ${req.params.id}`, (err, rows) => {
                 if (err) console.log(err); //change to next at some point
@@ -97,14 +99,14 @@ exports.getPost = (req, res, next) => {
                     image: rows[0].image,
                 }
                 console.log(post);
-                res.render('posts/showPost', { post});
+                res.render('posts/showPost', { post });
             });
         } catch (error) {
             console.log(error);
             req.flash('error', err.message || 'Oops! something went wrong.');
             res.redirect('back');
             return;
-        } finally{
+        } finally {
             connection.release
         }
     });
