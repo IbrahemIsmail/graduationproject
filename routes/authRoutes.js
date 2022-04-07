@@ -23,7 +23,7 @@ router.post('/login', passport.authenticate('login', {
     failureRedirect: '/login',
     failureFlash: true
 }), (req, res) => {
-    if (req.body.remember-me) req.session.maxAge = 1000*60*3;
+    if (req.body.remember-me) req.session.maxAge = 2629743833.3334;
     else req.session.expire = false;
     res.redirect(`/`);
 });

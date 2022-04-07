@@ -23,7 +23,7 @@ app.use(cookieParser(process.env.COOKIESECRET));
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    cookie: { maxAge: 2629743833.3334 },
+    cookie: { maxAge: 86400000 },
     saveUninitialized: false
 }));
 
