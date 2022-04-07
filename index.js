@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('./models/database');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -23,7 +23,7 @@ app.use(cookieParser(process.env.COOKIESECRET));
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 2629743833.3334 },
     saveUninitialized: false
 }));
 
@@ -40,17 +40,15 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(__dirname + "/public"));
 
+pool = mysql.createPool(db.conn);
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {
-    pool = mysql.createPool(db.conn);
-    pool.getConnection((err, connection) => {
-        if (err) throw err;
-        connection.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
-            done(err, rows[0]);
-        });
-        connection.release();
+    if (err) throw err;
+    pool.query("SELECT * FROM users WHERE id = ? ", [id], function (err, rows) {
+        done(err, rows[0]);
     });
 });
 

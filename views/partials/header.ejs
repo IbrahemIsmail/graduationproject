@@ -38,9 +38,9 @@
 					<a class="navbar-brand" href="/">PassBook</a>
 				</div>
 				<div class="nav navbar-nav navbar-center">
-					<form class="form-inline">
+					<form class="form-inline" action="/shop/searchData" method="post">
 						<input class="form-control mr-sm-2 nav-item" type="search" placeholder="Search"
-							aria-label="Search">
+							aria-label="Search" name="search">
 						<button class="btn btn-outline-success my-2 my-sm-0 nav-item" type="submit">Search</button>
 					</form>
 				</div>
@@ -59,3 +59,9 @@
 				</div>
 			</div>
 		</nav>
+		<% if(message && message.length>0) {%>
+			<div style="text-align: center" class="alert alert-danger">
+			  <%=message%>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+		<% }%>
