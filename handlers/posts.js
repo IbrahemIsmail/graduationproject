@@ -21,6 +21,23 @@ promiseQuery = (sql, args, connection) => {
     });
 }
 
+
+exports.getPosts = (req, res, next) => {
+    let query = 'SELECT * FROM posts';
+    pool.getConnection((err, connection) => {
+        if (err) throw err;
+        connection.query(query, (err, rows) => {
+            if (err) return next(err);
+            //console.log(rows);
+            //res.send("ur mom is hot");
+            res.render('shop', {posts: rows, currentUser: req.user});
+        });
+        connection.release();
+    });
+};
+
+
+
 exports.createPost = (req, res, next) => {
     pool.getConnection(async (err, connection) => {
         if (err) throw err;
@@ -84,8 +101,9 @@ exports.getPost = (req, res, next) => {
             });
         } catch (error) {
             console.log(error);
-            throw error;
+            req.flash('error', err.message || 'Oops! something went wrong.');
             res.redirect('back');
+            return;
         } finally{
             connection.release
         }

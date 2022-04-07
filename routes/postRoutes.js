@@ -1,16 +1,14 @@
 const express = require('express');
 const mw = require('../middleware')
-const { createPost, updatePost, deletePost, viewEdit, getPost} = require('../handlers/posts');
+const { createPost, updatePost, deletePost, viewEdit, getPost, getPosts} = require('../handlers/posts');
 const router = express.Router();
 const multer = require('multer');
-// const upload = multer({ dest: 'images/' });
+
 
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
 
-router.get('/shop', (req, res) => {
-    res.send('this will be home page');
-});
+router.get('/shop', getPosts);
 
 
 router.get('/shop/createpost', mw.isLoggedIn, (req, res) => {
