@@ -18,6 +18,7 @@ promisePool.getConnection(async (err, connection) => {
     }
 });
 
+///////gets all avialable posts for home page
 exports.getPosts = async (req, res, next) => {
     try {
         let query = 'SELECT * FROM posts';
@@ -68,6 +69,7 @@ exports.createPost = async (req, res, next) => {
 };
 
 
+///////select the clicked on post to show more info about it
 exports.getPost = async (req, res, next) => {
     try {
         let rows = await promisePool.query(`SELECT * FROM posts WHERE id = ${req.params.id}`);
@@ -88,6 +90,8 @@ exports.getPost = async (req, res, next) => {
     }
 }
 
+
+/////// the search forum 
 exports.searchPost = async (req, res) => {
     searchData = req.body.search;
     try {
