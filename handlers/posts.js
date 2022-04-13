@@ -33,6 +33,9 @@ exports.getPosts = async (req, res, next) => {
 exports.createForum = (req, res, next) => {
     res.render('posts/createPost', { message: req.flash('error'), currentUser: req.user });
 }
+
+
+//////////
 exports.createPost = async (req, res, next) => {
     try {
         let img = req.file.buffer.toString("base64");

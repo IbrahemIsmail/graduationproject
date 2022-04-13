@@ -32,14 +32,13 @@ exports.getCourses = async (req, res, next) => {
 
 
 
-
+////////Selecting all courses
 exports.getCourse = async (req, res, next) => {
     try {
-        let rows = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
+        let rows = await promisePool.query(`SELECT * FROM Courses WHERE id = ${req.params.id}`);
         let course = {
             id: rows[0][0].id,
-            name: rows[0][0].name,
-            teacherID: rows[0][0].teacherID,
+            courseCode: rows[0][0].courseCode,
             department: rows[0][0].department,
         }
         // console.log(post);
@@ -50,6 +49,55 @@ exports.getCourse = async (req, res, next) => {
         res.redirect('back');
         return;
     }
+};
+
+
+
+////////create a parent course
+exports.createCourse = async (req, res, next) => {
+    try {
+        let query = 'INSERT INTO Course (courseCode, name, departmentCode) values (?,?,?)';
+        let post = {
+            courseCode: req.body.courseCode,
+            name: req.body.name,
+            description: req.body.departmentCode,
+        }
+        if (post.courseCode.length <= 0 || post.name.length <= 0 || post.departmentCode.length <= 0) {
+            throw new Error('One or more empty fields');
+        }
+        await promisePool.query(query1,[post.courseCode, post.name, post.departmentCode])
+    }
+    catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('back');
+        return;
+    }
+    req.flash('success', 'Your course is live!');
+    res.redirect('/shop');//fix this u dumbass
+};
+
+
+////////create a teacher
+exports.createCourse = async (req, res, next) => {
+    try {
+        let query = 'INSERT INTO Teachers (name) values (?)';
+        let post = {    
+            price: req.body.name,
+        }
+        if (post.name.length <= 0 ) {
+            throw new Error('One or more empty fields');
+        }
+        await promisePool.query(query,[post.name])
+    }
+    catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('back');
+        return;
+    }
+    req.flash('success', 'Your course is live!');
+    res.redirect('/shop');//fix this u dumbass
 };
 
 exports.searchPost = async (req, res) => {
