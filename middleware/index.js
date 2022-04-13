@@ -40,7 +40,6 @@ middlewareObj.isLoggedIn = (req, res, next) => {
 middlewareObj.authUserPost = async (req, res, next) => {
     try {
         if (req.isAuthenticated()) {
-
             let rows = await promisePool.query(`SELECT * FROM posts JOIN postownership on posts.id = postownership.postID where postownership.studentID = ${req.user.id} AND posts.id = ${req.params.id}`);
             if (!rows[0].length) {
                 console.log('You Don\'t Have Permission To Do That');
@@ -52,6 +51,20 @@ middlewareObj.authUserPost = async (req, res, next) => {
         else {
             req.flash("error", "Please Log In First");
             res.redirect("/login");
+        }
+    } catch (err) {
+        throw err;
+    }
+}
+
+middlewareObj.authAdminUser = async (req, res, next) => {
+    try {
+        if (req.isAuthenticated) {
+            let user = await promisePool.query(`SELECT * FROM users WHERE username = ${req.user.username}`);
+            if (user[0][0].isAdmin) return next();
+            console.log('You Don\'t Have Permission To Do That');
+            req.flash('error', 'You Don\'t Have Permission To Do That');
+            res.redirect("back");
         }
     } catch (err) {
         throw err;

@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const mysql = require('mysql2');
 const db = require('../models/database');
+const { searchPost } = require('./posts');
 
 
 const pool = mysql.createPool(db.conn);
@@ -18,6 +19,17 @@ promisePool.getConnection(async (err, connection) => {
     }
 });
 
+search = (searchData, table) => {
+    try {
+        let query = `SELECT * FROM ${table} WHERE (title LIKE '%${searchData}%' OR description LIKE '%${searchData}%')`;
+        let results = await promisePool.query(query);
+        return results[0];
+    } catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        return;
+    }
+}
 
 exports.getCourses = async (req, res, next) => {
     try {
@@ -115,3 +127,19 @@ exports.searchPost = async (req, res) => {
 };
 
 
+exports.createCourseInstance = async (req, res) => {
+    try {
+        let query = "INSERT INTO courseInstances (year, teacherID, courseID) values (?,?,?)";
+        CI = {
+            year: req.body.year,
+            teacherID: searchPost(req.body.teacher, 'teachers')[0].id,
+            courseID: searchPost(req.body.course, 'teachers')[0].id
+        }
+        await promisePool.query(query, [CI.year, CI.teacherID, CI.courseID]);
+    } catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('back');
+        return;
+    }
+}
