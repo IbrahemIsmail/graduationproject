@@ -2,8 +2,6 @@ require('dotenv').config();
 
 const mysql = require('mysql2');
 const db = require('../models/database');
-const { searchPost } = require('./posts');
-
 
 const pool = mysql.createPool(db.conn);
 const promisePool = pool.promise();
@@ -41,10 +39,7 @@ exports.getCourses = async (req, res, next) => {
     }
 };
 
-
-
-
-////////Selecting all courses
+////////Selecting one course
 exports.getCourse = async (req, res, next) => {
     try {
         let rows = await promisePool.query(`SELECT * FROM Courses WHERE id = ${req.params.id}`);
@@ -62,8 +57,6 @@ exports.getCourse = async (req, res, next) => {
         return;
     }
 };
-
-
 
 ////////create a parent course
 exports.createCourse = async (req, res, next) => {
@@ -89,7 +82,6 @@ exports.createCourse = async (req, res, next) => {
     req.flash('success', 'Your course is live!');
     res.redirect('/');//fix this u dumbass
 };
-
 
 ////////create a teacher
 exports.createTeacher = async (req, res, next) => {
