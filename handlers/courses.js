@@ -19,9 +19,9 @@ promisePool.getConnection(async (err, connection) => {
     }
 });
 
-search = (searchData, table) => {
+const search = async (req, searchData, table, feild) => {
     try {
-        let query = `SELECT * FROM ${table} WHERE (title LIKE '%${searchData}%' OR description LIKE '%${searchData}%')`;
+        let query = `SELECT * FROM ${table} WHERE (${feild} LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         return results[0];
     } catch (err) {
@@ -68,16 +68,16 @@ exports.getCourse = async (req, res, next) => {
 ////////create a parent course
 exports.createCourse = async (req, res, next) => {
     try {
-        let query = 'INSERT INTO Course (courseCode, name, departmentCode) values (?,?,?)';
+        let query = 'INSERT INTO courses (courseCode, name, departmentCode) values (?,?,?)';
         let post = {
             courseCode: req.body.courseCode,
             name: req.body.name,
-            description: req.body.departmentCode,
+            departmentCode: req.body.departmentCode,
         }
         if (post.courseCode.length <= 0 || post.name.length <= 0 || post.departmentCode.length <= 0) {
             throw new Error('One or more empty fields');
         }
-        await promisePool.query(query1,[post.courseCode, post.name, post.departmentCode])
+        await promisePool.query(query, [post.courseCode, post.name, post.departmentCode]);
     }
     catch (err) {
         console.log(err);
@@ -85,22 +85,23 @@ exports.createCourse = async (req, res, next) => {
         res.redirect('back');
         return;
     }
+    console.log('Course Posted');
     req.flash('success', 'Your course is live!');
-    res.redirect('/shop');//fix this u dumbass
+    res.redirect('/');//fix this u dumbass
 };
 
 
 ////////create a teacher
-exports.createCourse = async (req, res, next) => {
+exports.createTeacher = async (req, res, next) => {
     try {
         let query = 'INSERT INTO Teachers (name) values (?)';
-        let post = {    
-            price: req.body.name,
+        let teacher = {    
+            name: req.body.name,
         }
-        if (post.name.length <= 0 ) {
+        if (teacher.name.length <= 0 ) {
             throw new Error('One or more empty fields');
         }
-        await promisePool.query(query,[post.name])
+        await promisePool.query(query, [teacher.name])
     }
     catch (err) {
         console.log(err);
@@ -108,8 +109,9 @@ exports.createCourse = async (req, res, next) => {
         res.redirect('back');
         return;
     }
-    req.flash('success', 'Your course is live!');
-    res.redirect('/shop');//fix this u dumbass
+    console.log('Teacher Posted');
+    req.flash('success', 'Your teacher is live!');
+    res.redirect('/');//fix this u dumbass
 };
 
 exports.searchPost = async (req, res) => {
@@ -130,10 +132,12 @@ exports.searchPost = async (req, res) => {
 exports.createCourseInstance = async (req, res) => {
     try {
         let query = "INSERT INTO courseInstances (year, teacherID, courseID) values (?,?,?)";
+        let teacherID = await search(req, req.body.teacher, 'teachers', 'name');
+        let courseID = await search(req, req.body.course, 'courses', 'courseCode');
         CI = {
             year: req.body.year,
-            teacherID: searchPost(req.body.teacher, 'teachers')[0].id,
-            courseID: searchPost(req.body.course, 'teachers')[0].id
+            teacherID: teacherID[0].id,
+            courseID: courseID[0].id
         }
         await promisePool.query(query, [CI.year, CI.teacherID, CI.courseID]);
     } catch (err) {

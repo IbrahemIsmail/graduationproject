@@ -15,6 +15,7 @@ const mw = require('./middleware');
 
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
+const courseRoutes = require('./routes/courseRoutes');
 
 require('./handlers/auth')(passport);
 
@@ -65,6 +66,7 @@ app.get('/account/:username', mw.authUserPage, (req, res) => {
 });
 app.use('/', authRoutes);
 app.use('/shop', postRoutes);
+app.use('/courses', courseRoutes);
 
 
 
