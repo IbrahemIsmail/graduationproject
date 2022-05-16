@@ -31,8 +31,9 @@ const search = async (req, searchData, table, feild) => {
 
 exports.getCourses = async (req, res, next) => {
     try {
-        let query = 'SELECT * FROM courses';
+        let query = 'SELECT * FROM courseinstances';
         let rows = await promisePool.query(query);
+        console.log(rows[0]);
         res.render('coursesHome', { posts: rows[0], currentUser: req.user });
     } catch (err) {
         throw err;
@@ -42,13 +43,17 @@ exports.getCourses = async (req, res, next) => {
 ////////Selecting one course
 exports.getCourse = async (req, res, next) => {
     try {
-        let rows = await promisePool.query(`SELECT * FROM Courses WHERE id = ${req.params.id}`);
+        let rows = await promisePool.query(`SELECT * FROM courseinstances WHERE id = ${req.params.id}`);
+        let teacherName = await promisePool.query(`SELECT name FROM teachers WHERE id=${rows[0][0].teacherID}`);
+        let courseName = await promisePool.query(`SELECT name FROM courses WHERE id=${rows[0][0].courseID}`);
+        let courseCode = await promisePool.query(`SELECT courseCode FROM courses WHERE id=${rows[0][0].courseID}`);
         let course = {
             id: rows[0][0].id,
-            courseCode: rows[0][0].courseCode,
-            department: rows[0][0].department,
+            teacherName: teacherName[0][0].name,
+            courseName: courseName[0][0].name,
+            courseCode: courseCode[0][0].courseCode
         }
-        // console.log(post);
+        console.log(course);
         res.render('courses/showCourse', { course, currentUser: req.user });
     } catch (err) {
         console.log(err);
@@ -106,10 +111,10 @@ exports.createTeacher = async (req, res, next) => {
     res.redirect('/');//fix this u dumbass
 };
 
-exports.searchPost = async (req, res) => {
+exports.searchCourseInstance = async (req, res) => {
     searchData = req.body.search;
     try {
-        let query = `SELECT * FROM courses WHERE (title LIKE '%${searchData}%' OR department LIKE '%${searchData}%')`;
+        let query = `SELECT * FROM courseinstances left join courses c on courseinstances.courseID = c.id left join teachers t on courseinstances.teacherID = t.id WHERE (t.name LIKE '%${searchData}%' OR c.name LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         console.log(results[0]);
         res.render('coursesHome', { courses: results[0], currentUser: req.user });
