@@ -29,6 +29,12 @@ const search = async (req, searchData, table, feild) => {
     }
 }
 
+
+exports.showforums = (req, res, next) =>{
+    res.render('courses/courseForums', {message: req.flash('error'), currentUser: req.user});
+}
+
+
 exports.getCourses = async (req, res, next) => {
     try {
         let query = 'SELECT * FROM courseinstances';
@@ -80,12 +86,12 @@ exports.createCourse = async (req, res, next) => {
     catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
-        res.redirect('back');
+        res.redirect('back', {message: req.flash('error')});
         return;
     }
     console.log('Course Posted');
     req.flash('success', 'Your course is live!');
-    res.redirect('/');//fix this u dumbass
+    res.redirect('/courses/addcourse');
 };
 
 ////////create a teacher
@@ -103,12 +109,12 @@ exports.createTeacher = async (req, res, next) => {
     catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
-        res.redirect('back');
+        res.redirect('back', {message: req.flash('error')});
         return;
     }
     console.log('Teacher Posted');
     req.flash('success', 'Your teacher is live!');
-    res.redirect('/');//fix this u dumbass
+    res.redirect('/courses/addcourses');
 };
 
 exports.searchCourseInstance = async (req, res) => {
@@ -143,4 +149,8 @@ exports.createCourseInstance = async (req, res) => {
         res.redirect('back');
         return;
     }
+    console.log('Course instance created');
+    req.flash('success', 'Your course instance is live!');
+    res.redirect('back');
 }
+
