@@ -18,18 +18,30 @@ promisePool.getConnection(async (err, connection) => {
     }
 });
 
+checkDouble = (num)=>{
+    if(num >= 0 && num <=5) return num;
+    else if(num < 0) return 0;
+    else if(num > 5) return 5;
+}
+
 exports.giveRating = async (req, res) =>{
     try {
         userID = await promisePool.query(`SELECT id FROM users WHERE username = '${req.user.username}'`);
-        rating = {
+        let reviews = await promisePool.query(`SELECT * FROM ratings WHERE courseInstanceID = ${req.params.id}`);
+        reviews[0].forEach((review) => {
+            if(review.userID == userID[0][0].id) {
+                throw Error("You can only give one review");
+            }
+        });
+         rating = {
             userID: userID[0][0].id,
             courseID: parseInt(req.params.id),
-            curriculum: req.body.curriculum,
-            teacher: req.body.teacher,
-            teachingMethods: req.body.teachingMethods,
-            expectations: req.body.expectations,
-            exams: req.body.exams,
-            difficulty: req.body.difficulty,
+            curriculum: checkDouble(req.body.curriculum),
+            teacher: checkDouble(req.body.teacher),
+            teachingMethods: checkDouble(req.body.teachingMethods),
+            expectations: checkDouble(req.body.expectations),
+            exams: checkDouble(req.body.exams),
+            difficulty: checkDouble(req.body.difficulty),
             description: req.body.description
         }
         let query = "INSERT INTO ratings (userID, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, difficulty, description) VALUES (?,?,?,?,?,?,?,?,?)";
