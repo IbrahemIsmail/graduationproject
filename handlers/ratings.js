@@ -33,6 +33,7 @@ exports.giveRating = async (req, res) =>{
                 throw Error("You can only give one review");
             }
         });
+        
          rating = {
             userID: userID[0][0].id,
             courseID: parseInt(req.params.id),
@@ -41,15 +42,36 @@ exports.giveRating = async (req, res) =>{
             teachingMethods: checkDouble(req.body.teachingMethods),
             expectations: checkDouble(req.body.expectations),
             exams: checkDouble(req.body.exams),
-            difficulty: checkDouble(req.body.difficulty),
-            description: req.body.description
+            difficulty: checkDouble(req.body.exams),
+            description: req.body.description,
+            rating: 0
         }
-        let query = "INSERT INTO ratings (userID, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, difficulty, description) VALUES (?,?,?,?,?,?,?,?,?)";
-        await promisePool.query(query, [rating.userID, rating.courseID, rating.curriculum, rating.teacher, rating.teachingMethods, rating.expectations, rating.exams, rating.difficulty, rating.description]);
+        rating.rating=checkDouble((rating.curriculum+rating.teacher+rating.teachingMethods+rating.expectations+rating.exams+rating.exams)/6 );
+        let query = "INSERT INTO ratings (userID, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, difficulty, description, rating) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        await promisePool.query(query, [rating.userID, rating.courseID, rating.curriculum, rating.teacher, rating.teachingMethods, rating.expectations, rating.exams, rating.difficulty, rating.description, rating.rating]);
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
         res.redirect('back');
         return;
+    }
+}
+
+
+exports.showRatings = async (req, res) =>{
+    try{
+        ratings = await promisePool.query(`Select * from ratings where courseInstance = '${req.params.courseID}'`);
+        courseInstance = await promisePool.query(`Select * from courseinstances where id = ${req.params.courseID}'`);
+        avg = 0.0;
+        numb = 0;
+        ratings[0].forEach((rating) => {
+            avg = (avg+rating.rating)
+            numb ++;
+        });
+        console.log(avg2=avg/numb);
+
+    }
+    catch (err){
+        console.log(err);
     }
 }
