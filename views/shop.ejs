@@ -1,23 +1,25 @@
 <%- include("partials/header.ejs")%>
   <section class="bg-gradient-light padding">
-    <div class="center max-width-l">
+    <div class="center max-width-l jumbotron">
       <h2>Available Books</h2>
       <p class="paragraph">Browse around and look for university books that you will need throughout the semester.</p>
     </div>
-    <div class="row margin-top max-width-l">
+    <div class="row margin-top d-flex justify-content-around">
       <% posts.forEach(function(post){ %>
-        <div class="col-one-fourth card card-content">
-          <img  src="data:image/jpg;base64,<%= post.image %>">
-          <h5>
-            <%=post.title%>
-          </h5>
-          <p class="muted">
-            <%=post.price%>
-          </p>
-          <p class="desc">
-            <%=post.description%>
-          </p>
-          <a href="shop/id=<%=post.id%>" marign:0 5%  class="btn btn-primary">more info</a>
+        <div class="col-6 col-sm-6 col-lg-2 col-md-4 card" style="width: 18rem; margin: 15px 30px;">
+          <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%=post.title%>
+            </h5>
+            <p class="">
+              <%=post.price%> TL
+            </p>
+            <!-- <p class="card-text">
+              <%=post.description%>
+            </p> -->
+            <a href="shop/id=<%=post.id%>" marign:0 5% class="btn btn-primary">more info</a>
+          </div>
         </div>
         <% }); %>
     </div>
