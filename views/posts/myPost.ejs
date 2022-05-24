@@ -1,0 +1,32 @@
+<%- include("../partials/header.ejs")%>
+<section class="bg-gradient-light padding">
+    <div class="center max-width-l">
+      <h2>My Books</h2>
+      <p class="paragraph">You will browse, edit, and delete the books you have put up for sale here.</p>
+    </div>
+    <div class="row margin-top max-width-l">
+      <% posts.forEach(function(post){ %>
+        <div class="col-one-fourth card">
+          <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%=post.title%>
+            </h5>
+            <p class="">
+              <%=post.price%> TL
+            </p>
+            <!-- <p class="card-text">
+              <%=post.description%>
+            </p> -->
+            <a href="shop/id=<%=post.id%>" marign:0 5%  class="btn btn-primary">more info</a>
+          </div>
+        </div>
+        <% }); %>
+    </div>
+    <!-- <div class="center margin-top max-width-l">
+        <span class="muted">If you need any help, make sure to </span><a href="signup.html">book a demo</a><span
+          class="muted">.</span>
+      </div> -->
+  </section>
+
+<%- include("../partials/footer.ejs")%>

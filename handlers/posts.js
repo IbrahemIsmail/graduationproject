@@ -94,6 +94,22 @@ exports.getPost = async (req, res, next) => {
 }
 
 
+
+////////get all the owned books
+exports.ownedBooks = async (req, res) =>{
+    try{
+        posts = await promisePool.query(`SELECT * FROM posts INNER JOIN postownership ON posts.id=postownership.postID and postownership.studentID= '${req.user.id}'`);
+        res.render('posts/myPost', {posts: posts[0], currentUser: req.user});
+    } catch (err){
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('back');
+        return;
+    }
+}
+
+
+
 /////// the search forum 
 exports.searchPost = async (req, res) => {
     searchData = req.body.search;
