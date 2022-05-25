@@ -712,7 +712,7 @@ p:last-child {
 } */
 
 /* Remove gutter between columns */
-/* .row.no-gutter .col-one-half {
+.row.no-gutter .col-one-half {
   width: 50%;
 }
 
@@ -769,14 +769,14 @@ p:last-child {
   .row.no-gutter [class^="col-"] {
     width: 100%;
   }
-} */
+}
 
 /* -----------------------------------------------------------------------------
 
 # Tools - Align
 
 ----------------------------------------------------------------------------- */
-/* .center {
+.center {
   text-align: center;
 }
 
@@ -823,14 +823,14 @@ p:last-child {
   .center-mobile {
     text-align: center;
   }
-} */
+}
 
 /* -----------------------------------------------------------------------------
 
 # Tools - Background
 
 ----------------------------------------------------------------------------- */
-/* .bg-dark {
+.bg-dark {
   background: #110f24;
 }
 
@@ -844,10 +844,10 @@ p:last-child {
 
 .bg-white {
   background: #fff;
-} */
+}
 
 /* Gradients */
-/* .bg-gradient-dark {
+.bg-gradient-dark {
   background: #05050b;
   background: -webkit-linear-gradient(#110f24 0%, #05050b 100%);
   background: -moz-linear-gradient(#110f24 0%, #05050b 100%);
@@ -944,10 +944,10 @@ p:last-child {
   background: -ms-linear-gradient(#9e3ee2 0%, #7421db 100%);
   background: -o-linear-gradient(#9e3ee2 0%, #7421db 100%);
   background: linear-gradient(#9e3ee2 0%, #7421db 100%);
-} */
+}
 
 /* Advanced backgrounds */
-/* [class*="bg-image-"],
+[class*="bg-image-"],
 [class*="overlay-"] {
   overflow: hidden;
   position: relative;
@@ -977,10 +977,10 @@ p:last-child {
 [class*="bg-image-"]:after,
 [class*="overlay-"]:after {
   z-index: -2;
-} */
+}
 
 /* Overlays */
-/* .overlay:before {
+.overlay:before {
   background: rgba(255, 255, 255, 0.7);
 }
 
@@ -1034,10 +1034,10 @@ p:last-child {
 
 .dark.overlay-shape-06:before {
   background: url(../media/bg/shape-dark-06.svg);
-} */
+}
 
 /* Images */
-/* .bg-image-01:after {
+.bg-image-01:after {
   background: url(../media/bg/image-01@2x.jpg);
 }
 
@@ -1124,11 +1124,11 @@ p:last-child {
   background: -ms-linear-gradient(#110f24 0%, #05050b 100%);
   background: -o-linear-gradient(#110f24 0%, #05050b 100%);
   background: linear-gradient(#110f24 0%, #05050b 100%);
-} */
+}
 
-/* .overlay-hero:before {
+.overlay-hero:before {
   background: url(../media/bg/shape-hero.svg);
-} */
+}
 
 /* -----------------------------------------------------------------------------
 
