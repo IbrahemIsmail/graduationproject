@@ -1,5 +1,14 @@
 <%- include("../partials/header.ejs")%>
 
+  <div class="container">
+    <% if(message && message.length>0) {%>
+        <div style="text-align: center" class="alert alert-danger">
+          <%=message%>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        <% }%>
+  </div>
+
   <section class="bg-gradient-light padding">
     <div class="center max-width-l jumbotron">
       <h2>Available Books</h2>
@@ -20,7 +29,7 @@
             <%=post.description%>
           </p> -->
             <div class="row">
-              <a href="shop/editpost/id=:id%>" marign:0 5% class="btn btn-primary margin-right">Edit & View</a>
+              <a href="/shop/editpost/id=<%=post.id%>" marign:0 5% class="btn btn-primary margin-right">Edit & View</a>
               <form action="/shop/id=<%= post.id %>?_method=delete" method="post">
                 <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
               </form>

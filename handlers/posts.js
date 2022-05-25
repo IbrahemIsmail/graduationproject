@@ -99,7 +99,7 @@ exports.getPost = async (req, res, next) => {
 exports.ownedBooks = async (req, res) =>{
     try{
         posts = await promisePool.query(`SELECT * FROM posts INNER JOIN postownership ON posts.id=postownership.postID and postownership.studentID= '${req.user.id}'`);
-        res.render('posts/myPost', {posts: posts[0], currentUser: req.user});
+        res.render('posts/myPost', {posts: posts[0], currentUser: req.user, message: req.flash('success')});
     } catch (err){
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
