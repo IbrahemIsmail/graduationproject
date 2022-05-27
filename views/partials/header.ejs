@@ -42,23 +42,23 @@
 					<a class="navbar-brand" href="/">PassBook</a>
 				</div>
 				<div class="nav navbar-nav navbar-center">
-					<form class="form-inline" action="/shop/searchData" method="post">
-						<input class="form-control mr-sm-2 nav-item" type="search" placeholder="Search"
+					<form class="d-flex" action="/shop/searchData" method="post">
+						<input class="form-control nav-item me-3" type="search" placeholder="Search"
 							aria-label="Search" name="search">
-						<button class="btn btn-outline-success my-2 my-sm-0 nav-item" type="submit">Search</button>
+							<button class="btn btn-outline-primary my-2 my-sm-0 nav-item" type="submit">Search</button>
 					</form>
 				</div>
 				<div class="">
 					<ul class="nav navbar-nav navbar-right">
 						<% if(!currentUser) {%>
-							<li class="nav-item margin-right"><a href="/login">Login</a></li>
-							<li class="nav-item margin-right"><a href="/signup">Sign Up</a></li>
+							<li class="nav-item me-3"><a class="nav-link" href="/login">Login</a></li>
+							<li class="nav-item me-3"><a class="nav-link" href="/signup">Sign Up</a></li>
 							<% } else{ %>
-								<li class="nav-item margin-right"><a href="#">Signed in as:<strong>
+								<li class="nav-item me-3"><a class="nav-link" href="#">Signed in as:<strong>
 											<%= currentUser.username%>
 										</strong></a></li>
-								<li class="nav-item margin-right"> <a href="/shop/myposts">My Books</a></li>
-								<li class="nav-item"><a href="/logout">Log Out</a></li>
+								<li class="nav-item me-3"> <a class="nav-link" href="/shop/myposts">My Books</a></li>
+								<li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
 								<% } %>
 					</ul>
 				</div>
