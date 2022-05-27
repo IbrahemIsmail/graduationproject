@@ -11,10 +11,11 @@
 	<link rel="icon" href="media/favicon.png">
 	<link rel="mask-icon" href="media/favicon.svg" color="rgb(36,38,58)">
 	<link rel="shortcut icon" href="media/favicon.png">
-	<link rel="stylesheet" href="/css/main.css">
+	<!-- <link rel="stylesheet" href="/css/main.css"> -->
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 	<!-- Optional theme -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -23,10 +24,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="page page-onboarding preload">
@@ -53,7 +57,7 @@
 								<li class="nav-item margin-right"><a href="#">Signed in as:<strong>
 											<%= currentUser.username%>
 										</strong></a></li>
-								<li class="nav-item margin-right"> <a href="/shop/myposts">My Books</a></li>		
+								<li class="nav-item margin-right"> <a href="/shop/myposts">My Books</a></li>
 								<li class="nav-item"><a href="/logout">Log Out</a></li>
 								<% } %>
 					</ul>
@@ -62,7 +66,7 @@
 		</nav>
 		<% if(message && message.length>0) {%>
 			<div style="text-align: center" class="alert alert-danger">
-			  <%=message%>
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<%=message%>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
 			</div>
-		<% }%>
+			<% }%>
