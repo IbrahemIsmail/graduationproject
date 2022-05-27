@@ -48,7 +48,7 @@ module.exports = (passport) => {
                 return done();
             }
             if (rows[0].length) {
-                console.log("user taken"); //change to flash
+                // console.log("user taken"); //change to flash
                 req.flash('error', 'User taken');
                 return done();
             }
@@ -86,7 +86,7 @@ module.exports = (passport) => {
             }
 
             if (!bcrypt.compareSync(password, rows[0][0].password)) {
-                console.log('wrong user or password'); //change to flash
+                // console.log('wrong user or password'); //change to flash
                 req.flash('error', 'Wrong username or password'); // do something here
                 return done();
             }

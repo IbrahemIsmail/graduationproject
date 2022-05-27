@@ -3,13 +3,11 @@ var passport = require('passport');
 const router = express.Router();
 
 router.get('/signup', (req, res) => {
-    //res.render here dumbasses
-    res.render('authentication/signup', {message: req.flash('error')});
+    res.render('authentication/signup', {message: req.flash('error'), currentUser: req.user});
 });
 
 router.get('/login', (req, res) => {
-    //res.render here dumbasses
-    res.render('authentication/signin', {message: req.flash('error')});
+    res.render('authentication/signin', {message: req.flash('error'), currentUser: req.user});
 });
 
 router.post('/signup', passport.authenticate('signup', {

@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const mysql = require('mysql2');
 const db = require('../models/database');
-
+var pluralize = require('pluralize');
 
 const pool = mysql.createPool(db.conn);
 const promisePool = pool.promise();
@@ -17,6 +17,25 @@ promisePool.getConnection(async (err, connection) => {
         connection.release();
     }
 });
+
+
+////////query to find/search similar books
+const search = async (req, searchData, sameID) => {
+    try {
+        let query = `SELECT * FROM posts WHERE (title LIKE '%${searchData}%' AND id!=${sameID})`;
+        let results = await promisePool.query(query);
+        return results[0];
+    } catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        return;
+    }
+}
+
+
+
+
+
 
 ///////gets all avialable posts for home page
 exports.getPosts = async (req, res, next) => {
@@ -84,7 +103,15 @@ exports.getPost = async (req, res, next) => {
             image: rows[0][0].image,
         }
         // console.log(post);
-        res.render('posts/showPost', { post, currentUser: req.user });
+        title=pluralize.singular(post.title);
+        let similarPosts= await search(req, title, req.params.id);
+        //console.log(similarPosts);
+        if (similarPosts != null && similarPosts.length>0){
+            res.render('posts/showPost', { post, currentUser: req.user, similarPosts});
+        }
+        else{
+            res.render('posts/showPost', { post, currentUser: req.user, similarPosts: null});
+        }
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -99,7 +126,7 @@ exports.getPost = async (req, res, next) => {
 exports.ownedBooks = async (req, res) =>{
     try{
         posts = await promisePool.query(`SELECT * FROM posts INNER JOIN postownership ON posts.id=postownership.postID and postownership.studentID= '${req.user.id}'`);
-        res.render('posts/myPost', {posts: posts[0], currentUser: req.user});
+        res.render('posts/myPost', {posts: posts[0], currentUser: req.user, message: req.flash('success')});
     } catch (err){
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -107,6 +134,8 @@ exports.ownedBooks = async (req, res) =>{
         return;
     }
 }
+
+
 
 
 
