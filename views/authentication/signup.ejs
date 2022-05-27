@@ -19,7 +19,7 @@
             <% }%>
       </div>
 
-      <div class="container">
+      <!-- <div class="container">
         <section class="row no-gutter reverse-order">
           <div class="col-one-half middle padding">
             <div class="max-width-s">
@@ -51,6 +51,40 @@
           </div>
           <div class="col-one-half bg-image-05 featured-image"></div>
         </section>
-      </div>
+      </div> -->
+
+      <section class="container m-2">
+        <div class="row m-3 p-2 ms-5">
+          <div class="col-6 col-md-4 m-5">
+            <div class="w-100">
+              <h5>Welcome back.</h5>
+              <p class="paragraph">Enter your details below.</p>
+              <form action="signup" method="POST">
+                <div class="form-floating mb-3">
+                  <input class="form-control" id="username" type="text" name="username" placeholder="Username">
+                  <label for="username">Username</label>
+                </div>
+                <div class="form-floating">
+                  <label for="email">Email</label>
+                  <input class="form-control mb-3" id="email" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="form-floating mb-3">
+                  <input class="form-control" id="password" type="password" name="password" placeholder="Password">
+                  <label for="password">Password</label>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <button type="submit" class="btn btn-primary mb-3">Create account</button>
+                </div>
+              </form>
+            </div>
+            <div class="center w-100">
+              <span class="muted">Already have an account? </span><a href="/login">Log In</a>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="container-fluid w-100"><%- include("../../public/assets/signupSVG.ejs") %></div>
+          </div>
+        </div>
+      </section>
     </main>
-    <%- include("../partials/header.ejs")%>
+    <%- include("../partials/footer")%>
