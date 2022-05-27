@@ -1,12 +1,13 @@
 <%- include("partials/header.ejs")%>
-  <section class="bg-gradient-light padding">
-    <div class="center max-width-l jumbotron">
-      <h2>Available Books</h2>
-      <p class="paragraph">Browse around and look for university books that you will need throughout the semester.</p>
+  <section class="">
+    <div class="">
+      <h2 class="d-flex justify-content-center mt-3">Available Books</h2>
+      <p class="d-flex justify-content-center">Browse around and look for university books that you will need throughout the semester.</p>
     </div>
     <div class="row margin-top d-flex justify-content-around">
       <% posts.forEach(function(post){ %>
-        <div class="col-6 col-sm-6 col-lg-2 col-md-4 card" style="width: 18rem; margin: 15px 30px;">
+        <!-- col stuff is not making any difference in here lol -->
+        <div class="col-6 col-sm-6 col-lg-2 col-md-4 card " style="width: 18rem; margin: 15px 30px;">
           <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
           <div class="card-body">
             <h5 class="card-title">
