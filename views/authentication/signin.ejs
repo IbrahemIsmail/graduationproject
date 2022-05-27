@@ -19,9 +19,9 @@
             <% }%>
       </div>
       
-      <div class="container">
-        <section class="row">
-          <div class="col-6 col-md-4">
+      <section class="container m-2">
+        <div class="row m-3 p-2 ms-5">
+          <div class="col-6 col-md-4 m-5">
             <div class="w-100">
               <h5>Welcome back.</h5>
               <p class="paragraph">Enter your details below.</p>
@@ -45,12 +45,14 @@
                 </div>
               </form>
             </div>
-            <div class="center max-width-s space-top">
-              <span class="muted">Don't have an account? </span><a href="/signup">Sign Up</a>
+            <div class="center w-100">
+              <span class="text-muted">Don't have an account? </span><a href="/signup">Sign Up</a>
             </div>
           </div>
-          <div class="col-one-half bg-image-04 featured-image"></div>
-        </section>
-      </div>
+          <div class="col-6 col-md-4 ms-5">
+            <div class="img-fluid w-100"><%- include("../../public/assets/loginSVG.ejs") %></div>
+          </div>
+        </div>
+      </section>
     </main>
     <%- include("../partials/footer.ejs")%>
