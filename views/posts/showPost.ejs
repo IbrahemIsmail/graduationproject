@@ -31,4 +31,33 @@
             </div>
         </div>
     </section>
+    <section>
+        <div class="container-fluid ">
+            <div class="d-flex flex-row justify-content-around flex-wrap">
+                <% if(similarPosts && similarPosts !=null) {%>
+                    <% similarPosts.forEach(function(post){ %>
+                        <div class="card" style="width: 18rem; margin: 15px 30px;">
+                            <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%=post.title%>
+                                </h5>
+                                <p class="card-text">
+                                    <%=post.description%>
+                                </p>
+                                <p class="card-text"><small class="text-muted">
+                                        <%=post.price%>
+                                    </small></p>
+                            </div>
+                        </div>
+                        <% }) %>
+            </div>
+        </div>
+        <% } else{ %>
+            <h4>
+                No suggestions available
+            </h4>
+            <%}%>
+    </section>
     <%- include("../partials/footer.ejs")%>
