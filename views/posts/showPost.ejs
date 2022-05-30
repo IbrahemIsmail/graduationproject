@@ -1,7 +1,7 @@
 <%- include("../partials/header.ejs")%>
     <section class="container">
         <div class="row d-flex mt-5">
-            <div class="col-md-4">
+            <div class="col-md-4 me-5">
                 <ul class="list-group">
                     <li class="list-group-item active" aria-current="true">An active item</li>
                     <li class="list-group-item">A second item</li>
@@ -10,7 +10,21 @@
                     <li class="list-group-item">And a fifth one</li>
                 </ul>
             </div>
-            <div class="border-primary mb-3 row col-md-8 g-0 bg-light position-relative">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="data:image/jpg;base64,<%= post.image %>" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=post.title%></h5>
+                      <p class="card-text"><%=post.description%></p>
+                      <p class="card-text"><small class="text-muted"> <%=post.price%> TL</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- <div class="border-primary mb-3 row col-md-8 g-0 bg-light position-relative">
                 <div class="col-md-6 mb-md-0 p-md-4">
                     <img src="data:image/jpg;base64,<%= post.image %>" class="flex-shrink-0 me-3" alt="...">
                 </div>
@@ -28,16 +42,28 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     <section>
         <div class="container-fluid ">
-            <div class="d-flex flex-row justify-content-around flex-wrap">
+            <div class="d-flex flex-row flex-wrap">   
+                <!-- class="d-flex flex-row flex-wrap " -->
                 <% if(similarPosts && similarPosts !=null) {%>
+                    <h4 class="text-center">Suggested Books</h4>
                     <% similarPosts.forEach(function(post){ %>
-                        <div class="card" style="width: 18rem; margin: 15px 30px;">
-                            <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>"
+                        <!-- <div class="card col-md-2 col-lg-2"> -->
+                            <div class="row row-cols-1 row-cols-md-3 g-4">
+                                <div class="col">
+                                  <div class="card">
+                                    <img src="data:image/jpg;base64,<%= post.image %>" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title"><%=post.title%>           <%=post.price%></h5>
+                                      <p class="card-text"> <%=post.description%></p>
+                                    </div>
+                                  </div>
+                                </div>
+                            <!-- <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>"
                                 alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -48,9 +74,9 @@
                                 </p>
                                 <p class="card-text"><small class="text-muted">
                                         <%=post.price%>
-                                    </small></p>
+                                    </small></p> -->
                             </div>
-                        </div>
+                        <!-- </div> -->
                         <% }) %>
             </div>
         </div>

@@ -6,30 +6,33 @@
         </div>
         <% }%>
             <section class="row no-gutter reverse-order">
-                <div class="col-one-half middle padding">
-                    <div class="max-width-s">
-                        <form class="container" action="/shop/createpost" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="title">Title:</label>
-                                <input id="title" type="text" name="title">
-                            </div>
-                            <div class="form-group">
-                                <label for="price">Price:</label>
-                                <input id="price" type="number" name="price" step=".01">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description:</label>
-                                <textarea id="description" type="text" name="description"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Image:</label>
-                                <input type="file" name="file">
-                            </div>
-                            <button class="button button-primary full-width">Submit</button>
-                        </form>
+
+                <div class="col-6 col-md-4 m-5">
+                    <div class="w-100">
+                      <p class="paragraph">Enter your details below.</p>
+                      <form action="/shop/createpost" method="POST" enctype="multipart/form-data">
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="title" type="text" name="title" placeholder="Title">
+                          <label for="title">Title</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input class="form-control mb-3" id="price" type="text" name="price" placeholder="Price">
+                          <label for="price">Price</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="description" type="description" name="description" placeholder="Description">
+                          <label for="description">Description</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <!-- <label for="image">Image:</label> -->
+                            <input class="form-control" type="file" name="file" placeholder="Image">
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                          <button type="submit" class="btn btn-primary mb-3">Update</button>
+                        </div>
+                      </form>
                     </div>
-                </div>
+                  </div>
             </section>
             </main>
-            <script src="js/main.js"></script>
             <%- include("../partials/footer.ejs")%>

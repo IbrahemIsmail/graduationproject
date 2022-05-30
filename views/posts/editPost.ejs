@@ -6,12 +6,37 @@
         </div>
         <% }%>
 
+        <section class="container d-flex justify-content-around">
+              <div class="col-6 col-md-4 m-5">
+                <div class="w-100">
+                  <p class="paragraph">Enter your details below.</p>
+                  <form action="/shop/id=<%= post.id %>?_method=put" method="POST" enctype="multipart/form-data">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="title" type="text" name="title" placeholder="Title">
+                      <label for="title">Title</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control mb-3" id="price" type="text" name="price" placeholder="Price">
+                      <label for="price">Price</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="description" type="description" name="description" placeholder="Description">
+                      <label for="description">Description</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <!-- <label for="image">Image:</label> -->
+                        <input class="form-control" type="file" name="file" placeholder="Image">
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button type="submit" class="btn btn-primary mb-3">Update</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            
 
-            <section class="container d-flex justify-content-around">
-                <section class="row ">
-                    <!-- no-gutter reverse-order -->
+                <!-- <section class="row ">
                     <div >
-                        <!-- class="col-one-half middle padding" -->
                         <div class="max-width-s">
                             <form class="container" action="/shop/id=<%= post.id %>?_method=put" method="post"
                                 enctype="multipart/form-data">
@@ -31,19 +56,14 @@
                                 <div class="form-group">
                                     <label for="image">Image:</label>
                                     <input type="file" name="file">
-                                    <!-- <img src="data:image/jpg;base64,<%= post.image %>" /> -->
-                                    <!-- <img src="/images/<%=post.image%>" alt=""> -->
                                 </div>
                                 <button class="button button-primary full-width">Update</button>
                             </form>
-                            <!-- <form action="/shop/id=<%= post.id %>?_method=delete" method="post">
-                                <button type="submit"><i class="far fa-trash-alt"></i></button>
-                            </form> -->
                         </div>
                     </div>
-                </section>
+                </section> -->
                 <!-- ////////////////////////////////////////-->
-                <section>
+                <section class="mt-5">
                         <div class="row margin-top d-flex justify-content-around">
                             <div class="card" style="width: 16rem; margin: -25px 30px;">
                               
@@ -61,11 +81,6 @@
                               <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
                             </div>
                         </div>
-                        <!-- <div class="center margin-top max-width-l">
-                            <span class="muted">If you need any help, make sure to </span><a href="signup.html">book a demo</a><span
-                              class="muted">.</span>
-                          </div> -->
-                      
                 </section>
             </section>
             </main>
