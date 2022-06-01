@@ -1,58 +1,62 @@
 <%- include("../partials/header.ejs")%>
-    <% if(message && message.length>0) {%>
-        <div style="text-align: center" class="alert alert-danger">
-            <%=message%>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-        <% }%>
+  <% if(message && message.length>0) {%>
+    <div style="text-align: center" class="alert alert-danger">
+      <%=message%>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    <% }%>
 
-        <section class="container d-flex justify-content-around">
-              <div class="col-6 col-md-4 m-5">
-                <div class="w-100">
-                  <p class="paragraph">Please enter information about the book.<br>(The title, price, description, and kindly attach an image of the book.)</p>
-                  <form action="/shop/id=<%= post.id %>?_method=put" method="POST" enctype="multipart/form-data">
-                    <div class="form-floating mb-3">
-                      <input class="form-control" id="title" type="text" name="title" placeholder="Title">
-                      <label for="title">Title</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <input class="form-control mb-3" id="price" type="text" name="price" placeholder="Price">
-                      <label for="price">Price</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <input class="form-control" id="description" type="description" name="description" placeholder="Description">
-                      <label for="description">Description</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <!-- <label for="image">Image:</label> -->
-                        <input class="form-control" type="file" name="file" placeholder="Image">
-                    </div>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                      <button type="submit" class="btn btn-primary mb-3">Update</button>
-                    </div>
-                  </form>
-                </div>
+      <section class="container d-flex justify-content-around">
+        <div class="col-6 col-md-4 m-5">
+          <div class="w-100">
+            <p class="paragraph">Please enter information about the book.<br>(The title, price, description, and kindly
+              attach an image of the book.)</p>
+            <form action="/shop/id=<%= post.id %>?_method=put" method="POST" enctype="multipart/form-data">
+              <div class="form-floating mb-3">
+                <input class="form-control" id="title" type="text" name="title" placeholder="Title">
+                <label for="title">Title</label>
               </div>
-            
-                <section class="mt-5">
-                        <div class="row margin-top d-flex justify-content-around">
-                            <div class="card" style="width: 16rem; margin: -25px 30px;">
-                              
-                              <div class="card-body">
-                                <h5 class="card-title">
-                                  <%=post.title%>
-                                </h5>
-                                <p class="">
-                                  <%=post.price%> TL
-                                </p>
-                                <p class="card-text">
-                                  <%=post.description%>
-                                </p>
-                              </div>
-                              <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
-                            </div>
-                        </div>
-                </section>
-            </section>
-            </main>
-            <%- include("../partials/footer.ejs")%>
+              <div class="form-floating mb-3">
+                <input class="form-control mb-3" id="price" type="text" name="price" placeholder="Price">
+                <label for="price">Price</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" id="description" type="description" name="description"
+                  placeholder="Description">
+                <label for="description">Description</label>
+              </div>
+              <div class="form-floating mb-3">
+                <label class="form-label form-control" for="image">Image</label>
+                <input id="image" class="form-control visually-hidden" type="file" name="image" placeholder="Image">
+                <!-- <label for="image">Image:</label> -->
+                <input class="form-control" type="file" name="file" placeholder="Image">
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-primary mb-3">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <section class="mt-5">
+          <div class="row margin-top d-flex justify-content-around">
+            <div class="card" style="width: 16rem; margin: -25px 30px;">
+
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%=post.title%>
+                </h5>
+                <p class="">
+                  <%=post.price%> TL
+                </p>
+                <p class="card-text">
+                  <%=post.description%>
+                </p>
+              </div>
+              <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
+            </div>
+          </div>
+        </section>
+      </section>
+      </main>
+      <%- include("../partials/footer.ejs")%>
