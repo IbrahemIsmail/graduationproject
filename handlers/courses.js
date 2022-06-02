@@ -37,7 +37,7 @@ exports.showforums = (req, res, next) => {
 
 exports.getCourses = async (req, res, next) => {
     try {
-        let query = 'SELECT * FROM courseinstances';
+        let query = 'SELECT * FROM courses';
         let rows = await promisePool.query(query);
         console.log(rows[0]);
         res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), posts: rows[0], currentUser: req.user });
@@ -56,7 +56,7 @@ exports.getCourse = async (req, res, next) => {
         let course = {
             id: rows[0][0].id,
             teacherName: teacherName[0][0].name,
-            courseName: courseName[0][0].name,
+            name: courseName[0][0].name,
             courseCode: courseCode[0][0].courseCode
         }
         console.log(course);
