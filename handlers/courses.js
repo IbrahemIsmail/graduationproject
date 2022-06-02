@@ -30,8 +30,8 @@ const search = async (req, searchData, table, feild) => {
 }
 
 
-exports.showforums = (req, res, next) =>{
-    res.render('courses/courseForums', {message: req.flash('error'), currentUser: req.user});
+exports.showforums = (req, res, next) => {
+    res.render('courses/courseForums', { error: req.flash('error'), success: req.flash('success'), currentUser: req.user });
 }
 
 
@@ -40,7 +40,7 @@ exports.getCourses = async (req, res, next) => {
         let query = 'SELECT * FROM courseinstances';
         let rows = await promisePool.query(query);
         console.log(rows[0]);
-        res.render('coursesHome', { posts: rows[0], currentUser: req.user });
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), posts: rows[0], currentUser: req.user });
     } catch (err) {
         throw err;
     }
@@ -60,7 +60,7 @@ exports.getCourse = async (req, res, next) => {
             courseCode: courseCode[0][0].courseCode
         }
         console.log(course);
-        res.render('courses/showCourse', { course, currentUser: req.user });
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), course, currentUser: req.user });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -86,7 +86,7 @@ exports.createCourse = async (req, res, next) => {
     catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
-        res.redirect('back', {message: req.flash('error')});
+        res.redirect('back', { message: req.flash('error') });
         return;
     }
     console.log('Course Posted');
@@ -98,10 +98,10 @@ exports.createCourse = async (req, res, next) => {
 exports.createTeacher = async (req, res, next) => {
     try {
         let query = 'INSERT INTO Teachers (name) values (?)';
-        let teacher = {    
+        let teacher = {
             name: req.body.name,
         }
-        if (teacher.name.length <= 0 ) {
+        if (teacher.name.length <= 0) {
             throw new Error('One or more empty fields');
         }
         await promisePool.query(query, [teacher.name])
@@ -109,7 +109,7 @@ exports.createTeacher = async (req, res, next) => {
     catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
-        res.redirect('back', {message: req.flash('error')});
+        res.redirect('back', { message: req.flash('error') });
         return;
     }
     console.log('Teacher Posted');
@@ -123,7 +123,7 @@ exports.searchCourseInstance = async (req, res) => {
         let query = `SELECT * FROM courseinstances left join courses c on courseinstances.courseID = c.id left join teachers t on courseinstances.teacherID = t.id WHERE (t.name LIKE '%${searchData}%' OR c.name LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         console.log(results[0]);
-        res.render('coursesHome', { courses: results[0], currentUser: req.user });
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');

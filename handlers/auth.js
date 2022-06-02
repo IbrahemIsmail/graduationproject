@@ -61,6 +61,7 @@ module.exports = (passport) => {
                 let query = "INSERT INTO users (username, email, password) values (?,?,?)";
                 let rows = await promisePool.query(query, [newUser.username, newUser.email, newUser.password]);
                 newUser.id = rows[0].insertId;
+                req.flash('success', 'Account Created!');
                 return done(null, newUser);
             }
         } catch (err) {
@@ -91,6 +92,7 @@ module.exports = (passport) => {
                 return done();
             }
             console.log(rows[0][0]);
+            req.flash('success', 'Logged In!');
             return done(null, rows[0][0]);
         } catch (err) {
             return done(err);

@@ -1,0 +1,18 @@
+<div class="container">
+    <% if(error=="Missing credentials" ){ %>
+      <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        Empty fields please insert the requested information
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } else if(error && error.length>0) {%>
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+          <%=error%>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } else if(success && success.length>0) {%>
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+          <%=success%>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% }%>
+  </div>

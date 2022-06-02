@@ -1,10 +1,6 @@
 <%- include("../partials/header.ejs")%>
-  <% if(message && message.length>0) {%>
-    <div style="text-align: center" class="alert alert-danger">
-      <%=message%>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
-    <% }%>
+  <%- include("../partials/nav.ejs")%>
+    <%- include("../partials/flashMessage.ejs")%>
 
       <section class="container d-flex justify-content-around">
         <div class="col-6 col-md-4 m-5">
@@ -58,5 +54,4 @@
           </div>
         </section>
       </section>
-      </main>
       <%- include("../partials/footer.ejs")%>

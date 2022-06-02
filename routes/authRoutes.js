@@ -3,21 +3,21 @@ var passport = require('passport');
 const router = express.Router();
 
 router.get('/signup', (req, res) => {
-    res.render('authentication/signup', {message: req.flash('error'), currentUser: req.user});
+    res.render('authentication/signup', {error: req.flash('error'), success: req.flash('success'), currentUser: req.user});
 });
 
 router.get('/login', (req, res) => {
-    res.render('authentication/signin', {message: req.flash('error'), currentUser: req.user});
+    res.render('authentication/signin', {error: req.flash('error'), success: req.flash('success'), currentUser: req.user});
 });
 
 router.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/',
+    successRedirect: '/shop',
     failureRedirect: '/signup',
     failureFlash: true
 }));
 
 router.post('/login', passport.authenticate('login', {
-    successRedirect: '/',
+    successRedirect: '/shop',
     failureRedirect: '/login',
     failureFlash: true
 }), (req, res) => {

@@ -1,17 +1,14 @@
 $primary: #575BDE;
 $secondary: #917447;
+$danger: #DE2A45;
+$success: #1DE04E;
 
 $theme-colors: (
   "primary": $primary,
-  "secondary": $secondary
+  "secondary": $secondary,
+  "danger": $danger,
+  "success": $success,
 );
-
-
-
-
-
-
-
 
 /* putting the css/scss of the new cards of courses here //////////////////////////////////////////////////////////// */
 /* Media Queries */

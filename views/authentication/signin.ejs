@@ -1,58 +1,44 @@
 <%- include("../partials/header.ejs")%>
+<%- include("../partials/nav.ejs")%>
+<%- include("../partials/flashMessage.ejs")%>
 
-  <body class="page page-onboarding preload">
 
-    <main>
 
-      <!-- <a href="index.html" class="button button-close" role="button"></a> -->
-      <div class="container">
-        <% if(message=="Missing credentials" ){ %>
-          <div style="text-align: center" class="alert alert-danger">
-            Empty fields please insert the requested information
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-          </div>
-          <% } else if(message && message.length>0) {%>
-            <div style="text-align: center" class="alert alert-danger">
-              <%=message%>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <section class="container m-2">
+    <div class="row m-3 p-2 ms-5">
+      <div class="col-6 col-md-4 m-5">
+        <div class="w-100">
+          <h5>Welcome back.</h5>
+          <p class="paragraph">Enter your details below.</p>
+          <form action="login" method="POST">
+            <div class="form-floating mb-3">
+              <input class="form-control" id="username" type="text" name="username" placeholder="Username">
+              <label for="username">Username</label>
             </div>
-            <% }%>
-      </div>
-      
-      <section class="container m-2">
-        <div class="row m-3 p-2 ms-5">
-          <div class="col-6 col-md-4 m-5">
-            <div class="w-100">
-              <h5>Welcome back.</h5>
-              <p class="paragraph">Enter your details below.</p>
-              <form action="login" method="POST">
-                <div class="form-floating mb-3">
-                  <input class="form-control" id="username" type="text" name="username" placeholder="Username">
-                  <label for="username">Username</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <input class="form-control" id="password" type="password" name="password" placeholder="Password">
-                  <label for="password">Password</label>
-                </div>
-                <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Remember me?
-                  </label>
-                </div>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <button type="submit" class="btn btn-primary mb-3">Login</button>
-                </div>
-              </form>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="password" type="password" name="password" placeholder="Password">
+              <label for="password">Password</label>
             </div>
-            <div class="center w-100">
-              <span class="text-muted">Don't have an account? </span><a href="/signup">Sign Up</a>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Remember me?
+              </label>
             </div>
-          </div>
-          <div class="col-6 col-md-4 ms-5">
-            <div class="img-fluid w-100"><%- include("../../public/assets/loginSVG.ejs") %></div>
-          </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button type="submit" class="btn btn-primary mb-3">Login</button>
+            </div>
+          </form>
         </div>
-      </section>
-    </main>
-    <%- include("../partials/footer.ejs")%>
+        <div class="center w-100">
+          <span class="text-muted">Don't have an account? </span><a href="/signup">Sign Up</a>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 ms-5">
+        <div class="img-fluid w-100">
+          <%- include("../../public/assets/loginSVG.ejs") %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <%- include("../partials/footer.ejs")%>

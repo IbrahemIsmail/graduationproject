@@ -1,47 +1,50 @@
 <%- include("../partials/header.ejs")%>
+  <%- include("../partials/nav.ejs")%>
+    <%- include("../partials/flashMessage.ejs")%>
+      <div class="container">
+        <% if(message && message.length>0) {%>
+          <div style="text-align: center" class="alert alert-danger">
+            <%=message%>
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </div>
+          <% }%>
+      </div>
 
-  <div class="container">
-    <% if(message && message.length>0) {%>
-        <div style="text-align: center" class="alert alert-danger">
-          <%=message%>
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <section class="">
+        <div class="">
+          <h2 class="d-flex justify-content-center my-3">My Books</h2>
+          <p class="d-flex justify-content-center">Browse around and look for university books that you will need
+            throughout the semester.</p>
         </div>
-        <% }%>
-  </div>
-
-  <section class="">
-    <div class="">
-      <h2 class="d-flex justify-content-center my-3">My Books</h2>
-      <p class="d-flex justify-content-center">Browse around and look for university books that you will need throughout the semester.</p>
-    </div>
-    <div class="row margin-top d-flex justify-content-around">
-      <% posts.forEach(function(post){ %>
-        <div class="col-6 col-sm-6 col-lg-2 col-md-4 card" style="width: 18rem; margin: 15px 30px;">
-          <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
-          <div class="card-body">
-            <h5 class="card-title">
-              <%=post.title%>
-            </h5>
-            <p class="">
-              <%=post.price%> TL
-            </p>
-            <!-- <p class="card-text">
+        <div class="row margin-top d-flex justify-content-around">
+          <% posts.forEach(function(post){ %>
+            <div class="col-6 col-sm-6 col-lg-2 col-md-4 card" style="width: 18rem; margin: 15px 30px;">
+              <img class="card-img-top" src="data:image/jpg;base64,<%= post.image %>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%=post.title%>
+                </h5>
+                <p class="">
+                  <%=post.price%> TL
+                </p>
+                <!-- <p class="card-text">
             <%=post.description%>
           </p> -->
-            <div class="row">
-              <a href="/shop/editpost/id=<%=post.id%>" marign:0 5% class="btn btn-primary margin-right">Edit & View</a>
-              <form action="/shop/id=<%= post.id %>?_method=delete" method="post">
-                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-              </form>
+                <div class="row">
+                  <a href="/shop/editpost/id=<%=post.id%>" marign:0 5% class="btn btn-primary margin-right">Edit &
+                    View</a>
+                  <form action="/shop/id=<%= post.id %>?_method=delete" method="post">
+                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </form>
+                </div>
+              </div>
             </div>
-          </div>
+            <% }); %>
         </div>
-        <% }); %>
-    </div>
-    <!-- <div class="center margin-top max-width-l">
+        <!-- <div class="center margin-top max-width-l">
       <span class="muted">If you need any help, make sure to </span><a href="signup.html">book a demo</a><span
         class="muted">.</span>
     </div> -->
-  </section>
+      </section>
 
-  <%- include("../partials/footer.ejs")%>
+      <%- include("../partials/footer.ejs")%>

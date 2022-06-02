@@ -1,9 +1,6 @@
 <%- include("../partials/header.ejs")%>
-
-  <body class="page page-onboarding preload">
-
-    <main>
-
+  <%- include("../partials/nav.ejs")%>
+    <%- include("../partials/flashMessage.ejs")%>
 
       <div class="container">
         <% if(message=="Missing credentials" ){ %>
@@ -49,9 +46,11 @@
             </div>
           </div>
           <div class="col-6 col-md-4">
-            <div class="container-fluid w-100"><%- include("../../public/assets/signupSVG.ejs") %></div>
+            <div class="container-fluid w-100">
+              <%- include("../../public/assets/signupSVG.ejs") %>
+            </div>
           </div>
         </div>
       </section>
-    </main>
-    <%- include("../partials/footer")%>
+
+<%- include("../partials/footer")%>

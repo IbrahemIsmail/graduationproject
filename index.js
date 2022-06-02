@@ -62,9 +62,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => res.send('under construction'));
-app.get('/account/:username', mw.authUserPage, (req, res) => {
-    res.render('authentication/userPage', { currUser: req.user });
-});
+// app.get('/account/:username', mw.authUserPage, (req, res) => {
+//     res.render('authentication/userPage', { currUser: req.user });
+// });
 app.use('/', authRoutes);
 app.use('/shop', postRoutes);
 app.use('/courses', courseRoutes);
