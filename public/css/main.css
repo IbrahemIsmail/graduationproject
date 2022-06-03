@@ -10,3 +10,18 @@ a.nav-link.text-secondary:hover{
 a.nav-link.text-primary:hover{
     font-weight: 500;
 }
+
+.bg-image{
+   position: relative;
+   overflow: hidden;
+
+}
+
+.suggested:hover{
+    background-color: rgba(87, 91, 222, 0.1);
+    transition: all 0.2s ease;
+    transform: scale(1.025);
+}
+.suggested:hover > .suggestedImg{
+    z-index: -1;
+}
