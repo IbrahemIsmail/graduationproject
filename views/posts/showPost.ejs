@@ -1,7 +1,7 @@
 <%- include("../partials/header.ejs")%>
     <%- include("../partials/nav.ejs")%>
         <%- include("../partials/flashMessage.ejs")%>
-            <section class="container">
+            <section class="container row mx-5">
                 <div class="row d-flex mt-5">
                     <div class="col-md-4 me-5">
                         <ul class="list-group">
@@ -12,7 +12,7 @@
                             <li class="list-group-item">And a fifth one</li>
                         </ul>
                     </div>
-                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="card mb-3 h-100" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src="data:image/jpg;base64,<%= post.image %>" class="img-fluid rounded-start"
@@ -33,73 +33,31 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="data:image/jpg;base64,<%= post.image %>" class="img-fluid rounded-start"
-                                    alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <%=post.title%>
-                                    </h5>
-                                    <p class="card-text">
-                                        <%=post.description%>
-                                    </p>
-                                    <p class="card-text"><small class="text-muted">
-                                            <%=post.price%> TL
-                                        </small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="border-primary mb-3 row col-md-8 g-0 bg-light position-relative">
-                <div class="col-md-6 mb-md-0 p-md-4">
-                    <img src="data:image/jpg;base64,<%= post.image %>" class="flex-shrink-0 me-3" alt="...">
-                </div>
-                <div class="col-md-6 p-4 ps-md-0">
-                    <h5 class="mt-0">
-                        <%=post.title%>
-                    </h5>
-                    <p>
-                        <%=post.description%>
-                    </p>
-                    <div class="d-inline">
-                        <a class="" href="#" class="stretched-link">Go somewhere</a>
-                        <p class="d-inline d-flex text-muted justify-content-end">
-                            <%=post.price%> TL
-                        </p>
-                    </div>
-                </div>
-            </div> -->
                 </div>
             </section>
-            <section>
+            <section class="row mt-5 mx-5">
                 <div class="container">
                     <!-- class="d-flex flex-row flex-wrap " -->
                     <% if(similarPosts && similarPosts !=null) {%>
                         <h4 class="text-center">Suggested Books</h4>
-                        <div class="card-deck">
-                            <div class="row">
-                                <% similarPosts.forEach(function(post){ %>
-                                    <div class="card shadow suggested h-100"
-                                        style="width: 18rem; height: 20rem; margin: 15px 30px;">
-                                        <img src="data:image/jpg;base64,<%= post.image %>" class="card-img-top rounded-3 suggestedImg" style="margin-top: 12px;"
-                                            alt="...">
-                                        <div class="card-body">
-                                            <a href="/shop/id=<%=post.id%>" class="btn stretched-link"> 
-                                                <h5 class="card-title text-capitalize">
-                                                    <%=post.title%>
-                                                </h5>
-                                            </a>
-                                            <small class="card-text text-muted">
-                                                <%=post.price%> TL
-                                            </small>
-                                        </div>
+                        <div class="row">
+                            <% similarPosts.forEach(function(post){ %>
+                                <div class="card hovereffect h-100"
+                                    style="width: 18rem; height: 20rem; margin: 15px 30px;">
+                                    <img src="data:image/jpg;base64,<%= post.image %>"
+                                        class="card-img-top rounded-3 suggestedImg" style="margin-top: 12px;" alt="...">
+                                    <div class="card-body">
+                                        <a href="/shop/id=<%=post.id%>" class="btn stretched-link">
+                                            <h5 class="card-title text-capitalize">
+                                                <%=post.title%>
+                                            </h5>
+                                        </a>
+                                        <small class="card-text text-muted">
+                                            <%=post.price%> TL
+                                        </small>
                                     </div>
-                                    <% }) %>
-                            </div>
+                                </div>
+                                <% }) %>
                         </div>
                         <% } else{ %>
                             <h4>

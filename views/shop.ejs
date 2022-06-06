@@ -14,10 +14,10 @@
           </div>
         </div>
 
-        <div class="row margin-top d-flex justify-content-around m-4">
+        <div class="row margin-top m-4 justify-content-center">
           <% posts.forEach(function(post){ %>
             <!-- col stuff is not making any difference in here lol -->
-            <div class="col-6 col-sm-6 col-lg-2 col-md-4 card h-100" style="width: 18rem; margin: 15px 30px;">
+            <div class="col-6 col-sm-6 col-lg-3 col-md-4 card h-100 shadow" style="width: 18rem; margin: 15px 30px;">
               <img class="rounded-3 card-img-top" style="margin-top: 12px;" src="data:image/jpg;base64,<%= post.image %>">
               <div class="card-body">
                 <h5 class="card-title text-capitalize">

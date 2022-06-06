@@ -8,9 +8,9 @@
           <p class="d-flex justify-content-center">Browse around and look for university books that you will need
             throughout the semester.</p>
         </div>
-        <div class="row margin-top d-flex justify-content-around m-4">
+        <div class="row justify-content-center m-4">
           <% posts.forEach(function(post){ %>
-            <div class="col-6 col-sm-6 col-lg-2 col-md-4 card h-100" style="width: 18rem; margin: 15px 30px;">
+            <div class="col-6 col-sm-6 col-lg-2 col-md-4 card h-100 shadow" style="width: 18rem; margin: 15px 30px;">
               <img class="card-img-top rounded-3 img-fluid" style="margin-top: 12px;"
                 src="data:image/jpg;base64,<%= post.image %>">
               <div class="card-body">

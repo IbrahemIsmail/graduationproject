@@ -1,27 +1,36 @@
 /* Getting rid of underline from links */
-a:link { text-decoration: none; }
-a:visited { text-decoration: none; }
-a:hover { text-decoration: none; }
-a:active { text-decoration: none; }
+a:link {
+    text-decoration: none;
+}
 
-a.nav-link.text-secondary:hover{
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+a.nav-link.text-secondary:hover {
     font-weight: 500;
 }
-a.nav-link.text-primary:hover{
+
+a.nav-link.text-primary:hover {
     font-weight: 500;
 }
 
-.bg-image{
-   position: relative;
-   overflow: hidden;
 
-}
-
-.suggested:hover{
-    background-color: rgba(87, 91, 222, 0.1);
-    transition: all 0.2s ease;
-    transform: scale(1.025);
-}
-.suggested:hover > .suggestedImg{
-    z-index: -1;
+.hovereffect:hover {
+    box-shadow: 0px 15px 26px rgba(0, 0, 0, 0.50);
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -ms-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    transform: scale(1.01);
+    /* background-color: rgba(87, 91, 222, 0.1); */
 }
