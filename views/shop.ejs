@@ -1,35 +1,35 @@
-<%- include("partials/header.ejs")%>
-  <%- include("partials/nav.ejs")%>
-    <%- include("partials/flashMessage.ejs")%>
-      <section class="m-3">
+  <%- include("partials/header.ejs")%>
+    <%- include("partials/nav.ejs")%>
+      <%- include("partials/flashMessage.ejs")%>
+        <section class="m-3">
 
-        <div class="container">
-          <div class="p-5 m-4 bg-light border rounded-3 shadow" style="background-color: #f3f3f3;">
-            <div class="container-fluid py-3">
-              <h2 class="display-5 fw-bold text-center mt-3">Available Books</h2>
-              <p class="text-center text-wrap fs-4">Browse around and look for university books that you will need
-                throughout the semester.</p>
-                <a href="/shop/createpost" class="btn btn-primary float-end">List Book For Sale</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="row margin-top m-4 justify-content-center">
-          <% posts.forEach(function(post){ %>
-            <!-- col stuff is not making any difference in here lol -->
-            <div class="col-6 col-sm-6 col-lg-3 col-md-4 card h-100 shadow" style="width: 18rem; margin: 15px 30px;">
-              <img class="rounded-3 card-img-top" style="margin-top: 12px;" src="data:image/jpg;base64,<%= post.image %>">
-              <div class="card-body">
-                <h5 class="card-title text-capitalize">
-                  <%=post.title%>
-                </h5>
-                <p class="card-text">
-                  <%=post.price%> TL
-                </p>
-                <a href="/shop/id=<%=post.id%>" marign:0 5% class="btn btn-primary float-end">More Info</a>
+          <div class="container">
+            <div class="p-5 m-4 bg-light border rounded-3 shadow" style="background-color: #f3f3f3;">
+              <div class="container-fluid py-3">
+                <h2 class="display-5 fw-bold text-center mt-3">Available Books</h2>
+                <p class="text-center text-wrap fs-4">Browse around and look for university books that you will need
+                  throughout the semester.</p>
+                  <a href="/shop/createpost" class="btn btn-primary float-end">List Book For Sale</a>
               </div>
             </div>
-            <% }); %>
-        </div>
-      </section>
-      <%- include("partials/footer.ejs")%>
+          </div>
+
+          <div class="row margin-top m-4 justify-content-center">
+            <% posts.forEach(function(post){ %>
+              <!-- col stuff is not making any difference in here lol -->
+              <div class="col-6 col-sm-6 col-lg-3 col-md-4 card h-100 shadow" style="width: 18rem; margin: 15px 30px;">
+                <img class="rounded-3 card-img-top w-100" style="margin-top: 12px;" src="data:image/jpg;base64,<%= post.image %>">
+                <div class="card-body">
+                  <h5 class="card-title text-capitalize">
+                    <%=post.title%>
+                  </h5>
+                  <p class="card-text">
+                    <%=post.price%> TL
+                  </p>
+                  <a href="/shop/id=<%=post.id%>" marign:0 5% class="btn btn-primary float-end">More Info</a>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+        </section>
+        <%- include("partials/footer.ejs")%>
