@@ -39,8 +39,8 @@ exports.getCourses = async (req, res, next) => {
     try {
         let query = 'SELECT * FROM courses';
         let rows = await promisePool.query(query);
-        console.log(rows[0]);
-        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), posts: rows[0], currentUser: req.user });
+        //console.log(rows[0]);
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: rows[0], currentUser: req.user });
     } catch (err) {
         throw err;
     }
@@ -49,18 +49,10 @@ exports.getCourses = async (req, res, next) => {
 ////////Selecting one course
 exports.getCourse = async (req, res, next) => {
     try {
-        let rows = await promisePool.query(`SELECT * FROM courseinstances WHERE id = ${req.params.id}`);
-        let teacherName = await promisePool.query(`SELECT name FROM teachers WHERE id=${rows[0][0].teacherID}`);
-        let courseName = await promisePool.query(`SELECT name FROM courses WHERE id=${rows[0][0].courseID}`);
-        let courseCode = await promisePool.query(`SELECT courseCode FROM courses WHERE id=${rows[0][0].courseID}`);
-        let course = {
-            id: rows[0][0].id,
-            teacherName: teacherName[0][0].name,
-            name: courseName[0][0].name,
-            courseCode: courseCode[0][0].courseCode
-        }
-        console.log(course);
-        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), course, currentUser: req.user });
+        let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
+        let instances = await promisePool.query(`SELECT year, teacherID, courseID, name FROM courseInstances INNER JOIN teachers ON courseInstances.courseID = ${req.params.id} AND teachers.id=courseInstances.id`);
+        let i = 
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0});
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -69,19 +61,47 @@ exports.getCourse = async (req, res, next) => {
     }
 };
 
+
+
+// ////////Selecting one course
+// exports.getCourse = async (req, res, next) => {
+//     try {
+//         let rows = await promisePool.query(`SELECT * FROM courseinstances WHERE id = ${req.params.id}`);
+//         let teacherName = await promisePool.query(`SELECT name FROM teachers WHERE id=${rows[0][0].teacherID}`);
+//         let courseName = await promisePool.query(`SELECT name FROM courses WHERE id=${rows[0][0].courseID}`);
+//         let courseCode = await promisePool.query(`SELECT courseCode FROM courses WHERE id=${rows[0][0].courseID}`);
+//         let course = {
+//             id: rows[0][0].id,
+//             teacherName: teacherName[0][0].name,
+//             name: courseName[0][0].name,
+//             courseCode: courseCode[0][0].courseCode
+//         }
+//         console.log(course);
+//         res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), course, currentUser: req.user });
+//     } catch (err) {
+//         console.log(err);
+//         req.flash('error', err.message || 'Oops! something went wrong.');
+//         res.redirect('back');
+//         return;
+//     }
+// };
+
+
+
 ////////create a parent course
 exports.createCourse = async (req, res, next) => {
     try {
-        let query = 'INSERT INTO courses (courseCode, name, departmentCode) values (?,?,?)';
+        let query = 'INSERT INTO courses (courseCode, name, departmentCode, description) values (?,?,?,?)';
         let post = {
             courseCode: req.body.courseCode,
             name: req.body.name,
             departmentCode: req.body.departmentCode,
+            description: req.body.description
         }
         if (post.courseCode.length <= 0 || post.name.length <= 0 || post.departmentCode.length <= 0) {
             throw new Error('One or more empty fields');
         }
-        await promisePool.query(query, [post.courseCode, post.name, post.departmentCode]);
+        await promisePool.query(query, [post.courseCode, post.name, post.departmentCode, post.description]);
     }
     catch (err) {
         console.log(err);

@@ -2,35 +2,25 @@
     <%- include("../partials/nav.ejs")%> <!-- might change later to another nav -->
         <%- include("../partials/flashMessage.ejs")%>
             <section id=timeline>
-                <h1>A Flexbox Timeline</h1>
-                <p class="leader">All cards must be the same height and width for space calculations on large screens.
-                </p>
+                <h1>course</h1>
+                <p class="leader">course.</p>
                 <div class="demo-card-wrapper ">
+                    <% instances.forEach(function(instance){ %>
                     <div class="demo-card demo-card--step1 bg-secondary">
                         <div class="head">
                             <div class="number-box">
-                                <span>01</span>
+                                <span><%=instance.year%></span>
                             </div>
                             <h2><span class="small">
-                                    <%=course.teacherName%>
+                                    <%=instance.teacherName%>
                                 </span>
-                                <%=course.courseName%>
+                                <%=course.name%>
                             </h2>
                         </div>
-                        <div class="body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta reiciendis deserunt
-                                doloribus
-                                consequatur, laudantium odio dolorum laboriosam.</p>
-                            <img src="http://placehold.it/1000x500" alt="Graphic">
-                        </div>
                     </div>
+                    <%})%>
                 </div>
-                <h2><span class="small"><%=course.teacherName%></span> <%=course.name%></h2>
-            </div>
-            <div class="body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta reiciendis deserunt doloribus
-                    consequatur, laudantium odio dolorum laboriosam.</p>
-                <img src="http://placehold.it/1000x500" alt="Graphic">
+                <!-- <h2><span class="small"><%=course.teacherName%></span> <%=course.name%></h2> -->
             </div>
         </div>
     </div>

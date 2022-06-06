@@ -1,5 +1,6 @@
 <%- include("../partials/header.ejs")%>
-     <%- include("../partials/nav.ejs")%> <!-- might change later to another nav -->
+    <%- include("../partials/nav.ejs")%>
+        <!-- might change later to another nav -->
         <%- include("../partials/flashMessage.ejs")%>
             <div class="container">
 
@@ -14,49 +15,71 @@
 
 
             <!-- create a parent course -->
-            <form class="container" action="/courses/addcourse" method="post">
-                <div class="form-group">
-                    <label for="courseCode">course Code:</label>
-                    <input id="courseCode" type="text" name="courseCode">
-                </div>
-                <div class="form-group">
-                    <label for="name">name:</label>
-                    <input id="name" type="text" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="departmentCode">department code:</label>
-                    <input id="departmentCode" type="text" name="departmentCode">
-                </div>
-                <button class="button button-primary full-width">Submit</button>
-            </form>
+            <section class="container m-2 ">
+                <div class="row m-3 p-2 ms-5 row justify-content-evenly">
+                    <div class="col-6 col-md-4 m-5">
+                        <p class="paragraph">Enter details of the parent course below.</p>
+                        <form class="container" action="/courses/addcourse" method="post">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="courseCode" type="text" name="courseCode"
+                                    placeholder="Course Code">
+                                <label for="courseCode">Course Code</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" name="name" placeholder="Name">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="departmentCode" type="text" name="departmentCode"
+                                    placeholder="Department code">
+                                <label for="departmentCode">Department code</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea rows="4" cols="50" class="form-control" id="description" name="description" style="height: 100%;"
+                                    placeholder="Description"></textarea>
+                                <label for="description">Description</label>
+                            </div>
+                            <button class="btn btn-primary mb-3">Submit</button>
+                        </form>
 
-            <hr>
+                    </div>
 
+                    <div class="col-6 col-md-4 ms-5 ml-5 mt-5">
+                        <!-- create course instance -->
+                        <p class="paragraph">Enter details about the course instance below.</p>
+                        <form class="container" action="/courses/addcourseinstance" method="post">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="year" type="date" name="year" placeholder="">
+                                <label for="year"></label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="teacher" type="text" name="teacher"
+                                    placeholder="Teacher Name">
+                                <label for="teacher">Teacher Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="course" type="text" name="course"
+                                    placeholder="Course ID">
+                                <label for="course">Course ID</label>
+                            </div>
+                            <button class="btn btn-primary mb-3">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
             <!-- //create a teacher -->
-            <form class="container" action="/courses/addteacher" method="post">
-                <div class="form-group">
-                    <label for="name">name:</label>
-                    <input id="name" type="text" name="name">
+            <section class="container">
+                <div class="row justify-content-evenly">
+                    <div class="col-md-8 align-self-center">
+                        <p class="paragraph">Enter details about the teacher below.</p>
+                        <form class="container" action="/courses/addteacher" method="post">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" name="name" placeholder="Name">
+                                <label for="name">Name</label>
+                            </div>
+                            <button class="btn btn-primary mb-3">Submit</button>
+                        </form>
+                    </div>
                 </div>
-                <button class="button button-primary full-width">Submit</button>
-            </form>
-
-            <hr>
-            <!-- create course instance -->
-
-            <form class="container" action="/courses/addcourseinstance" method="post">
-                <div class="form-group">
-                    <label for="year">year:</label>
-                    <input id="year" type="date" name="year">
-                </div>
-                <div class="form-group">
-                    <label for="teacher">Teacher Name:</label>
-                    <input id="teacher" type="text" name="teacher">
-                </div>
-                <div class="form-group">
-                    <label for="course">course ID:</label>
-                    <input id="course" type="text" name="course">
-                </div>
-                <button class="button button-primary full-width">Submit</button>
-            </form>
+            </section>
             <%- include("../partials/footer.ejs")%>

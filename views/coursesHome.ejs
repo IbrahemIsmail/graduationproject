@@ -1,15 +1,21 @@
 <%- include("partials/header.ejs")%>
-<div class="row  margin-top d-flex justify-content-around pt-5">
-<% courses.forEach(function(course){ %>
-        <div class="card border-secondary mb-3  h-100 " style="max-width: 18rem; ">
-            <div class="card-header">
-                <%=course.name%>
+    <%- include("partials/nav.ejs")%>
+        <%- include("partials/flashMessage.ejs")%>
+            <div class="row  margin-top d-flex justify-content-around pt-5">
+                <% courses.forEach(function(course){ %>
+                    <div class="card border-secondary mb-3  h-100 " style="max-width: 18rem; ">
+                        <div class="card-header">
+                            <%=course.name%>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <h5 class="card-title">
+                                <%=course.teacherName%>
+                            </h5>
+                            <p class="card-text"> <a href="courses/showcourse/id=<%=course.id%>"
+                                    class="stretched-link">Here there will be a very
+                                    long and descriptive description.</a></p>
+                        </div>
+                    </div>
+                    <%});%>
             </div>
-            <div class="card-body text-secondary">
-                <h5 class="card-title"><%=course.teacherName%></h5>
-                <p class="card-text">Here there will be a very long and descriptive description.</p>
-            </div>
-        </div>
-    <%});%>
-</div>    
-<%- include("partials/footer.ejs")%>
+            <%- include("partials/footer.ejs")%>
