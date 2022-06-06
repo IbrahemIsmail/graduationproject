@@ -1,46 +1,43 @@
 <%- include("../partials/header.ejs")%>
     <%- include("../partials/nav.ejs")%>
         <%- include("../partials/flashMessage.ejs")%>
-            <section class="container row mx-5">
-                <div class="row d-flex mt-5">
-                    <div class="col-md-4 me-5">
-                        <ul class="list-group">
-                            <li class="list-group-item active" aria-current="true">An active item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                            <li class="list-group-item">A fourth item</li>
-                            <li class="list-group-item">And a fifth one</li>
-                        </ul>
-                    </div>
-                    <div class="card mb-3 h-100" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="data:image/jpg;base64,<%= post.image %>" class="img-fluid rounded-start"
-                                    alt="...">
+            <section class="d-flex justify-content-center mt-3 mx-5">
+                <div class="container py-2">
+                    <article class="postcard light blue">
+                        <a class="postcard__img_link" href="#">
+                            <img class="postcard__img" src="data:image/jpg;base64,<%= post.image %>"
+                                alt="Image Title" />
+                        </a>
+                        <div class="postcard__text t-dark me-3">
+                            <h1 class="postcard__title blue"><a class="display-4 text-capitalize" href="#">
+                                    <%=post.title%>
+                                </a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+                                </time>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <%=post.title%>
-                                    </h5>
-                                    <p class="card-text">
-                                        <%=post.description%>
-                                    </p>
-                                    <p class="card-text"><small class="text-muted">
-                                            <%=post.price%> TL
-                                        </small></p>
-                                </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">
+                                <%=post.description%>
                             </div>
+                            <!-- <ul class="postcard__tagbox">
+                                <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                                <li class="tag__item play blue">
+                                    <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                                </li>
+                            </ul> -->
                         </div>
-                    </div>
+                    </article>
                 </div>
             </section>
-            <section class="row mt-5 mx-5">
+            <section class="row mt-3 mx-5">
                 <div class="container">
                     <!-- class="d-flex flex-row flex-wrap " -->
                     <% if(similarPosts && similarPosts !=null) {%>
-                        <h4 class="text-center">Suggested Books</h4>
-                        <div class="row">
+                        <h4 class="display-4 text-center">Suggested Books</h4>
+                        <div class="row justify-content-center">
                             <% similarPosts.forEach(function(post){ %>
                                 <div class="card hovereffect h-100"
                                     style="width: 18rem; height: 20rem; margin: 15px 30px;">
@@ -60,8 +57,8 @@
                                 <% }) %>
                         </div>
                         <% } else{ %>
-                            <h4>
-                                No suggestions available
+                            <h4 class="display-4 text-center mt-3">
+                                No Similar Suggestions Available
                             </h4>
                             <%}%>
                 </div>
