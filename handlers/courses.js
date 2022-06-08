@@ -6,6 +6,9 @@ const db = require('../models/database');
 const pool = mysql.createPool(db.conn);
 const promisePool = pool.promise();
 
+const {showRatings} = require('./ratings');
+
+
 promisePool.getConnection(async (err, connection) => {
     if (err) throw err;
     try {
@@ -50,9 +53,11 @@ exports.getCourses = async (req, res, next) => {
 exports.getCourse = async (req, res, next) => {
     try {
         let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
-        let instances = await promisePool.query(`SELECT year, teacherID, courseID, name FROM courseInstances INNER JOIN teachers ON courseInstances.courseID = ${req.params.id} AND teachers.id=courseInstances.id`);
-        let i = 
-        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0});
+        let instances = await promisePool.query(`SELECT year, courseID, name FROM courseInstances INNER JOIN teachers ON courseInstances.courseID = ${req.params.id} AND teachers.id=courseInstances.teacherID`);
+        let ratings=await showRatings(req);
+        // console.log(ratings);
+        // console.log(ratings.avg2);
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings});
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');

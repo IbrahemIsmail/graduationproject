@@ -64,17 +64,20 @@ exports.giveRating = async (req, res) => {
 
 
 exports.showRatings = async (req, res) => {
-    try {
-        ratings = await promisePool.query(`Select * from ratings where courseInstance = '${req.params.courseID}'`);
-        courseInstance = await promisePool.query(`Select * from courseinstances where id = ${req.params.courseID}'`);
+    try {      
+        ratings = await promisePool.query(`Select username, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, 
+        difficulty, Description, rating, year, name from ratings INNER JOIN courseInstances on courseInstances.courseID = ${req.params.id} 
+        and ratings.courseInstanceID = courseInstances.id INNER JOIN teachers on teachers.id=courseInstances.teacherID
+        INNER JOIN users on users.id = ratings.userID`);
         avg = 0.0;
         numb = 0;
         ratings[0].forEach((rating) => {
             avg = (avg + rating.rating)
             numb++;
         });
-        console.log(avg2 = avg / numb);
-
+        // let avg2 = avg / numb;
+        // let ratings= ratings[0];
+        return ratings[0];
     }
     catch (err) {
         console.log(err);
