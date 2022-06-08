@@ -142,6 +142,20 @@ exports.createTeacher = async (req, res, next) => {
     res.redirect('/courses/addcourses');
 };
 
+exports.searchCourse = async (req, res) => {
+    searchData = req.body.search;
+    try {
+        let query = `SELECT * FROM courses WHERE (name LIKE '%${searchData}%' OR courseCode LIKE '%${searchData}%' OR departmentCode LIKE '%${searchData}%')`;
+        let results = await promisePool.query(query);
+        console.log(results[0]);
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user });
+    } catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('/courses');
+    }
+};
+
 exports.searchCourseInstance = async (req, res) => {
     searchData = req.body.search;
     try {
