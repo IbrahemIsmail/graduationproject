@@ -9,11 +9,13 @@
               attach an image of the book.)</p>
             <form action="/shop/id=<%= post.id %>?_method=put" method="POST" enctype="multipart/form-data">
               <div class="form-floating mb-3">
-                <input class="form-control" id="title" type="text" name="title" placeholder="Title" value="<%=post.title%>">
+                <input class="form-control" id="title" type="text" name="title" placeholder="Title"
+                  value="<%=post.title%>">
                 <label for="title">Title</label>
               </div>
               <div class="form-floating mb-3">
-                <input class="form-control mb-3" id="price" type="text" name="price" placeholder="Price" value="<%=post.price%>">
+                <input class="form-control mb-3" id="price" type="text" name="price" placeholder="Price"
+                  value="<%=post.price%>">
                 <label for="price">Price</label>
               </div>
               <div class="form-floating mb-3">
@@ -22,10 +24,16 @@
                 <label for="description">Description</label>
               </div>
               <div class="form-floating mb-3">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                  name="status">
                   <!-- <option selected>Open this select menu</option> -->
-                  <option value="0">Available</option>
-                  <option value="1">Sold</option>
+                  <% if(post.status == 0){%>
+                    <option value="0">Available</option>
+                    <option value="1">Sold</option>
+                    <% } else {%>
+                      <option value="1">Sold</option>
+                      <option value="0">Available</option>
+                      <% } %>
                 </select>
                 <label for="floatingSelect">Post Status</label>
               </div>
@@ -51,11 +59,12 @@
                 <p class="">
                   <%=post.price%> TL
                 </p>
-                <p class="card-text">
+                <p class="card-text text-truncate">
                   <%=post.description%>
                 </p>
               </div>
-              <img class="card-img-bottom rounded-3" style="margin-bottom: 12px;" src="data:image/jpg;base64,<%= post.image %>">
+              <img class="card-img-bottom rounded-3" style="margin-bottom: 12px;"
+                src="data:image/jpg;base64,<%= post.image %>">
             </div>
           </div>
         </section>

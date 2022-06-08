@@ -101,6 +101,7 @@ exports.getPost = async (req, res, next) => {
             title: rows[0][0].title,
             price: rows[0][0].price,
             description: rows[0][0].description,
+            status: rows[0][0].status,
             image: rows[0][0].image,
             createdAt: rows[0][0].createdAt,
             updatedAt: rows[0][0].updatedAt,
@@ -166,6 +167,7 @@ exports.viewEdit = async (req, res, next) => {
             title: rows[0][0].title,
             price: rows[0][0].price,
             description: rows[0][0].description,
+            status: rows[0][0].status,
             image: rows[0][0].image,
         }
         res.render('posts/editPost', { error: req.flash('error'), success: req.flash('success'), post, message: req.flash('error'), currentUser: req.user });
@@ -180,12 +182,16 @@ exports.viewEdit = async (req, res, next) => {
 ///////Edit the post query
 exports.updatePost = async (req, res, next) => {
     try {
+        let img = req.file ? req.file.buffer.toString("base64") : null;
+        console.log(img);
         let post = {
             title: req.body.title,
             price: req.body.price,
             description: req.body.description,
-            status: req.body.status
+            status: req.body.status,
         }
+
+        img? post.image = img : delete post.img;
         let query = 'UPDATE posts SET ' + Object.keys(post).map(key => `${key} = ?`).join(', ') + ' WHERE id = ?';
         let params = [...Object.values(post), req.params.id];
         if (post.title.length <= 0 || post.price.length <= 0 || post.description.length <= 0) {
