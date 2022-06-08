@@ -58,12 +58,13 @@ exports.createForum = (req, res, next) => {
 exports.createPost = async (req, res, next) => {
     try {
         let img = req.file.buffer.toString("base64");
-        let query1 = 'INSERT INTO posts (title, price, description, image) values (?,?,?,?)';
+        let query1 = 'INSERT INTO posts (title, price, description, status, image) values (?,?,?,?,?)';
         // the database needs an extension fieled to render the correct extension (exten: req.file.mimetype)
         let post = {
             title: req.body.title,
             price: req.body.price,
             description: req.body.description,
+            status: req.body.status,
             image: img,
         }
         if (post.title.length <= 0 || post.price.length <= 0 || post.description.length <= 0) {
@@ -182,7 +183,8 @@ exports.updatePost = async (req, res, next) => {
         let post = {
             title: req.body.title,
             price: req.body.price,
-            description: req.body.description
+            description: req.body.description,
+            status: req.body.status
         }
         let query = 'UPDATE posts SET ' + Object.keys(post).map(key => `${key} = ?`).join(', ') + ' WHERE id = ?';
         let params = [...Object.values(post), req.params.id];
