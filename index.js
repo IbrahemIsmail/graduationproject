@@ -10,6 +10,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const methodOverride = require("method-override");
+const moment = require('moment'); 
 
 const mw = require('./middleware');
 
@@ -21,6 +22,8 @@ const ratingRoutes = require('./routes/ratingRoutes');
 require('./handlers/auth')(passport);
 
 app.use(cookieParser(process.env.COOKIESECRET));
+
+app.locals.moment = require('moment');
 
 app.use(session({
     secret: process.env.SECRET,

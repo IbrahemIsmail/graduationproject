@@ -21,11 +21,17 @@
                   placeholder="Description" value="<%=post.description%>">
                 <label for="description">Description</label>
               </div>
-              <div class=" mb-3">
-                <!-- <label class="form-label form-control" for="image">Image</label>
-                <input id="image" class="form-control visually-hidden" type="file" name="image" placeholder="Image"> -->
-                <!-- <label class="form-label" for="image">Image</label> -->
-                <input id="image" class="form-control " type="file" name="image" placeholder="Image">
+              <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <!-- <option selected>Open this select menu</option> -->
+                  <option value="0">Available</option>
+                  <option value="1">Sold</option>
+                </select>
+                <label for="floatingSelect">Post Status</label>
+              </div>
+              <div class="input-group mb-3">
+                <input id="image" class="form-control btn border-primary" type="file" name="file" placeholder="Image">
+                <label class="input-group-text btn-outline-primary" for="image">Image</label>
               </div>
               <div class="d-grid gap-2 col-6 mx-auto">
                 <button type="submit" class="btn btn-primary mb-3">Update</button>

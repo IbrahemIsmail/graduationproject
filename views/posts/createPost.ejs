@@ -1,7 +1,7 @@
 <%- include("../partials/header.ejs")%>
   <%- include("../partials/nav.ejs")%>
     <%- include("../partials/flashMessage.ejs")%>
-      <section class="row no-gutter reverse-order">
+      <section class="row g-0 justify-content-center">
 
         <div class="col-6 col-md-4 m-5">
           <div class="w-100">
@@ -21,16 +21,28 @@
                   placeholder="Description">
                 <label for="description">Description</label>
               </div>
-              <div class=" mb-3">
-                <!-- <label class="form-label form-control" for="image">Image</label>
-                <input id="image" class="form-control visually-hidden" type="file" name="image" placeholder="Image"> -->
-                <!-- <label class="form-label" for="image">Image</label> -->
-                <input id="image" class="form-control " type="file" name="file" placeholder="Image">
+              <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <!-- <option selected>Open this select menu</option> -->
+                  <option value="0">Available</option>
+                  <!-- <option value="1">Sold</option> -->
+                </select>
+                <label for="floatingSelect">Post Status</label>
+              </div>
+              <div class="input-group mb-3">
+                <input id="image" class="form-control btn border-primary" type="file" name="file" placeholder="Image">
+                <label class="input-group-text btn-outline-primary" for="image">Image</label>
               </div>
               <div class="d-grid gap-2 col-6 mx-auto">
                 <button type="submit" class="btn btn-primary mb-3">Create</button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <div class="m-5 col-6 col-md-4 g-0 d-flex align-items-center justify-content-center">
+          <div class="container-fluid me-5">
+            <%- include("../../public/assets/createPostSVG.ejs") %>
           </div>
         </div>
       </section>

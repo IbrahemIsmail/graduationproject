@@ -8,13 +8,13 @@
                             <img class="postcard__img" src="data:image/jpg;base64,<%= post.image %>"
                                 alt="Image Title" />
                         </a>
-                        <div class="postcard__text t-dark me-3">
+                        <div class="postcard__text t-dark">
                             <h1 class="postcard__title blue"><a class="display-4 text-capitalize" href="#">
                                     <%=post.title%>
                                 </a></h1>
-                            <div class="postcard__subtitle small">
-                                <time datetime="2020-05-25 12:00:00">
-                                    <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+                            <div class="postcard__subtitle small ">
+                                <time>
+                                    <i class="fas fa-calendar-alt mr-2 me-2"></i><%= moment(post.updatedAt).fromNow()%>
                                 </time>
                             </div>
                             <div class="postcard__bar"></div>

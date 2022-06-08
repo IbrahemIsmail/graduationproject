@@ -215,12 +215,12 @@ a, a:hover {
     }
 
     &:nth-child(2n+1) .postcard__text::before {
-      left: -12px !important;
+      left: -40px !important;
       transform: rotate(4deg);
     }
 
     &:nth-child(2n+0) .postcard__text::before {
-      right: -12px !important;
+      right: -40px !important;
       transform: rotate(-4deg);
     }
   }
@@ -430,7 +430,7 @@ $marker-size: 9px;
 /* Colors */
 
 $steps: #46b8e9;
-$colors: #46b8e9,
+$colors: #917447,
   #3ee9d1,
   #ce43eb,
   #4d92eb;

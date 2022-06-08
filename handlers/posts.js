@@ -101,6 +101,8 @@ exports.getPost = async (req, res, next) => {
             price: rows[0][0].price,
             description: rows[0][0].description,
             image: rows[0][0].image,
+            createdAt: rows[0][0].createdAt,
+            updatedAt: rows[0][0].updatedAt,
         }
         // console.log(post);
         title = pluralize.singular(post.title);
