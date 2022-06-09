@@ -6,7 +6,8 @@
                 <p class="leader"><%=course.description%></p>
                 <div class="demo-card-wrapper ">
                     <% instances.forEach(function(instance){ %>
-                    <div class="demo-card demo-card--step1 bg-secondary">
+                      <%i++;%>
+                    <div class="demo-card demo-card--step<%=i%> bg-secondary">
                         <div class="head">
                             <div class="number-box">
                                 <span><%=instance.year.getFullYear()%></span>
@@ -33,26 +34,26 @@
           <div class="card mb-3">
             <div class="card-body">
               <div class="d-flex flex-start">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp" alt="avatar" width="40"
-                  height="40" />
                 <div class="w-100">
                   <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="text-primary fw-bold mb-0">
                       <%=rating.username%>
-                      <span class="text-dark ms-2"><%=rating.Description%></span>
                     </h6>
-                    <p class="mb-0">2 days ago</p>
+                    <p class="mb-0"><%=rating.year.getFullYear()%></p>
                   </div>
+                  <span class="text-dark ms-2" style="margin-top: -10px;"><%=rating.Description%></span>
                   <div class="d-flex justify-content-between align-items-center">
                     <p class="small mb-0" style="color: #aaa;">
-                      <a href="#!" class="link-grey">Remove</a> •
-                      <a href="#!" class="link-grey">Reply</a> •
-                      <a href="#!" class="link-grey">Translate</a>
+                      <span>curriculum: <%=rating.curriculum%> </span> •
+                      <span>teacher: <%=rating.teacher%></span> •
+                      <span>teachingMethods: <%=rating.teachingMethods%></span> •
+                      <span>expectations: <%=rating.expectations%></span> •
+                      <span>exams: <%=rating.exams%></span> •
+                      <span>difficulty <%=rating.difficulty%></span>
                     </p>
                     <div class="d-flex flex-row">
-                      <i class="fas fa-star text-warning me-2"></i>
-                      <i class="far fa-check-circle" style="color: #aaa;"></i>
+                      <i class="fas fa-star text-warning me-2"><%=rating.rating%></i>
+                      <!-- <i class="far fa-check-circle" style="color: #aaa;"></i> -->
                     </div>
                   </div>
                 </div>

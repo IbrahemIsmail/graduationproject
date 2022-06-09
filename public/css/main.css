@@ -49,3 +49,6 @@ a.nav-link.text-primary:hover {
     background: rgb(87, 91, 222);
     background: radial-gradient(rgba(87, 91, 222, 0.5) 0%, rgba(243, 243, 243, 0.5) 100%);
 }
+
+
+.link-grey { color: #aaa; } .link-grey:hover { color: #00913b; }
