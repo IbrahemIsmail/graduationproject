@@ -40,7 +40,7 @@ exports.showforums = (req, res, next) => {
 
 exports.getCourses = async (req, res, next) => {
     try {
-        let query = 'SELECT * FROM courses';
+        let query = 'select c.id, c.courseCode, c.name, c.departmentCode, c.description, u.id as uniID, u.uniCode, u.name as uniName, u.logo from courses c inner join universities u on c.universityID = u.id;';
         let rows = await promisePool.query(query);
         //console.log(rows[0]);
         res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: rows[0], currentUser: req.user });
@@ -66,52 +66,27 @@ exports.getCourse = async (req, res, next) => {
     }
 };
 
-
-
-// ////////Selecting one course
-// exports.getCourse = async (req, res, next) => {
-//     try {
-//         let rows = await promisePool.query(`SELECT * FROM courseinstances WHERE id = ${req.params.id}`);
-//         let teacherName = await promisePool.query(`SELECT name FROM teachers WHERE id=${rows[0][0].teacherID}`);
-//         let courseName = await promisePool.query(`SELECT name FROM courses WHERE id=${rows[0][0].courseID}`);
-//         let courseCode = await promisePool.query(`SELECT courseCode FROM courses WHERE id=${rows[0][0].courseID}`);
-//         let course = {
-//             id: rows[0][0].id,
-//             teacherName: teacherName[0][0].name,
-//             name: courseName[0][0].name,
-//             courseCode: courseCode[0][0].courseCode
-//         }
-//         console.log(course);
-//         res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), course, currentUser: req.user });
-//     } catch (err) {
-//         console.log(err);
-//         req.flash('error', err.message || 'Oops! something went wrong.');
-//         res.redirect('back');
-//         return;
-//     }
-// };
-
-
-
 ////////create a parent course
 exports.createCourse = async (req, res, next) => {
     try {
-        let query = 'INSERT INTO courses (courseCode, name, departmentCode, description) values (?,?,?,?)';
-        let post = {
+        let query = 'INSERT INTO courses (courseCode, name, departmentCode, description, universityID) values (?,?,?,?,?)';
+        let uniID = await search(req, req.body.uni, 'universities', 'name');
+        let course = {
             courseCode: req.body.courseCode,
             name: req.body.name,
             departmentCode: req.body.departmentCode,
-            description: req.body.description
+            description: req.body.description,
+            uniID: uniID[0].id
         }
-        if (post.courseCode.length <= 0 || post.name.length <= 0 || post.departmentCode.length <= 0) {
+        if (course.courseCode.length <= 0 || course.name.length <= 0 || course.departmentCode.length <= 0 || course.uniID.length <=0) {
             throw new Error('One or more empty fields');
         }
-        await promisePool.query(query, [post.courseCode, post.name, post.departmentCode, post.description]);
+        await promisePool.query(query, [course.courseCode, course.name, course.departmentCode, course.description, course.uniID]);
     }
     catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
-        res.redirect('back', { message: req.flash('error') });
+        res.redirect('back');
         return;
     }
     console.log('Course Posted');
@@ -170,7 +145,7 @@ exports.createTeacher = async (req, res, next) => {
 exports.searchCourse = async (req, res) => {
     searchData = req.body.search;
     try {
-        let query = `SELECT * FROM courses WHERE (name LIKE '%${searchData}%' OR courseCode LIKE '%${searchData}%' OR departmentCode LIKE '%${searchData}%')`;
+        let query = `SELECT c.id, c.courseCode, c.name, c.departmentCode, c.description, u.id as uniID, u.uniCode, u.name as uniName, u.logo from courses c inner join universities u on c.universityID = u.id WHERE (c.name LIKE '%${searchData}%' OR c.courseCode LIKE '%${searchData}%' OR departmentCode LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         console.log(results[0]);
         res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user });

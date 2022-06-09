@@ -52,3 +52,40 @@ a.nav-link.text-primary:hover {
 
 
 .link-grey { color: #aaa; } .link-grey:hover { color: #00913b; }
+
+/* course cards css */
+
+
+.courseCard {
+    border: none;
+    border-radius: 10px
+}
+
+
+.c-details span {
+    font-weight: 300;
+    font-size: 13px
+}
+
+.icon {
+    height: 50px !important;
+    width: 50px !important;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px
+}
+
+.badge span {
+    background-color: #fffbec;
+    width: 60px;
+    height: 25px;
+    padding-bottom: 3px;
+    border-radius: 5px;
+    display: flex;
+    color: #917447;
+    justify-content: center;
+    align-items: center
+}

@@ -1,11 +1,47 @@
 <%- include("partials/header.ejs")%>
     <%- include("partials/secondaryNav.ejs")%>
         <%- include("partials/flashMessage.ejs")%>
-            <div class="row  margin-top d-flex justify-content-around pt-5">
+
+
+            <div class="container mt-5 mb-3">
+                <div class="row">
+                    <% courses.forEach(function(course){ %>
+                        <div class="col-md-4 my-2">
+                            <div class="card hovereffect shadow h-100 courseCard p-3 mb-2">
+                                <div class="justify-content-between d-flex flex-row align-items-center">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div><img class="icon" src="data:image/jpg;base64,<%= course.logo %>"
+                                                alt="logo"></div>
+                                        <div class="ms-2 c-details">
+                                            <h6 class="mb-0 align-items-center">
+                                                <%=course.uniName%>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="badge"> <span>
+                                            <%=course.uniCode%>
+                                        </span> </div>
+                                </div>
+                                <div class="mt-5 my-auto">
+                                    <h3 class="text-center">
+                                        <a href="courses/showcourse/id=<%=course.id%>" class="stretched-link"></a>
+                                            <%=course.name%>
+                                        </a></p>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <%});%>
+                </div>
+            </div>
+
+
+            <!-- <div class="row  margin-top d-flex justify-content-around pt-5">
                 <% courses.forEach(function(course){ %>
                     <div class="card border-secondary mb-3  h-100 " style="max-width: 18rem; ">
                         <div class="card-header">
                             <%=course.name%>
+                            <%=course.uniName%>
                         </div>
                         <div class="card-body text-secondary">
                             <h5 class="card-title">
@@ -16,5 +52,5 @@
                         </div>
                     </div>
                     <%});%>
-            </div>
+            </div> -->
             <%- include("partials/footer.ejs")%>
