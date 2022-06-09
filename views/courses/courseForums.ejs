@@ -35,8 +35,8 @@
                                 <label for="departmentCode">Department code</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <textarea rows="4" cols="50" class="form-control" id="description" name="description" style="height: 100%;"
-                                    placeholder="Description"></textarea>
+                                <textarea rows="4" cols="50" class="form-control" id="description" name="description"
+                                    style="height: 100%;" placeholder="Description"></textarea>
                                 <label for="description">Description</label>
                             </div>
                             <button class="btn btn-primary mb-3">Submit</button>
@@ -77,6 +77,29 @@
                                 <input class="form-control" id="name" type="text" name="name" placeholder="Name">
                                 <label for="name">Name</label>
                             </div>
+                            <button class="btn btn-primary mb-3">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section class="container">
+                <div class="row justify-content-evenly">
+                    <div class="col-md-8 align-self-center">
+                        <p class="paragraph">Enter details about the university below.</p>
+                        <form class="container" action="/courses/adduni" method="post">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" name="name" placeholder="Name">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" name="unicode" placeholder="Name">
+                                <label for="name">University Code</label>
+                            </div>
+                            <!-- <div class="input-group mb-3">
+                                <input id="image" class="form-control btn border-primary" type="file" name="file"
+                                    placeholder="Image">
+                                <label class="input-group-text btn-outline-primary" for="image">Image</label>
+                            </div> -->
                             <button class="btn btn-primary mb-3">Submit</button>
                         </form>
                     </div>

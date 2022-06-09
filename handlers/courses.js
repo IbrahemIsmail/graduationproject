@@ -119,6 +119,31 @@ exports.createCourse = async (req, res, next) => {
     res.redirect('/courses/addcourse');
 };
 
+////////create a university
+exports.createUniversity = async (req, res) => {
+    try {
+        let logo = req.file.buffer.toString("base64");
+        let query = 'INSERT INTO universities (uniCode, name, logo) values (?,?,?)';
+        let university = {
+            uniCode: req.body.unicode,
+            name: req.body.name,
+            logo
+        }
+        if (university.name.length <= 0 || university.uniCode.length <= 0) {
+            throw new Error('One or more empty fields');
+        }
+        await promisePool.query(query, [university.uniCode, university.name, university.logo]);
+    }
+    catch (err) {
+        console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('back');
+        return;
+    }
+    console.log('University Posted');
+    req.flash('success', 'Your university is live!');
+    res.redirect('/courses/addcourses');
+};
 ////////create a teacher
 exports.createTeacher = async (req, res, next) => {
     try {
@@ -134,7 +159,7 @@ exports.createTeacher = async (req, res, next) => {
     catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
-        res.redirect('back', { message: req.flash('error') });
+        res.redirect('back');
         return;
     }
     console.log('Teacher Posted');
