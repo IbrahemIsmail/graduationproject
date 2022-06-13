@@ -26,23 +26,23 @@
 
 
 
-<section style="background-color: #f7f6f6;">
-    <div class="container my-5 py-5 text-dark">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-12 col-lg-10 col-xl-8">
-          <% ratings.forEach(function(rating){ %>
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="d-flex flex-start">
-                <div class="w-100">
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="text-primary fw-bold mb-0">
-                      <%=rating.username%>
-                    </h6>
-                    <p class="mb-0"><%=rating.year.getFullYear()%></p>
-                  </div>
-                  <span class="text-dark ms-2" style="margin-top: -10px;"><%=rating.Description%></span>
-                  <div class="d-flex justify-content-between align-items-center">
+
+<section >
+  <!-- style="background-color: #f7f6f6;" this belongs to the section above -->
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <% ratings.forEach(function(rating){ %>
+        <div class="card m-3 h-auto text-dark">
+          <div class="card-body p-4">
+            <div class="d-flex flex-start">
+              <div>
+                <h6 class="fw-bold mb-1"><%=rating.username%></h6>
+                <div class="d-flex align-items-center mb-3 justify-content-around">
+                  <p class="mb-0">
+                    <%=rating.year.getFullYear()%>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center w-100">
                     <p class="small mb-0" style="color: #aaa;">
                       <span>curriculum: <%=rating.curriculum%> </span> •
                       <span>teacher: <%=rating.teacher%></span> •
@@ -51,20 +51,28 @@
                       <span>exams: <%=rating.exams%></span> •
                       <span>difficulty <%=rating.difficulty%></span>
                     </p>
-                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-row justify-content-end">
                       <i class="fas fa-star text-warning me-2"><%=rating.rating%></i>
                       <!-- <i class="far fa-check-circle" style="color: #aaa;"></i> -->
                     </div>
                   </div>
+
                 </div>
+                <p class="mb-0">
+                  <%=rating.Description%>
+                </p>
+
               </div>
             </div>
           </div>
-          <%});%>
+          
+          <hr class="my-0" />
         </div>
+        <%});%>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
 
