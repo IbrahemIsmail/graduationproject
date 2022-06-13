@@ -1,79 +1,82 @@
 <%- include("../partials/header.ejs")%>
-    <%- include("../partials/secondaryNav.ejs")%> <!-- might change later to another nav -->
-        <%- include("../partials/flashMessage.ejs")%>
-            <section id=timeline>
-                <h1><%=course.name%></h1>
-                <p class="leader"><%=course.description%></p>
-                <div class="demo-card-wrapper ">
-                    <% instances.forEach(function(instance){ %>
-                      <%i++;%>
-                    <div class="demo-card demo-card--step<%=i%> bg-secondary">
-                        <div class="head">
-                            <div class="number-box">
-                                <span><%=instance.year.getFullYear()%></span>
-                            </div>
-                            <h2>
-                                <%=instance.name%>
-                            </h2>
-                        </div>
-                    </div>
-                    <%})%>
+  <%- include("../partials/secondaryNav.ejs")%>
+    <!-- might change later to another nav -->
+    <%- include("../partials/flashMessage.ejs")%>
+      <section id=timeline>
+        <h1>
+          <%=course.name%>
+        </h1>
+        <p class="leader">
+          <%=course.description%>
+        </p>
+        <div class="demo-card-wrapper ">
+          <% instances.forEach(function(instance){ %>
+            <%i++;%>
+              <div class="demo-card demo-card--step<%=i%> bg-secondary">
+                <div class="head">
+                  <div class="number-box">
+                    <span>
+                      <%=instance.year.getFullYear()%>
+                    </span>
+                  </div>
+                  <h2>
+                    <%=instance.name%>
+                  </h2>
                 </div>
-            </div>
+              </div>
+              <%})%>
         </div>
-    </div>
-</section>
+        </div>
+        </div>
+        </div>
+      </section>
 
 
 
 
-<section >
-  <!-- style="background-color: #f7f6f6;" this belongs to the section above -->
-  <div class="container my-5 py-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-12 col-lg-10">
-        <% ratings.forEach(function(rating){ %>
-        <div class="card m-3 h-auto text-dark">
-          <div class="card-body p-4">
-            <div class="d-flex flex-start">
-              <div>
-                <h6 class="fw-bold mb-1"><%=rating.username%></h6>
-                <div class="d-flex align-items-center mb-3 justify-content-around">
-                  <p class="mb-0">
-                    <%=rating.year.getFullYear()%>
-                  </p>
-                  <div class="d-flex justify-content-between align-items-center w-100">
-                    <p class="small mb-0" style="color: #aaa;">
-                      <span>curriculum: <%=rating.curriculum%> </span> •
-                      <span>teacher: <%=rating.teacher%></span> •
-                      <span>teachingMethods: <%=rating.teachingMethods%></span> •
-                      <span>expectations: <%=rating.expectations%></span> •
-                      <span>exams: <%=rating.exams%></span> •
-                      <span>difficulty <%=rating.difficulty%></span>
-                    </p>
-                    <div class="d-flex flex-row justify-content-end">
-                      <i class="fas fa-star text-warning me-2"><%=rating.rating%></i>
-                      <!-- <i class="far fa-check-circle" style="color: #aaa;"></i> -->
+      <section class="overflow-auto comments" style="background-color: #f3f3f3; min-height: 500px; height: <%=ratings.length*275%>px;">
+        <div class="container my-5 py-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 mb-5">
+              <div class="card text-dark">
+                <div class="card-body p-4">
+                  <h4 class="mb-0">Recent comments</h4>
+                  <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
+                </div>
+                <% ratings.forEach((rating)=>{ %>
+                  <div class="card-body p-4 bg-white mb-3 rounded-3 w-100">
+                    <div class="d-flex flex-start">
+                      <div>
+                        <h6 class="fw-bold mb-1 text-capitalize">
+                          <%=rating.username%>
+                        </h6>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                          <p class="mb-0">
+                            <%= moment(rating.createdAt).fromNow()%>
+                              <span class="badge bg-secondary"><%=rating.year.getFullYear()%></span>
+                          </p>
+                          <div>
+                            <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                              Tooltip on top
+                            </button> -->
+                            <span class="badge rounded-pill bg-secondary"><i class="fa-solid fa-book"></i> <%= rating.curriculum %></span>
+                          </div>
+                        </div>
+                        <div>
+                          
+                        </div>
+                        <p class="mb-0">
+                          <%=rating.Description%>
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                </div>
-                <p class="mb-0">
-                  <%=rating.Description%>
-                </p>
-
+                  <hr class="my-0"/>
+                  <%});%>
               </div>
             </div>
           </div>
-          
-          <hr class="my-0" />
         </div>
-        <%});%>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<%- include("../partials/footer.ejs")%>
+      </section>
+      <%- include("../partials/footer.ejs")%>

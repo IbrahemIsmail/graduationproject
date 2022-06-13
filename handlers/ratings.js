@@ -66,7 +66,7 @@ exports.giveRating = async (req, res) => {
 exports.showRatings = async (req, res) => {
     try {      
         ratings = await promisePool.query(`Select username, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, 
-        difficulty, Description, rating, year, name from ratings INNER JOIN courseInstances on courseInstances.courseID = ${req.params.id} 
+        difficulty, Description, rating, year, createdAt, name from ratings INNER JOIN courseInstances on courseInstances.courseID = ${req.params.id} 
         and ratings.courseInstanceID = courseInstances.id INNER JOIN teachers on teachers.id=courseInstances.teacherID
         INNER JOIN users on users.id = ratings.userID`);
         avg = 0.0;
@@ -81,6 +81,9 @@ exports.showRatings = async (req, res) => {
     }
     catch (err) {
         console.log(err);
+        req.flash('error', err.message || 'Oops! something went wrong.');
+        res.redirect('back');
+        return;
     }
 }
 //add another table since this's a many to many relationship, figure out the rest of this function
