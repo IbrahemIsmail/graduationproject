@@ -31,10 +31,101 @@
         </div>
       </section>
 
+      <section class="pb-5 mb-5" style="height: 450px;">
+        <form action="/rating/id=<%=instances[0].courseInstancesID%>" method="post">
+          <div class="container my-5 py-5">
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-12 col-lg-10 col-xl-8">
+                <div class="card">
+                  <!-- the slider code starts here -->
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h3 class="card-title text-secondary">Curriculum</h3>
+                          <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange1"
+                            name="curriculum">
+                          <span class="text-center mt-5 text-info" id="v1">2.5</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h3 class="card-title text-secondary">Teacher</h3>
+                          <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange2"
+                            name="teacher">
+                          <span class="text-center mt-5 text-info" id="v2">2.5</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h3 class="card-title text-secondary">Teaching Methods</h3>
+                          <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange3"
+                            name="teachingMethods">
+                          <span class="text-center mt-5 text-info" id="v3">2.5</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h3 class="card-title text-secondary">Expectations</h3>
+                          <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange4"
+                            name="expectations">
+                          <span class="text-center mt-5 text-info" id="v4">2.5</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h3 class="card-title text-secondary">Exams</h3>
+                          <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange5"
+                            name="exams">
+                          <span class="text-center mt-5 text-info" id="v5">2.5</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h3 class="card-title text-secondary">Difficulty</h3>
+                          <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange6"
+                            name="difficulty">
+                          <span class="text-center mt-5 text-info" id="v6">2.5</span>
+                        </div>
+                      </div>
+                    </div>
 
 
+                  </div>
 
-      <section class="overflow-auto comments" style="background-color: #f3f3f3; min-height: 500px; height: <%=ratings.length*275%>px;">
+                  <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                    <div class="d-flex flex-start w-100">
+                      <div class="form-outline w-100">
+                        <textarea class="form-control" id="textAreaExample" name="description" rows="4"></textarea>
+                        <label class="form-label" for="textAreaExample">Description</label>
+                      </div>
+                    </div>
+                    <div class="float-end mt-2 pt-1">
+                      <button type="submit" class="btn btn-primary btn-sm">Post Rating</button>
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="overflow-auto comments"
+        style="background-color: #f3f3f3; min-height: 500px; height: <%=ratings.length*275%>px;">
         <div class="container my-5 py-5">
           <div class="row d-flex justify-content-center">
             <div class="col-md-12 col-lg-10 mb-5">
@@ -53,17 +144,47 @@
                         <div class="d-flex align-items-center justify-content-between mb-3">
                           <p class="mb-0">
                             <%= moment(rating.createdAt).fromNow()%>
-                              <span class="badge bg-secondary"><%=rating.year.getFullYear()%></span>
+                              <span class="badge bg-secondary">
+                                <%=rating.year.getFullYear()%>
+                              </span>
                           </p>
                           <div>
-                            <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-                              Tooltip on top
-                            </button> -->
-                            <span class="badge rounded-pill bg-secondary"><i class="fa-solid fa-book"></i> <%= rating.curriculum %></span>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Curriculum">
+                              <span class="badge rounded-pill bg-secondary"><i class="fa-solid fa-book"></i>
+                                <%= rating.curriculum %>
+                              </span>
+                            </span>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Teacher">
+                              <span class="badge rounded-pill bg-secondary"><i class="fa-solid fa-person"></i>
+                                <%= rating.teacher %>
+                              </span>
+                            </span>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Teaching Method">
+                              <span class="badge rounded-pill bg-secondary"><i
+                                  class="fa-solid fa-person-chalkboard"></i>
+                                <%= rating.teachingMethods %>
+                              </span>
+                            </span>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Expectations">
+                              <span class="badge rounded-pill bg-secondary"><i class="fa-solid fa-hands-praying"></i>
+                                <%= rating.expectations %>
+                              </span>
+                            </span>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Exams">
+                              <span class="badge rounded-pill bg-secondary"><i class="fa-regular fa-a"></i><i
+                                  class="fa-thin fa-plus"></i>
+                                <%= rating.exams %>
+                              </span>
+                            </span>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Difficulty">
+                              <span class="badge rounded-pill bg-secondary"><i class="fa-regular fa-face-frown"></i>
+                                <%= rating.difficulty %>
+                              </span>
+                            </span>
                           </div>
                         </div>
                         <div>
-                          
+
                         </div>
                         <p class="mb-0">
                           <%=rating.Description%>
@@ -72,11 +193,56 @@
                     </div>
                   </div>
 
-                  <hr class="my-0"/>
+                  <hr class="my-0" />
                   <%});%>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <%- include("../partials/footer.ejs")%>
+        </section>
+
+        <script>
+          var slider1 = document.getElementById("customRange1");
+          var slider2 = document.getElementById("customRange2");
+          var slider3 = document.getElementById("customRange3");
+          var slider4 = document.getElementById("customRange4");
+          var slider5 = document.getElementById("customRange5");
+          var slider6 = document.getElementById("customRange6");
+          var output1 = document.getElementById("v1");
+          var output2 = document.getElementById("v2");
+          var output3 = document.getElementById("v3");
+          var output4 = document.getElementById("v4");
+          var output5 = document.getElementById("v5");
+          var output6 = document.getElementById("v6");
+          output1.innerHTML = slider1.value;
+          output2.innerHTML = slider2.value;
+          output3.innerHTML = slider3.value;
+          output4.innerHTML = slider4.value;
+          output5.innerHTML = slider5.value;
+          output6.innerHTML = slider6.value;
+
+
+          slider1.oninput = function () {
+            output1.innerHTML = this.value;
+          }
+
+          slider2.oninput = function () {
+            output2.innerHTML = this.value;
+          }
+
+          slider3.oninput = function () {
+            output3.innerHTML = this.value;
+          }
+          slider4.oninput = function () {
+            output4.innerHTML = this.value;
+          }
+
+          slider5.oninput = function () {
+            output5.innerHTML = this.value;
+          }
+
+          slider6.oninput = function () {
+            output6.innerHTML = this.value;
+          }
+        </script>
+        <%- include("../partials/footer.ejs")%>
