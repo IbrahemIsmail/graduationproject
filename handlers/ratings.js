@@ -39,21 +39,22 @@ exports.giveRating = async (req, res) => {
                 throw Error("You can only give one review");
             }
         });
+        // console.log('here');
+        // console.log(req.body);
         rating = {
             userID: userID[0][0].id,
             courseID: parseInt(req.params.id),
-            curriculum: checkDouble(req.body.curriculum),
-            teacher: checkDouble(req.body.teacher),
-            teachingMethods: checkDouble(req.body.teachingMethods),
-            expectations: checkDouble(req.body.expectations),
-            exams: checkDouble(req.body.exams),
-            difficulty: checkDouble(req.body.exams),
-            description: req.body.description,
-            rating: 0
+            curriculum: parseFloat(checkDouble(req.body.curriculum)),
+            teacher: parseFloat(checkDouble(req.body.teacher)),
+            teachingMethods: parseFloat(checkDouble(req.body.teachingMethods)),
+            expectations: parseFloat(checkDouble(req.body.expectations)),
+            exams: parseFloat(checkDouble(req.body.exams)),
+            difficulty: parseFloat(checkDouble(req.body.exams)),
+            description: req.body.description
         }
-        rating.rating = checkDouble((rating.curriculum + rating.teacher + rating.teachingMethods + rating.expectations + rating.exams + rating.exams) / 6);
+        let i = checkDouble((rating.curriculum + rating.teacher + rating.teachingMethods + rating.expectations + rating.exams + rating.exams) / 6);
         let query = "INSERT INTO ratings (userID, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, difficulty, description, rating) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        await promisePool.query(query, [rating.userID, rating.courseID, rating.curriculum, rating.teacher, rating.teachingMethods, rating.expectations, rating.exams, rating.difficulty, rating.description, rating.rating]);
+        await promisePool.query(query, [rating.userID, rating.courseID, rating.curriculum, rating.teacher, rating.teachingMethods, rating.expectations, rating.exams, rating.difficulty, rating.description, i]);
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
