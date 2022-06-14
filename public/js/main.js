@@ -48,3 +48,11 @@ Array.from(document.getElementsByClassName('nav-toggle')).forEach(function(el) {
 document.addEventListener('touchmove', function(evt) {
   evt.preventDefault();
 });
+
+// auto close alerts 
+$(document).ready(function() {
+  // show the alert
+  setTimeout(function() {
+      $(".alert").alert('close');
+  }, 2000);
+});
