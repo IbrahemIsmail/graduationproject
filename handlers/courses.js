@@ -6,7 +6,7 @@ const db = require('../models/database');
 const pool = mysql.createPool(db.conn);
 const promisePool = pool.promise();
 
-const {showRatings} = require('./ratings');
+const { showRatings } = require('./ratings');
 
 
 promisePool.getConnection(async (err, connection) => {
@@ -34,7 +34,7 @@ const search = async (req, searchData, table, feild) => {
 
 
 exports.showforums = (req, res, next) => {
-    res.render('courses/courseForums', { error: req.flash('error'), success: req.flash('success'), currentUser: req.user });
+    res.render('courses/courseForums', { error: req.flash('error'), success: req.flash('success'), currentUser: req.user, path: "courses" });
 }
 
 
@@ -43,7 +43,7 @@ exports.getCourses = async (req, res, next) => {
         let query = 'select c.id, c.courseCode, c.name, c.departmentCode, c.description, u.id as uniID, u.uniCode, u.name as uniName, u.logo from courses c inner join universities u on c.universityID = u.id;';
         let rows = await promisePool.query(query);
         //console.log(rows[0]);
-        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: rows[0], currentUser: req.user });
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: rows[0], currentUser: req.user, path: "courses" });
     } catch (err) {
         throw err;
     }
@@ -54,9 +54,9 @@ exports.getCourse = async (req, res, next) => {
     try {
         let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
         let instances = await promisePool.query(`SELECT cs.year , cs.id as courseInstancesID , name FROM courseInstances cs INNER JOIN teachers ON cs.courseID = ${req.params.id} AND teachers.id=cs.teacherID`);
-        let ratings=await showRatings(req);
+        let ratings = await showRatings(req);
         // console.log(ratings.avg2);
-        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings});
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings, path: "courses" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -77,7 +77,7 @@ exports.createCourse = async (req, res, next) => {
             description: req.body.description,
             uniID: uniID[0].id
         }
-        if (course.courseCode.length <= 0 || course.name.length <= 0 || course.departmentCode.length <= 0 || course.uniID.length <=0) {
+        if (course.courseCode.length <= 0 || course.name.length <= 0 || course.departmentCode.length <= 0 || course.uniID.length <= 0) {
             throw new Error('One or more empty fields');
         }
         await promisePool.query(query, [course.courseCode, course.name, course.departmentCode, course.description, course.uniID]);
@@ -147,7 +147,7 @@ exports.searchCourse = async (req, res) => {
         let query = `SELECT c.id, c.courseCode, c.name, c.departmentCode, c.description, u.id as uniID, u.uniCode, u.name as uniName, u.logo from courses c inner join universities u on c.universityID = u.id WHERE (c.name LIKE '%${searchData}%' OR c.courseCode LIKE '%${searchData}%' OR departmentCode LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         console.log(results[0]);
-        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user });
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user, path: "courses" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -161,7 +161,7 @@ exports.searchCourseInstance = async (req, res) => {
         let query = `SELECT * FROM courseinstances left join courses c on courseinstances.courseID = c.id left join teachers t on courseinstances.teacherID = t.id WHERE (t.name LIKE '%${searchData}%' OR c.name LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         console.log(results[0]);
-        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user });
+        res.render('coursesHome', { error: req.flash('error'), success: req.flash('success'), courses: results[0], currentUser: req.user, path: "courses" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');

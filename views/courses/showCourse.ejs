@@ -1,5 +1,5 @@
 <%- include("../partials/header.ejs")%>
-  <%- include("../partials/secondaryNav.ejs")%>
+  <%- include("../partials/nav.ejs")%>
     <!-- might change later to another nav -->
     <%- include("../partials/flashMessage.ejs")%>
       <section id=timeline>
@@ -31,7 +31,7 @@
         </div>
       </section>
 
-      
+
       <section class="pb-5 mb-5 h-100" style="min-height: 450px;">
         <form action="/rating/id=<%=instances[0].courseInstancesID%>" method="post">
           <div class="container my-5 py-5">
@@ -63,7 +63,7 @@
                     <div class="col-lg-4 col-6">
                       <div class="card">
                         <div class="card-body">
-                          <h3 class="card-title text-secondary text-nowrap" >Teaching Methods</h3>
+                          <h3 class="card-title text-secondary text-nowrap">Teaching Methods</h3>
                           <input type="range" class="custom-range" min="0" max="5" step="0.5" id="customRange3"
                             name="teachingMethods">
                           <span class="text-center mt-5 text-info" id="v3">2.5</span>
@@ -184,7 +184,8 @@
                             </span>
                           </div>
                           <span class="ms-2 d-flex align-items-center">
-                            <%= Math.round((rating.rating + Number.EPSILON) * 100) / 100 %> <i class="fa-solid fa-star ms-1" style="color: gold;"></i>
+                            <%= Math.round((rating.rating + Number.EPSILON) * 100) / 100 %> <i
+                                class="fa-solid fa-star ms-1" style="color: gold;"></i>
                           </span>
                         </div>
                         <div>

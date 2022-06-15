@@ -117,7 +117,9 @@ nav.fill ul li a:hover:after {
     opacity: 1;
 }
 
-
+.nav-link.active{
+    opacity: 1;
+}
 
 .card img {
     /* margin-left: 6px; */

@@ -42,7 +42,7 @@ exports.getPosts = async (req, res, next) => {
     try {
         let query = 'SELECT * FROM posts';
         let rows = await promisePool.query(query);
-        res.render('shop', { error: req.flash('error'), success: req.flash('success'), posts: rows[0], currentUser: req.user });
+        res.render('shop', { error: req.flash('error'), success: req.flash('success'), posts: rows[0], currentUser: req.user, path: "posts" });
     } catch (err) {
         throw err;
     }
@@ -50,7 +50,7 @@ exports.getPosts = async (req, res, next) => {
 
 
 exports.createForum = (req, res, next) => {
-    res.render('posts/createPost', { error: req.flash('error'), success: req.flash('success'), currentUser: req.user });
+    res.render('posts/createPost', { error: req.flash('error'), success: req.flash('success'), currentUser: req.user, path: "posts" });
 }
 
 
@@ -113,10 +113,10 @@ exports.getPost = async (req, res, next) => {
         let similarPosts = await search(req, title, req.params.id);
         //console.log(similarPosts);
         if (similarPosts != null && similarPosts.length > 0) {
-            res.render('posts/showPost', { error: req.flash('error'), success: req.flash('success'), post, currentUser: req.user, similarPosts });
+            res.render('posts/showPost', { error: req.flash('error'), success: req.flash('success'), post, currentUser: req.user, similarPosts, path: "posts" });
         }
         else {
-            res.render('posts/showPost', { error: req.flash('error'), success: req.flash('success'), post, currentUser: req.user, similarPosts: null });
+            res.render('posts/showPost', { error: req.flash('error'), success: req.flash('success'), post, currentUser: req.user, similarPosts: null, path: "posts" });
         }
     } catch (err) {
         console.log(err);
@@ -132,7 +132,7 @@ exports.getPost = async (req, res, next) => {
 exports.ownedBooks = async (req, res) => {
     try {
         posts = await promisePool.query(`SELECT * FROM posts INNER JOIN postownership ON posts.id=postownership.postID and postownership.studentID= '${req.user.id}'`);
-        res.render('posts/myPost', { error: req.flash('error'), success: req.flash('success'), posts: posts[0], currentUser: req.user, message: req.flash('success') });
+        res.render('posts/myPost', { error: req.flash('error'), success: req.flash('success'), posts: posts[0], currentUser: req.user, message: req.flash('success'), path: "mybooks" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -152,7 +152,7 @@ exports.searchPost = async (req, res) => {
         let query = `SELECT * FROM posts WHERE (title LIKE '%${searchData}%' OR description LIKE '%${searchData}%')`;
         let results = await promisePool.query(query);
         console.log(results[0]);
-        res.render('shop', { error: req.flash('error'), success: req.flash('success'), posts: results[0], currentUser: req.user });
+        res.render('shop', { error: req.flash('error'), success: req.flash('success'), posts: results[0], currentUser: req.user, path: "posts" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
@@ -172,7 +172,7 @@ exports.viewEdit = async (req, res, next) => {
             status: rows[0][0].status,
             image: rows[0][0].image,
         }
-        res.render('posts/editPost', { error: req.flash('error'), success: req.flash('success'), post, message: req.flash('error'), currentUser: req.user });
+        res.render('posts/editPost', { error: req.flash('error'), success: req.flash('success'), post, message: req.flash('error'), currentUser: req.user, path: "posts" });
     } catch (err) {
         req.flash('error', err.message || 'Oops! something went wrong.');
         res.redirect('back');
