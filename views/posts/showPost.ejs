@@ -23,14 +23,14 @@
                                 <%=post.description%>
                             </div>
                             <ul class="postcard__tagbox">
-                                <span class="badge bg-primary">
+                                <span class="badge bg-primary me-2" style="font-size: 1em;">
                                     <%= post.price %> TL
                                 </span>
-                                <!-- <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                                <li class="tag__item play blue">
-                                    <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-                                </li> -->
+                                <% if (post.status==0) {%>
+                                    <span class="badge bg-primary" style="font-size: 1em;">Available</span>
+                                    <% } else {%>
+                                        <span class="badge bg-danger" style="font-size: 1em;">Sold</span>
+                                        <% } %>
                             </ul>
                             <ul class="postcard__tagbox">
                                 <div class="d-flex">
