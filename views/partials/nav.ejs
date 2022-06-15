@@ -17,35 +17,35 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
                         <% if(!currentUser) {%>
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item"><a
+                            <ul class="nav nav-tabs d-flex justify-content-md-center">
+                                <li class="nav-item mx-1"><a
                                         class="nav-link text-primary <%= path == 'login' ? 'active' : ''  %> "
                                         href="/login">Login</a>
                                 </li>
-                                <li class="nav-item"><a
+                                <li class="nav-item mx-1"><a
                                         class="nav-link text-primary <%= path == 'signup' ? 'active' : ''  %>"
                                         href="/signup">Sign Up</a></li>
-                                <li class="nav-item"> <a
+                                <li class="nav-item mx-1"> <a
                                         class="nav-link text-primary <%= path == 'posts' ? 'active' : ''  %> "
                                         href="/shop">Shop</a>
-                                <li class="nav-item"> <a
+                                <li class="nav-item mx-1"> <a
                                         class="nav-link text-primary <%= path == 'courses' ? 'active' : ''  %>"
                                         href="/courses">Courses</a>
                             </ul>
                             </li>
                             <% } else{ %>
-                                <li class="nav-item "><span class="nav-link text-primary" href="#">Signed in as<strong
+                                <li class="nav-item"><span class="nav-link text-primary" href="#">Signed in as<strong
                                             class="text-capitalize">
                                             <%= currentUser.username%>
                                         </strong></span></li>
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item"> <a class="nav-link text-primary <%= path == 'mybooks' ? 'active' : ''  %>" href="/shop/myposts">My
+                                <ul class="nav nav-tabs d-flex justify-content-center">
+                                    <li class="nav-item mx-1"> <a class="nav-link text-primary <%= path == 'mybooks' ? 'active' : ''  %>" href="/shop/myposts">My
                                             Books</a>
                                     </li>
-                                    <li class="nav-item"> <a
+                                    <li class="nav-item mx-1"> <a
                                             class="nav-link text-primary <%= path == 'posts' ? 'active' : ''  %> "
                                             href="/shop">Shop</a>
-                                    <li class="nav-item"> <a
+                                    <li class="nav-item mx-1"> <a
                                             class="nav-link text-primary <%= path == 'courses' ? 'active' : ''  %>"
                                             href="/courses">Courses</a>
                                 </ul>
