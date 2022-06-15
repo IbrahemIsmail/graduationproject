@@ -55,12 +55,15 @@ exports.giveRating = async (req, res) => {
         let i = checkDouble((rating.curriculum + rating.teacher + rating.teachingMethods + rating.expectations + rating.exams + rating.exams) / 6);
         let query = "INSERT INTO ratings (userID, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, difficulty, description, rating) VALUES (?,?,?,?,?,?,?,?,?,?)";
         await promisePool.query(query, [rating.userID, rating.courseID, rating.curriculum, rating.teacher, rating.teachingMethods, rating.expectations, rating.exams, rating.difficulty, rating.description, i]);
+
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
         res.redirect('back');
         return;
     }
+    req.flash('success', 'You have successfully rated this course!');
+    res.redirect('back');
 }
 
 

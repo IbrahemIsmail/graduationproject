@@ -135,8 +135,8 @@
                   <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
                 </div>
                 <% ratings.forEach((rating)=>{ %>
-                  <div class="card-body p-4 bg-white mb-3 rounded-3 w-100">
-                    <div class="d-flex flex-start">
+                  <div class="container p-4 bg-white mb-3 rounded-3 w-100" style="max-width: 700px;">
+                    <div class="container-fluid">
                       <div>
                         <h6 class="fw-bold mb-1 text-capitalize">
                           <%=rating.username%>
@@ -148,7 +148,7 @@
                                 <%=rating.year.getFullYear()%>
                               </span>
                           </p>
-                          <div>
+                          <div class="ms-2">
                             <span data-bs-toggle="tooltip" data-bs-placement="top" title="Curriculum">
                               <span class="badge rounded-pill bg-secondary"><i class="fa-solid fa-book"></i>
                                 <%= rating.curriculum %>
@@ -182,6 +182,9 @@
                               </span>
                             </span>
                           </div>
+                          <span class="ms-2 d-flex align-items-center">
+                            <%= Math.round((rating.rating + Number.EPSILON) * 100) / 100 %> <i class="fa-solid fa-star ms-1" style="color: gold;"></i>
+                          </span>
                         </div>
                         <div>
 
@@ -199,50 +202,50 @@
             </div>
           </div>
         </div>
-        </section>
+      </section>
 
-        <script>
-          var slider1 = document.getElementById("customRange1");
-          var slider2 = document.getElementById("customRange2");
-          var slider3 = document.getElementById("customRange3");
-          var slider4 = document.getElementById("customRange4");
-          var slider5 = document.getElementById("customRange5");
-          var slider6 = document.getElementById("customRange6");
-          var output1 = document.getElementById("v1");
-          var output2 = document.getElementById("v2");
-          var output3 = document.getElementById("v3");
-          var output4 = document.getElementById("v4");
-          var output5 = document.getElementById("v5");
-          var output6 = document.getElementById("v6");
-          output1.innerHTML = slider1.value;
-          output2.innerHTML = slider2.value;
-          output3.innerHTML = slider3.value;
-          output4.innerHTML = slider4.value;
-          output5.innerHTML = slider5.value;
-          output6.innerHTML = slider6.value;
+      <script>
+        var slider1 = document.getElementById("customRange1");
+        var slider2 = document.getElementById("customRange2");
+        var slider3 = document.getElementById("customRange3");
+        var slider4 = document.getElementById("customRange4");
+        var slider5 = document.getElementById("customRange5");
+        var slider6 = document.getElementById("customRange6");
+        var output1 = document.getElementById("v1");
+        var output2 = document.getElementById("v2");
+        var output3 = document.getElementById("v3");
+        var output4 = document.getElementById("v4");
+        var output5 = document.getElementById("v5");
+        var output6 = document.getElementById("v6");
+        output1.innerHTML = slider1.value;
+        output2.innerHTML = slider2.value;
+        output3.innerHTML = slider3.value;
+        output4.innerHTML = slider4.value;
+        output5.innerHTML = slider5.value;
+        output6.innerHTML = slider6.value;
 
 
-          slider1.oninput = function () {
-            output1.innerHTML = this.value;
-          }
+        slider1.oninput = function () {
+          output1.innerHTML = this.value;
+        }
 
-          slider2.oninput = function () {
-            output2.innerHTML = this.value;
-          }
+        slider2.oninput = function () {
+          output2.innerHTML = this.value;
+        }
 
-          slider3.oninput = function () {
-            output3.innerHTML = this.value;
-          }
-          slider4.oninput = function () {
-            output4.innerHTML = this.value;
-          }
+        slider3.oninput = function () {
+          output3.innerHTML = this.value;
+        }
+        slider4.oninput = function () {
+          output4.innerHTML = this.value;
+        }
 
-          slider5.oninput = function () {
-            output5.innerHTML = this.value;
-          }
+        slider5.oninput = function () {
+          output5.innerHTML = this.value;
+        }
 
-          slider6.oninput = function () {
-            output6.innerHTML = this.value;
-          }
-        </script>
-        <%- include("../partials/footer.ejs")%>
+        slider6.oninput = function () {
+          output6.innerHTML = this.value;
+        }
+      </script>
+      <%- include("../partials/footer.ejs")%>
