@@ -14,20 +14,34 @@
                                 </a></h1>
                             <div class="postcard__subtitle small ">
                                 <time>
-                                    <i class="fas fa-calendar-alt mr-2 me-2"></i><%= moment(post.updatedAt).fromNow()%>
+                                    <i class="fas fa-calendar-alt mr-2 me-2"></i>
+                                    <%= moment(post.updatedAt).fromNow()%>
                                 </time>
                             </div>
                             <div class="postcard__bar"></div>
                             <div class="postcard__preview-txt">
                                 <%=post.description%>
                             </div>
-                            <!-- <ul class="postcard__tagbox">
-                                <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                            <ul class="postcard__tagbox">
+                                <span class="badge bg-primary">
+                                    <%= post.price %> TL
+                                </span>
+                                <!-- <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
                                 <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
                                 <li class="tag__item play blue">
                                     <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-                                </li>
-                            </ul> -->
+                                </li> -->
+                            </ul>
+                            <ul class="postcard__tagbox">
+                                <div class="d-flex">
+                                    <input class="form-control btn me-2 fw-bold" id="userEmail" type="button"
+                                        onclick="copyToClipboard()" data-toggle="tooltip" title="Copy to Clipboard"
+                                        value="<%= post.userEmail %>" readonly />
+                                    <a href="mailto:<%= post.userEmail %>" class="btn btn-primary btn-sm text-white">
+                                        Open in Mail
+                                    </a>
+                                </div>
+                            </ul>
                         </div>
                     </article>
                 </div>
@@ -63,4 +77,21 @@
                             <%}%>
                 </div>
             </section>
+
+            <script>
+                function copyToClipboard() {
+                    var copyText = document.getElementById("userEmail").value;
+                    navigator.clipboard.writeText(copyText).then(() => {
+                        // $('#userEmail').attr('title', 'Copied to clipboard!');
+                        // const tooltipElement = document.querySelector('#userEmail');
+                        // // let bsTooltip = new bootstrap.Tooltip(tooltipElement)
+                        // // tooltipElement.hide();
+                        // // update
+                        // tooltipElement.title = 'Copied to clipboard!'
+                        // bsTooltip = new bootstrap.Tooltip(tooltipElement)
+                        // tooltipElement.dispose()
+                        // document.getElementById("userEmail").title = "Copied to clipboard!";
+                    });
+                }
+            </script>
             <%- include("../partials/footer.ejs")%>
