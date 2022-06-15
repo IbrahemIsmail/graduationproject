@@ -64,7 +64,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req, res) => res.send('under construction'));
+app.get('/', (req, res) => res.render('landing.ejs'));
 // app.get('/account/:username', mw.authUserPage, (req, res) => {
 //     res.render('authentication/userPage', { currUser: req.user });
 // });
