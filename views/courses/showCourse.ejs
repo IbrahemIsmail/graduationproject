@@ -130,28 +130,28 @@
         </form>
       </section>
 
-      <section class="overflow-auto comments"
+      <section class="overflow-auto comments justify-content-center"
         style="background-color: #f3f3f3; min-height: 500px; height: <%=ratings.length*275%>px;">
         <div class="container my-5 py-5">
           <div class="row d-flex justify-content-center">
             <div class="col-md-12 col-lg-10 mb-5">
-              <div class="card text-dark w-75">
-                <div class="container  p-4">
+              <div class="card text-dark w-100 d-flex">
+                <div class="container p-4">
                   <h4 class="mb-0">Recent comments</h4>
                   <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
                 </div>
                 <% ratings.forEach((rating)=>{ %>
-                  <div class="container p-4 bg-white mb-3 rounded-3 w-100 d-flex" style="max-width: 700px;">
-                    <div class="col-1 align-items-center justify-content-center">
-                      <form id="vote" action="/rating/vote/id=<%=rating.id%>" method="post">
+                  <div class="container p-4 bg-white mb-3 rounded-3 w-100 d-flex" style="max-width: 700px; min-width: 450px;">
+                    <div class="col-2 col-sm-2 col-md-1 align-items-center justify-content-center">
+                      <form class="d-flex flex-column px-2 justify-content-center" id="vote" action="/rating/vote/id=<%=rating.id%>" method="post">
                         <button class="btn btn-sm btn-outline-secondary" name="vote" value="1"><i
-                            class="fa-solid fa-angle-up px-1"></i></button>
-                        <p><%= rating.votes %></p>
+                            class="fa-solid fa-angle-up ms-auto me-auto d-block"></i></button>
+                        <p class="text-center align-middle my-2"><%= rating.votes %></p>
                         <button class="btn btn-sm btn-outline-secondary" name="vote" value="-1"><i
-                            class="fa-solid fa-angle-down px-1"></i></button>
+                            class="fa-solid fa-angle-down ms-auto me-auto d-block"></i></button>
                       </form>
                     </div>
-                    <div class="container-fluid col-11">
+                    <div class="container-fluid col-10 col-sm-10 col-md-11">
                       <span class="">
                       </span>
                       <div>
