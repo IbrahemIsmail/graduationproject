@@ -69,8 +69,8 @@ exports.giveRating = async (req, res) => {
 
 exports.showRatings = async (req, res) => {
     try {      
-        ratings = await promisePool.query(`Select username, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, 
-        difficulty, Description, rating, year, createdAt, name from ratings INNER JOIN courseInstances on courseInstances.courseID = ${req.params.id} 
+        ratings = await promisePool.query(`Select ratings.id as id, username, courseInstanceID, curriculum, teacher, teachingMethods, expectations, exams, 
+        difficulty, Description, rating, year, createdAt, name from ratings  INNER JOIN courseInstances on courseInstances.courseID = ${req.params.id} 
         and ratings.courseInstanceID = courseInstances.id INNER JOIN teachers on teachers.id=courseInstances.teacherID
         INNER JOIN users on users.id = ratings.userID`);
         avg = 0.0;
@@ -97,7 +97,7 @@ exports.upOrDownVote = async (req, res) => {
         userID = await promisePool.query(`SELECT id FROM users WHERE username = '${req.user.username}'`);
         let voteNum = checkVote(req.body.vote);
         let checkData = await promisePool.query(`select v.id as voteID, v.userID, r.id, v.vote from votes v left join voteownership vo on v.id = vo.voteID left join ratings r on r.id = vo.ratingID WHERE (v.userID = ${userID[0][0].id} And r.id = ${req.params.id})`);
-
+        
         if (checkData[0][0].userID == userID[0][0].id && checkData[0][0].id == req.params.id) {
             if (checkData[0][0].vote == voteNum) {
                 await promisePool.query(`UPDATE votes SET vote = 0 WHERE id = ${checkData[0][0].voteID}`);
@@ -127,3 +127,13 @@ exports.upOrDownVote = async (req, res) => {
         return;
     }
 }
+
+
+// //here's a table for getting the up/down votes of a rating
+// exports.getUpDown = async(req, res, ratings)=>{
+//     ratings.forEach((rating)=>{
+//         let vote = await promisePool.query(`SELECT v.id, v.vote FROM votes as v INNER JOIN ON voteownership WHERE ratingID=rating.id AND voteID = v.id ;`); 
+           
+//     });
+//     let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
+// }

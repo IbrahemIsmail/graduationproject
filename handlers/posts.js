@@ -70,7 +70,7 @@ exports.createPost = async (req, res, next) => {
         if (post.title.length <= 0 || post.price.length <= 0 || post.description.length <= 0) {
             throw new Error('One or more empty fields');
         }
-        let rows = await promisePool.query(query1, [post.title, post.price, post.description, post.image]);
+        let rows = await promisePool.query(query1, [post.title, post.price, post.description, post.status ,post.image]);
         let query2 = 'INSERT INTO postownership (studentID, postID) values (?,?)';
         let ids = {
             studentID: req.user.id,

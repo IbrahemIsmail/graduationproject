@@ -429,11 +429,11 @@ $marker-size: 9px;
 
 /* Colors */
 
-$steps: #46b8e9;
+$steps: #917447;
 $colors: #917447,
-  #3ee9d1,
-  #ce43eb,
-  #4d92eb;
+  #917447,
+  #917447,
+  #917447;
 $timeline: #bdbdbd;
 
 /* Calculations */
@@ -632,7 +632,7 @@ body {
 
         @include mq-sm {
           font-size: 165%;
-          line-height: 1.2rem;
+          line-height: 2rem;
         }
 
         span {

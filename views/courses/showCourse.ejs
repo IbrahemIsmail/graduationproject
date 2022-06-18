@@ -14,14 +14,19 @@
             <%i++;%>
               <div class="demo-card demo-card--step<%=i%> bg-secondary">
                 <div class="head">
-                  <div class="number-box">
+                  <div class="number-box text-center">
                     <span>
                       <%=instance.year.getFullYear()%>
                     </span>
                   </div>
-                  <h2>
+                  <h2 class="mx-1">
                     <%=instance.name%>
                   </h2>
+                  <!-- I wanna put a rating here  -->
+                  <!-- <span class="ms-2 d-flex align-items-center">
+                    <%= //Math.round((rating.rating + Number.EPSILON) * 100) / 100 %> <i
+                        class="fa-solid fa-star ms-1" style="color: gold;"></i>
+                  </span> -->
                 </div>
               </div>
               <%})%>
@@ -106,13 +111,13 @@
 
                   <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
                     <div class="d-flex flex-start w-100">
-                      <div class="form-outline w-100">
+                      <div class="form-floating form-outline w-100">
                         <textarea class="form-control" id="textAreaExample" name="description" rows="4"></textarea>
                         <label class="form-label" for="textAreaExample">Description</label>
                       </div>
                     </div>
                     <div class="float-end mt-2 pt-1">
-                      <button type="submit" class="btn btn-primary btn-sm">Post Rating</button>
+                      <button type="submit" class="btn btn-secondary btn-sm text-white">Post Rating</button>
                     </div>
 
                   </div>
@@ -130,14 +135,25 @@
         <div class="container my-5 py-5">
           <div class="row d-flex justify-content-center">
             <div class="col-md-12 col-lg-10 mb-5">
-              <div class="card text-dark">
-                <div class="card-body p-4">
+              <div class="card text-dark w-75">
+                <div class="container  p-4">
                   <h4 class="mb-0">Recent comments</h4>
                   <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
                 </div>
                 <% ratings.forEach((rating)=>{ %>
-                  <div class="container p-4 bg-white mb-3 rounded-3 w-100" style="max-width: 700px;">
-                    <div class="container-fluid">
+                  <div class="container p-4 bg-white mb-3 rounded-3 w-100 d-flex" style="max-width: 700px;">
+                    <div class="col-1 align-items-center justify-content-center">
+                      <form id="vote" action="/rating/vote/id=<%=rating.id%>" method="post">
+                        <button  class="bg-secondary"  name="vote" value="1"><i class="fa-solid fa-angle-up px-1"
+                          style="color: white;"></i></button>
+                        <p>69</p>
+                        <button  class="bg-secondary" name="vote" value="-1"><i class="fa-solid fa-angle-down px-1"
+                          style="color: white;"></i></button>
+                      </form>
+                    </div>
+                    <div class="container-fluid col-11">
+                      <span class="">
+                      </span>
                       <div>
                         <h6 class="fw-bold mb-1 text-capitalize">
                           <%=rating.username%>
@@ -207,6 +223,11 @@
       </section>
 
       <script>
+        function myFunction() {
+          document.getElementById("vote").submit();
+        }
+
+
         var slider1 = document.getElementById("customRange1");
         var slider2 = document.getElementById("customRange2");
         var slider3 = document.getElementById("customRange3");
