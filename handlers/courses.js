@@ -6,11 +6,7 @@ const db = require('../models/database');
 const pool = mysql.createPool(db.conn);
 const promisePool = pool.promise();
 
-<<<<<<< Updated upstream
-const { showRatings } = require('./ratings');
-=======
 const {showRatings, getUpDown} = require('./ratings');
->>>>>>> Stashed changes
 
 
 promisePool.getConnection(async (err, connection) => {
