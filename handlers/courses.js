@@ -6,7 +6,7 @@ const db = require('../models/database');
 const pool = mysql.createPool(db.conn);
 const promisePool = pool.promise();
 
-const {showRatings, getUpDown} = require('./ratings');
+const { showRatings, getUpDown } = require('./ratings');
 
 
 promisePool.getConnection(async (err, connection) => {
@@ -32,6 +32,15 @@ const search = async (req, searchData, table, feild) => {
     }
 }
 
+const getVotes = async (ratingID) => {
+    let pos = await promisePool.query(`select count(*) as positiveVotes from votes inner join voteownership on votes.id = voteownership.voteID where voteownership.ratingID = ${ratingID} and vote = 1 group by ratingID`);
+    let neg = await promisePool.query(`select count(*) as negativeVotes from votes inner join voteownership on votes.id = voteownership.voteID where voteownership.ratingID = ${ratingID} and vote = -1 group by ratingID`);
+    if (pos[0][0] || neg[0][0]) {
+        votes = (pos[0][0].positiveVotes ? pos[0][0].positiveVotes : 0) - (neg[0][0].negativeVotes ? neg[0][0].negativeVotes : 0);
+        return votes;
+    }
+    else return 0;
+}
 
 exports.showforums = (req, res, next) => {
     res.render('courses/courseForums', { error: req.flash('error'), success: req.flash('success'), currentUser: req.user, path: "courses" });
@@ -54,11 +63,13 @@ exports.getCourse = async (req, res, next) => {
     try {
         let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
         let instances = await promisePool.query(`SELECT cs.year , cs.id as courseInstancesID , name FROM courseInstances cs INNER JOIN teachers ON cs.courseID = ${req.params.id} AND teachers.id=cs.teacherID ORDER BY cs.year DESC`);
-        let ratings=await showRatings(req);
-        ratings.forEach((rating)=>{
-
-        })
-        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings, path: "courses"});
+        let ratings = await showRatings(req);
+        let newRatings = [];
+        for (let i in ratings) {
+            let votes = await getVotes(ratings[i].id);
+            newRatings.push({...ratings[i], votes});
+        }
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings: newRatings, path: "courses" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
