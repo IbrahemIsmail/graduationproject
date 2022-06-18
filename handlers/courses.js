@@ -58,7 +58,7 @@ exports.getCourse = async (req, res, next) => {
         ratings.forEach((rating)=>{
 
         })
-        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings});
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings, path: "courses"});
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
