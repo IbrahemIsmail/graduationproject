@@ -64,12 +64,21 @@ exports.getCourse = async (req, res, next) => {
         let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
         let instances = await promisePool.query(`SELECT cs.year , cs.id as courseInstancesID , name FROM courseInstances cs INNER JOIN teachers ON cs.courseID = ${req.params.id} AND teachers.id=cs.teacherID ORDER BY cs.year DESC`);
         let ratings = await showRatings(req);
+        let newInstances = [];
         let newRatings = [];
+        //  console.log(instances[0]);
+        let k=instances[0];
+        for (let i in k) {
+            let score = await promisePool.query(`select AVG(rating) as average from ratings where courseInstanceID= ${k[i].courseInstancesID}`);
+            newInstances.push({...k[i], score: score[0][0].average});
+        }
+        console.log(newInstances);
         for (let i in ratings) {
             let votes = await getVotes(ratings[i].id);
             newRatings.push({...ratings[i], votes});
         }
-        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: instances[0], currentUser: req.user, course: course[0][0], i: 0, ratings: newRatings, path: "courses" });
+        
+        res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: newInstances, currentUser: req.user, course: course[0][0], i: 0, ratings: newRatings, path: "courses" });
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');

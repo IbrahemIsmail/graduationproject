@@ -22,11 +22,10 @@
                   <h2 class="mx-1">
                     <%=instance.name%>
                   </h2>
-                  <!-- I wanna put a rating here  -->
-                  <!-- <span class="ms-2 d-flex align-items-center">
-                    <%= //Math.round((rating.rating + Number.EPSILON) * 100) / 100 %> <i
+                  <div class="ms-2 d-flex align-items-end">
+                    <%= Math.round((instance.score + Number.EPSILON) * 100) / 100 %> <i
                         class="fa-solid fa-star ms-1" style="color: gold;"></i>
-                  </span> -->
+                  </div>
                 </div>
               </div>
               <%})%>
