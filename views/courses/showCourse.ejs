@@ -146,7 +146,7 @@
                       <form id="vote" action="/rating/vote/id=<%=rating.id%>" method="post">
                         <button  class="bg-secondary"  name="vote" value="1"><i class="fa-solid fa-angle-up px-1"
                           style="color: white;"></i></button>
-                        <p>69</p>
+                        <p><%= rating.votes %> </p>
                         <button  class="bg-secondary" name="vote" value="-1"><i class="fa-solid fa-angle-down px-1"
                           style="color: white;"></i></button>
                       </form>
