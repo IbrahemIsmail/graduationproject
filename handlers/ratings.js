@@ -116,7 +116,6 @@ exports.upOrDownVote = async (req, res) => {
     try {
         userID = await promisePool.query(`SELECT id FROM users WHERE username = '${req.user.username}'`);
         let voteNum = checkVote(req.body.vote);
-        console.log(voteNum);
         // this checks if the current user upvoted the same review before and is trying to update their vote
         let checkUserVote = await promisePool.query(`select v.id as voteID, v.userID, r.id, v.vote from votes v inner join voteownership vo on v.id = vo.voteID inner join ratings r on r.id = vo.ratingID WHERE (v.userID = ${userID[0][0].id} And r.id = ${req.params.id})`);
         
@@ -143,13 +142,13 @@ exports.upOrDownVote = async (req, res) => {
 
         let voteOwnershipQuery = "INSERT INTO voteownership (ratingID, voteID) VALUES (?,?)";
         await promisePool.query(voteOwnershipQuery, [req.params.id, vote[0].insertId]);
-        res.redirect('back');
-        return;
     } catch (err) {
         console.log(err);
         req.flash('error', err.message || 'Oops! something went wrong.');
         res.redirect('back');
         return;
+    } finally {
+        res.redirect('back');
     }
 }
 
