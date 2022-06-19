@@ -76,7 +76,7 @@ exports.getCourse = async (req, res, next) => {
             let votes = await getVotes(ratings[i].id);
             newRatings.push({...ratings[i], votes});
         }
-        
+        newRatings.sort((a,b) => (a.votes < b.votes) ? 1 : ((b.votes < a.votes) ? -1 : 0));
         res.render('courses/showCourse', { error: req.flash('error'), success: req.flash('success'), instances: newInstances, currentUser: req.user, course: course[0][0], i: 0, ratings: newRatings, path: "courses" });
     } catch (err) {
         console.log(err);
