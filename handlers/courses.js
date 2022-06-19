@@ -36,7 +36,7 @@ const getVotes = async (ratingID) => {
     let pos = await promisePool.query(`select count(*) as positiveVotes from votes inner join voteownership on votes.id = voteownership.voteID where voteownership.ratingID = ${ratingID} and vote = 1 group by ratingID`);
     let neg = await promisePool.query(`select count(*) as negativeVotes from votes inner join voteownership on votes.id = voteownership.voteID where voteownership.ratingID = ${ratingID} and vote = -1 group by ratingID`);
     if (pos[0][0] || neg[0][0]) {
-        votes = (pos[0][0].positiveVotes ? pos[0][0].positiveVotes : 0) - (neg[0][0].negativeVotes ? neg[0][0].negativeVotes : 0);
+        votes = (pos[0][0] ? pos[0][0].positiveVotes : 0) - (neg[0][0] ? neg[0][0].negativeVotes : 0);
         return votes;
     }
     else return 0;
@@ -72,7 +72,6 @@ exports.getCourse = async (req, res, next) => {
             let score = await promisePool.query(`select AVG(rating) as average from ratings where courseInstanceID= ${k[i].courseInstancesID}`);
             newInstances.push({...k[i], score: score[0][0].average});
         }
-        console.log(newInstances);
         for (let i in ratings) {
             let votes = await getVotes(ratings[i].id);
             newRatings.push({...ratings[i], votes});

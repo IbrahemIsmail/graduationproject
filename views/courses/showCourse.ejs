@@ -143,10 +143,10 @@
                   <div class="container p-4 bg-white mb-3 rounded-3 w-100 d-flex" style="max-width: 700px; min-width: 450px;">
                     <div class="col-2 col-sm-2 col-md-1 align-items-center justify-content-center">
                       <form class="d-flex flex-column px-2 justify-content-center" id="vote" action="/rating/vote/id=<%=rating.id%>" method="post">
-                        <button class="btn btn-sm btn-outline-secondary" name="vote" value="1"><i
+                        <button class="btn btn-sm <%= rating.vote? rating.vote==1? 'btn-secondary text-white' : 'btn-outline-secondary' : 'btn-outline-secondary' %> " name="vote" value="1"><i
                             class="fa-solid fa-angle-up ms-auto me-auto d-block"></i></button>
                         <p class="text-center align-middle my-2"><%= rating.votes %></p>
-                        <button class="btn btn-sm btn-outline-secondary" name="vote" value="-1"><i
+                        <button class="btn btn-sm <%= rating.vote? rating.vote==-1? 'btn-secondary text-white' : 'btn-outline-secondary' : 'btn-outline-secondary' %>" name="vote" value="-1"><i
                             class="fa-solid fa-angle-down ms-auto me-auto d-block"></i></button>
                       </form>
                     </div>

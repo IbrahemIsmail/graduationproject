@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { parse } = require('dotenv');
+const { relativeTimeRounding } = require('moment');
 const mysql = require('mysql2');
 const db = require('../models/database');
 
@@ -73,12 +74,31 @@ exports.showRatings = async (req, res) => {
         difficulty, Description, rating, year, createdAt, name from ratings  INNER JOIN courseInstances on courseInstances.courseID = ${req.params.id} 
         and ratings.courseInstanceID = courseInstances.id INNER JOIN teachers on teachers.id=courseInstances.teacherID
         INNER JOIN users on users.id = ratings.userID`);
+        let currUserVotes;
+        let userVotes = [];
+        if(req.user){
+            currUserVotes = await promisePool.query(`select v.vote, vo.ratingID 
+            from votes v 
+            inner join voteownership vo on v.id = vo.voteID 
+            inner join ratings r on vo.ratingID = r.id 
+            inner join courseinstances ci on r.courseInstanceID = ci.id
+            where v.userID = ${req.user.id} and ci.courseID = ${req.params.id};`);
+
+            ratings[0].forEach((rating, i) => {
+                for (let vote of currUserVotes[0]){
+                    if(rating.id == vote.ratingID) {
+                        ratings[0][i] = {...rating, vote: vote.vote};
+                        break;
+                    }
+                };
+            });
+        }
         avg = 0.0;
         numb = 0;
         ratings[0].forEach((rating) => {
             avg = (avg + rating.rating)
             numb++;
-        });
+        });        
         // let avg2 = avg / numb;
         // let ratings= ratings[0];
         return ratings[0];
@@ -103,7 +123,7 @@ exports.upOrDownVote = async (req, res) => {
         if(checkUserVote[0][0]){
             if (checkUserVote[0][0].userID == userID[0][0].id && checkUserVote[0][0].id == req.params.id) {
                 if (checkUserVote[0][0].vote == voteNum) {
-                    await promisePool.query(`UPDATE votes SET vote = 0 WHERE id = ${checkUserVote[0][0].voteID}`);
+                    await promisePool.query(`DELETE FROM votes WHERE id = ${checkUserVote[0][0].voteID}`);
                 }
                 else if (checkUserVote[0][0].vote == 1 && voteNum == -1) {
                     await promisePool.query(`UPDATE votes SET vote = -1 WHERE id = ${checkUserVote[0][0].voteID}`);
