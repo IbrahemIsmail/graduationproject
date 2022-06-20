@@ -28,10 +28,12 @@
                   <input class="form-control" id="username" type="text" name="username" placeholder="Username">
                   <label for="username">Username</label>
                 </div>
-                <div class="form-floating">
-                  <input class="form-control mb-3" id="email" type="email" name="email" placeholder="Email">
-                  <label for="email">Email</label>
-                </div>
+                <span class="" data-bs-toggle="tooltip" data-bs-placement="top" title="The email you pick will be visible to customers if you decide to sell a book">
+                  <div class="form-floating">
+                    <input class="form-control mb-3" id="email" type="email" name="email" placeholder="Email">
+                    <label for="email">Email</label>
+                  </div>
+                </span>
                 <div class="form-floating mb-3">
                   <input class="form-control" id="password" type="password" name="password" placeholder="Password">
                   <label for="password">Password</label>
@@ -53,4 +55,4 @@
         </div>
       </section>
 
-<%- include("../partials/footer")%>
+      <%- include("../partials/footer")%>
