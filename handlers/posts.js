@@ -40,7 +40,7 @@ const search = async (req, searchData, sameID) => {
 ///////gets all avialable posts for home page
 exports.getPosts = async (req, res, next) => {
     try {
-        let query = 'SELECT * FROM posts';
+        let query = 'select * from posts where posts.status = 0 order by posts.createdAt desc';
         let rows = await promisePool.query(query);
         res.render('shop', { error: req.flash('error'), success: req.flash('success'), posts: rows[0], currentUser: req.user, path: "posts" });
     } catch (err) {
