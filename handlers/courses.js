@@ -159,7 +159,7 @@ exports.createTeacher = async (req, res, next) => {
     }
     console.log('Teacher Posted');
     req.flash('success', 'Your teacher is live!');
-    res.redirect('/courses/addcourses');
+    res.redirect('/courses/addcourse');
 };
 
 exports.searchCourse = async (req, res) => {
