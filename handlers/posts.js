@@ -95,7 +95,7 @@ exports.createPost = async (req, res, next) => {
 ///////select the clicked on post to show more info about it
 exports.getPost = async (req, res, next) => {
     try {
-        let rows = await promisePool.query(`SELECT * FROM posts INNER JOIN postownership ON posts.id = postID WHERE id = ${req.params.id}`);
+        let rows = await promisePool.query(`SELECT * FROM posts INNER JOIN postownership ON posts.id = postID WHERE posts.id = ${req.params.id}`);
         let email = await promisePool.query(`SELECT email FROM users WHERE id = ${rows[0][0].studentID}`);
         let post = {
             id: rows[0][0].id,
