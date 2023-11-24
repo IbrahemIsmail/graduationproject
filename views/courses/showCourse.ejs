@@ -7,15 +7,15 @@
           <%=course.name%>
         </h1>
         <p class="leader">
-          <!-- <%=course.description%> -->
+          <%=course.description%>
         </p>
         <div class="demo-card-wrapper ">
           <% instances.forEach(function(instance){ %>
             <%i++;%>
               <div class="demo-card demo-card--step<%=i%> bg-secondary">
-                <div class="head">
+                <div class="head p-0 m-0">
                   <div class="number-box text-center">
-                    <span>
+                    <span >
                       <%=instance.year.getFullYear()%>
                     </span>
                   </div>

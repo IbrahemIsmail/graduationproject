@@ -62,7 +62,7 @@ exports.getCourses = async (req, res, next) => {
 exports.getCourse = async (req, res, next) => {
     try {
         let course = await promisePool.query(`SELECT * FROM courses WHERE id = ${req.params.id}`);
-        let instances = await promisePool.query(`SELECT cs.year , cs.id as courseInstancesID , name FROM courseInstances cs INNER JOIN teachers ON cs.courseID = ${req.params.id} AND teachers.id=cs.teacherID ORDER BY cs.year DESC`);
+        let instances = await promisePool.query(`SELECT cs.year , cs.id as courseInstancesID , name FROM courseInstances cs INNER JOIN teachers ON cs.courseID = ${req.params.id} AND teachers.id=cs.teacherID ORDER BY cs.year DESC Limit 4`);
         let ratings = await showRatings(req);
         let newInstances = [];
         let newRatings = [];

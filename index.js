@@ -45,7 +45,7 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(__dirname + "/public"));
 
-pool = mysql.createPool(db.conn);
+const pool = mysql.createPool(db.conn);
 
 app.use(passport.initialize());
 app.use(passport.session());
